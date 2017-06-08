@@ -24,7 +24,9 @@ namespace ProgramFlow.TaskDemos
                 }
             });
 
+            // pause execution for one second
             Thread.Sleep(1000);
+
             Console.WriteLine("Hello world");
 
             // Do not exit this block until task completes
