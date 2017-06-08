@@ -46,6 +46,7 @@
     <Compile Include="TaskDemos\ExplicitTask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskDemos\ParallelForDemo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

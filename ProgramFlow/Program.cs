@@ -13,12 +13,17 @@ namespace ProgramFlow
         public static void Main(string[] args)
         {
             Console.WriteLine("Program started..." + DateTime.Now.ToString());
+            Console.WriteLine();
 
-            // Run implicit concurrent task demo
+            //// Run implicit concurrent task demo
             //ConcurrentTask.RunDemo();
 
-            // Run basic explicit task demo
-            ExplicitTask.RunDemo();
+            //// Run basic explicit task demo
+            //ExplicitTask.RunDemo();
+
+            //// Run demo of basic Parallel For method execution
+            //ParallelForDemo.RunParallelForBasic();
+            ParallelForDemo.ParallelForAdditionRun();
 
             Console.WriteLine("Program ended..." + DateTime.Now.ToString());
 

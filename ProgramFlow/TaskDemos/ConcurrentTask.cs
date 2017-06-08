@@ -27,7 +27,7 @@ namespace ProgramFlow.TaskDemos
             {
                 Thread.Sleep(1000);
                 Console.WriteLine();
-                Console.WriteLine("Hello Cat " + i);
+                Console.WriteLine("Hello Cat {0}", i);
             }
         }
 
@@ -37,7 +37,7 @@ namespace ProgramFlow.TaskDemos
             {
                 Thread.Sleep(1000);
                 Console.WriteLine();
-                Console.WriteLine("Hello Dog " + i);
+                Console.WriteLine("Hello Dog {0}", i);
             }
         }
     }

@@ -19,7 +19,7 @@ namespace ProgramFlow.TaskDemos
             {
                 for(int i = 0; i < 5; i++)
                 {
-                    Console.WriteLine("Iteration " + (i + 1));
+                    Console.WriteLine("Iteration {0}", (i + 1));
                     Thread.Sleep(1000);
                 }
             });

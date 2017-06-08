@@ -1,0 +1,114 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Diagnostics;
+
+namespace ProgramFlow.TaskDemos
+{
+    public static class ParallelForDemo
+    {
+        public static void RunParallelForBasic()
+        {
+            Console.WriteLine("Parallel For Demo started...\n\n");
+
+            CancellationTokenSource cancellationSource = new CancellationTokenSource();
+            ParallelOptions options = new ParallelOptions();
+            options.CancellationToken = cancellationSource.Token;
+
+            var rnd = new Random();// intitialize random number generator
+            int breakIndex = rnd.Next(1, 11);// index we'll break execution
+            long? lowest = null;
+
+            Console.WriteLine("Breaking at iteration {0}\n\n", breakIndex);
+
+            try
+            {
+                ParallelLoopResult result = Parallel.For(1, 11, options, (i, state) =>
+                {
+                    Console.WriteLine("Starting iteration {0}", i);
+
+                    int delay;
+                    Monitor.Enter(rnd);// lock the Random obj while the current thread is using it
+                    delay = rnd.Next(1, 1001);
+                    Monitor.Exit(rnd);// release the Random obj for use by another thread
+                    Console.WriteLine("Delaying iteration {0} for {1} milisecond(s)", i, delay);
+                    Thread.Sleep(delay);// delay execution
+
+                    // if we should exit the current iteration and the lowest break iteration index is lower then the current, break the loop
+                    if (state.ShouldExitCurrentIteration && state.LowestBreakIteration < i)
+                    {
+                        Console.WriteLine("Do not contiue executing iteration {0}", i);
+                        return;
+                    }
+
+                    // if we're at the break index execute Break here
+                    if (i == breakIndex)
+                    {
+                        Console.WriteLine("Break within iteration {0}", i);
+                        state.Break();// do not execute iterations after the current unless already started
+                        lowest = state.LowestBreakIteration;
+                    }
+
+                    Console.WriteLine("Completed iteration {0}", i);
+                });
+
+                // while loop executes until all loop iterations are completed
+                while (!result.IsCompleted) { }
+
+                if (lowest.HasValue)
+                    Console.WriteLine("Lowest break iteration was {0}\n\n", lowest.Value);
+                else
+                    Console.WriteLine("No break occured\n\n");
+            }
+            catch (OperationCanceledException e)
+            {
+                Console.WriteLine("Operation canceled {0}", e.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unexpected error occured: {0}", e.ToString());
+            }
+            finally
+            {
+                // dispose the cancellation source
+                cancellationSource.Dispose();
+            }
+
+            Console.WriteLine("Parallel For Demo has ended...\n\n");
+        }
+
+        public static void ParallelForAdditionRun()
+        {
+            Console.WriteLine("Parallel For addition run started...\n\n");
+
+            long total = 0;
+            var rnd = new Random();
+            var numberOfAdditions = rnd.Next(10, 21);
+
+            Console.WriteLine("Current total is {0} \nTotal number of iterations will be {1}", total, numberOfAdditions - 1);
+
+            var result = Parallel.For(1, numberOfAdditions, (i, state) =>
+            {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+
+                long amountToAdd;
+                Monitor.Enter(rnd);
+                amountToAdd = rnd.Next(1, 101);
+                Monitor.Exit(rnd);
+
+                Interlocked.Add(ref total, amountToAdd);
+
+                sw.Stop();
+                Console.WriteLine("Iteration {0} added {1} to total. \nThread execution time span: {2}\n\n", i, amountToAdd, sw.Elapsed.ToString());
+            });
+
+            while (!result.IsCompleted) { }
+            Console.WriteLine("Total is now {0}", total);
+            Console.WriteLine("Parallel For addition run ended...\n\n");
+        }
+    }
+}
