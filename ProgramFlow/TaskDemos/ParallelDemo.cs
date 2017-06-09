@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace ProgramFlow.TaskDemos
 {
-    public static class ParallelForDemo
+    public static class ParallelDemo
     {
         public static void RunParallelForBasic()
         {
@@ -125,10 +125,9 @@ namespace ProgramFlow.TaskDemos
 
             Parallel.ForEach<string, int>(names, // source
                 () => { return Thread.CurrentThread.ManagedThreadId; }, // threadLocal storage data
-                (name, loopState, threadId) => // body
-                {
+                (name, loopState, threadId) => {// body
                     int sleepTime;
-                    lock (rnd)
+                    lock (rnd)// Lock the random number resource while in use
                     {
                         sleepTime = rnd.Next(100, 1001);
                     }
@@ -137,12 +136,36 @@ namespace ProgramFlow.TaskDemos
                     Console.WriteLine("{0}: {1}\n", threadId, name);
                     return threadId;
                 },
-                (threadId) =>// final action to be made
-                {
+                (threadId) => {// final action to be made
                     
                 });
 
             Console.WriteLine("Parallel foreach ended...\n\n");
+        }
+
+        public static void ParallelInvokeRun()
+        {
+            Console.WriteLine("Parallel Invoke demo started....\n\n");
+
+            Parallel.Invoke(
+            () => {// Lamda
+                for (int i = 1; i <= 5; i++)
+                {
+                    Thread.Sleep(1000);
+                    Console.WriteLine();
+                    Console.WriteLine("Hello Cat {0}", i);
+                }
+            },
+            delegate() {// delegate
+                for (int i = 1; i <= 5; i++)
+                {
+                    Thread.Sleep(1000);
+                    Console.WriteLine();
+                    Console.WriteLine("Hello Dog {0}", i);
+                }
+            });
+
+            Console.WriteLine("\n\nParallel Invoke demo ended...");
         }
     }
 }

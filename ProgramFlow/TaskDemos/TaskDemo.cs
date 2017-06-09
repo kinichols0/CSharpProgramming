@@ -9,7 +9,7 @@ namespace ProgramFlow.TaskDemos
 {
     public class ExplicitTask
     {
-        public static void RunDemo()
+        public static void Run()
         {
             Console.WriteLine("Explicit Task demo started...");
             Console.WriteLine();
