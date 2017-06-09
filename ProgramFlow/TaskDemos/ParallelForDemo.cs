@@ -86,29 +86,63 @@ namespace ProgramFlow.TaskDemos
 
             long total = 0;
             var rnd = new Random();
-            var numberOfAdditions = rnd.Next(10, 21);
+            var numberOfAdditions = rnd.Next(10, 21);// total number of iterations
 
             Console.WriteLine("Current total is {0} \nTotal number of iterations will be {1}", total, numberOfAdditions - 1);
 
             var result = Parallel.For(1, numberOfAdditions, (i, state) =>
             {
+                // start the stopwatch
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
 
+                // lock the random number generator while this process gets a random number to add
                 long amountToAdd;
                 Monitor.Enter(rnd);
                 amountToAdd = rnd.Next(1, 101);
                 Monitor.Exit(rnd);
 
+                // lock the total sum variable while adding to it.
                 Interlocked.Add(ref total, amountToAdd);
 
+                // stop the stopwatch and record elapsed time
                 sw.Stop();
                 Console.WriteLine("Iteration {0} added {1} to total. \nThread execution time span: {2}\n\n", i, amountToAdd, sw.Elapsed.ToString());
             });
 
-            while (!result.IsCompleted) { }
+            // wait until all processes are complete
+            while (!result.IsCompleted) { Console.WriteLine("is not done"); }
+
             Console.WriteLine("Total is now {0}", total);
             Console.WriteLine("Parallel For addition run ended...\n\n");
+        }
+
+        public static void ParallelForEach()
+        {
+            Console.WriteLine("Parallel foreach started...\n\n");
+            string[] names = { "Kelvin", "Brittany", "Jayde", "Harold", "John", "Peter", "Thomas", "Richard" };
+            var rnd = new Random();
+
+            Parallel.ForEach<string, int>(names, // source
+                () => { return Thread.CurrentThread.ManagedThreadId; }, // threadLocal storage data
+                (name, loopState, threadId) => // body
+                {
+                    int sleepTime;
+                    lock (rnd)
+                    {
+                        sleepTime = rnd.Next(100, 1001);
+                    }
+                    Thread.Sleep(sleepTime);
+
+                    Console.WriteLine("{0}: {1}\n", threadId, name);
+                    return threadId;
+                },
+                (threadId) =>// final action to be made
+                {
+                    
+                });
+
+            Console.WriteLine("Parallel foreach ended...\n\n");
         }
     }
 }

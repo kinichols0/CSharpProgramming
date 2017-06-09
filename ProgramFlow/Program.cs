@@ -23,7 +23,8 @@ namespace ProgramFlow
 
             //// Run demo of basic Parallel For method execution
             //ParallelForDemo.RunParallelForBasic();
-            ParallelForDemo.ParallelForAdditionRun();
+            //ParallelForDemo.ParallelForAdditionRun();
+            ParallelForDemo.ParallelForEach();
 
             Console.WriteLine("Program ended..." + DateTime.Now.ToString());
 
