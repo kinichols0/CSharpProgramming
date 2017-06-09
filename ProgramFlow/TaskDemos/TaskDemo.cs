@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProgramFlow.TaskDemos
 {
-    public class ExplicitTask
+    public class TaskDemo
     {
         public static void Run()
         {
@@ -34,6 +34,38 @@ namespace ProgramFlow.TaskDemos
 
             Console.WriteLine();
             Console.WriteLine("Explicit task demo complete");
+        }
+
+        public static void RunTasks()
+        {
+            Console.WriteLine("Run Tasks demo start...\n\n");
+
+            Random rnd = new Random();
+            string[] names = { "Bob", "Peter", "Jacob", "Mark", "Fred" };
+
+            // List of anonymous types with a Name and Age property
+            var namesWithAges = names.Select(t => new {Name = t, Age = rnd.Next(20, 65) }).ToList();
+
+            //// Action delegate, not used
+            //Action<string, int> actionMethod = (string name, int age) =>
+            //{
+            //    Console.WriteLine("Name: {0}\nAge: {1}\n\n", name, age);
+            //};
+
+            // instead of taking 5 seconds to complete, it should take a total of 1 second
+            List<Task> tasks = namesWithAges.Select(t => new Task(() =>
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("Name: {0}\nAge: {1}\n\n", t.Name, t.Age);
+            })).ToList();
+
+            // start each task
+            tasks.ForEach(t => t.Start());
+
+            // wait for all tasks to complete
+            Task.WaitAll(tasks.ToArray());
+
+            Console.WriteLine("Run tasks demo ended...");
         }
     }
 }

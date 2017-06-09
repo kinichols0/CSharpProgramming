@@ -18,7 +18,11 @@ namespace ProgramFlow
             //ParallelDemo.RunParallelForBasic();
             //ParallelDemo.ParallelForAdditionRun();
             //ParallelDemo.ParallelForEach();
-            ParallelDemo.ParallelInvokeRun();
+            //ParallelDemo.ParallelInvokeRun();
+
+            // Task demos
+            // TaskDemo.Run();
+            TaskDemo.RunTasks();
 
             Console.WriteLine("\n\nProgram ended...,{0}", DateTime.Now.ToString());
 
