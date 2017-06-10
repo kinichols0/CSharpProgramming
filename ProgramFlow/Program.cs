@@ -22,9 +22,11 @@ namespace ProgramFlow
 
             // Task demos
             // TaskDemo.Run();
-            TaskDemo.RunTasks();
+            // TaskDemo.RunTasks();
+            // TaskDemo.RunTasksWithContinution();
+            TaskDemo.CancelAfterTenSecondsDemo();
 
-            Console.WriteLine("\n\nProgram ended...,{0}", DateTime.Now.ToString());
+            Console.WriteLine("Program ended...,{0}", DateTime.Now.ToString());
 
             Console.ReadLine();
         }
