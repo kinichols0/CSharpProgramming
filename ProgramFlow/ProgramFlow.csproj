@@ -44,12 +44,16 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskDemos\Models\Shape.cs" />
+    <Compile Include="TaskDemos\Models\ThreadPoolDemoContext.cs" />
     <Compile Include="TaskDemos\ParallelDemo.cs" />
     <Compile Include="TaskDemos\TaskDemo.cs" />
+    <Compile Include="TaskDemos\ThreadingDemo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

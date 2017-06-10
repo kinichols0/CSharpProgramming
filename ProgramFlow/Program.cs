@@ -14,17 +14,22 @@ namespace ProgramFlow
         {
             Console.WriteLine("Program started...{0}\n\n", DateTime.Now.ToString());
 
-            //// Run demo of basic Parallel For method execution
+            /* Run demo of basic Parallel For method execution */
             //ParallelDemo.RunParallelForBasic();
             //ParallelDemo.ParallelForAdditionRun();
             //ParallelDemo.ParallelForEach();
             //ParallelDemo.ParallelInvokeRun();
 
-            // Task demos
+            /* Task demos */
             // TaskDemo.Run();
             // TaskDemo.RunTasks();
             // TaskDemo.RunTasksWithContinution();
-            TaskDemo.CancelAfterTenSecondsDemo();
+            // TaskDemo.CancelAfterTenSecondsDemo();
+
+            /* Thread demos */
+            // ThreadingDemo.BasicRun();
+            // ThreadingDemo.RunBackagroundWorker();
+            ThreadingDemo.ThreadPoolDemoRun();
 
             Console.WriteLine("Program ended...,{0}", DateTime.Now.ToString());
 
