@@ -11,21 +11,38 @@ namespace ProgramFlow.TaskDemos
 {
     public class ThreadingDemo
     {
+        #region Basic Thread Demo
+
+        private static AutoResetEvent autoEvent;
+
         public static void BasicRun()
         {
-            Console.WriteLine("Threading basic demo run started...\n\n");
+            Console.WriteLine("Threading basic demo run started...");
 
+            autoEvent = new AutoResetEvent(false);
+
+            // create and start the thread
             Thread thread = new Thread(BasicRunMethod);
             thread.Start();
 
-            Console.WriteLine("Ended threading basic run...\n\n");
+            // wait for the one thread to end
+            autoEvent.WaitOne();
+
+            Console.WriteLine("Ended threading basic run...\n");
         }
 
         private static void BasicRunMethod()
         {
+            // run the thread process
             Console.WriteLine("Basic thread process writing to the console...");
+
+            // signal that the one thread ended
+            autoEvent.Set();
         }
 
+        #endregion
+
+        #region Basic Background Worker Demo
         public static void RunBackagroundWorker()
         {
             Console.WriteLine("Started background worker demo...\n\n");
@@ -54,7 +71,9 @@ namespace ProgramFlow.TaskDemos
             double area = (double)e.Result;
             Console.WriteLine("The area is {0}", area.ToString());
         }
+        #endregion
 
+        #region Threadpool demo
         public static void ThreadPoolDemoRun()
         {
             Console.WriteLine("Started Threadpool demo run...");
@@ -117,5 +136,62 @@ namespace ProgramFlow.TaskDemos
                 return number;
             return FibonacciCalc(number - 1) + FibonacciCalc(number - 2);
         }
+        #endregion
+
+        #region Background worker cancellation demo
+
+        public static void BackgroundWorkerCancellationDemo()
+        {
+            Console.WriteLine("Started background worker cancellation demo...");
+
+            // initialize the worker. set worker flags to support cancellation and report progress
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.WorkerSupportsCancellation = true;
+            worker.WorkerReportsProgress = true;
+
+            // hook up event handlers
+            worker.DoWork += BackgroundWorker_DoWork;
+            worker.RunWorkerCompleted += BackgroundWorker_WorkCompleted;
+
+            // start the worker
+            worker.RunWorkerAsync();
+
+            var cancelKey = Console.ReadLine();
+            if (cancelKey == "cancel" && worker.IsBusy)
+                worker.CancelAsync();
+            else
+                Console.WriteLine("Process has been completed");
+
+            Console.WriteLine("Ended background worker cancellation demo...");
+        }
+
+        private static void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Console.WriteLine("Two minute process has begun. \nEnter 'cancel' to end the process sooner.");
+            var worker = (BackgroundWorker)sender;
+
+            // Process that runs for two minutes
+            for(int i = 0; i < 120; i++)
+            {
+                // if cancelled break.
+                if (worker.CancellationPending)
+                    break;
+
+                Thread.Sleep(1000);
+                Console.WriteLine("{0} seconds passed", i + 1);
+            }
+        }
+
+        private static void BackgroundWorker_WorkCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+                Console.WriteLine("Error: {0}", e.Error.Message);
+            else if (e.Cancelled)
+                Console.WriteLine("Process canceled");
+            else
+                Console.WriteLine("Process finished");
+        }
+
+        #endregion
     }
 }
