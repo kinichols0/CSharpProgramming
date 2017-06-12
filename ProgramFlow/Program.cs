@@ -11,7 +11,7 @@ namespace ProgramFlow
     public class Program
     {
         public static void Main(string[] args)
-        {
+        {            
             Console.WriteLine("Program started...{0}\n", DateTime.Now.ToString());
 
             // prompt available process to run
@@ -20,6 +20,8 @@ namespace ProgramFlow
                 "[3] - ParallelForEach demo\n[4] - ParallelInvoke demo");
             Console.WriteLine("[5] - Task demo\n[6] - Multiple Task Demo\n[7] - Continuation Task demo\n[8] - Cancel task after 10 seconds demo.");
             Console.WriteLine("[9] - Thread demo\n[10] - Background Worker demo\n[11] - Threadpool demo\n[12] - Cancel background worker demo.");
+            Console.WriteLine("[13] - Linq basic demo \n[14] - PLinq basic demo \n[15] PLinq ForAll demo");
+            Console.WriteLine("[16] - Concurrent Blocking Collection demo\n ");
 
             // read the input and run the corresponding process
             string key = Console.ReadLine();
@@ -50,6 +52,14 @@ namespace ProgramFlow
                     case 11: ThreadingDemo.ThreadPoolDemoRun();
                         break;
                     case 12: ThreadingDemo.BackgroundWorkerCancellationDemo();
+                        break;
+                    case 13: PLinqDemo.LinqBasicDemo();
+                        break;
+                    case 14: PLinqDemo.PLinqBasicDemo();
+                        break;
+                    case 15: PLinqDemo.PLinqForAllDemo();
+                        break;
+                    case 16: ConcurrentCollectionsDemo.BlockingCollectionAddDemo();
                         break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
