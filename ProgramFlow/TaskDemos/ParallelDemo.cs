@@ -111,9 +111,6 @@ namespace ProgramFlow.TaskDemos
                 Console.WriteLine("Iteration {0} added {1} to total. \nThread execution time span: {2}\n\n", i, amountToAdd, sw.Elapsed.ToString());
             });
 
-            // wait until all processes are complete
-            while (!result.IsCompleted) { Console.WriteLine("is not done"); }
-
             Console.WriteLine("Total is now {0}", total);
             Console.WriteLine("Parallel For addition run ended...\n\n");
         }

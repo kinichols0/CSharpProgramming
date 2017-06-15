@@ -105,11 +105,11 @@ namespace ProgramFlow.TaskDemos
             }
             catch(ArgumentException e)
             {
-                Console.WriteLine("Argument exception error.\n");
+                Console.WriteLine("Argument exception error.\n{0}", e);
             }
             catch(Exception e)
             {
-                Console.WriteLine("Exception error.\n");
+                Console.WriteLine("Exception error.\n{0}", e);
             }
         }
 

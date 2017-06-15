@@ -16,12 +16,12 @@ namespace ProgramFlow
 
             // prompt available process to run
             Console.WriteLine("Which demo do you want to run?");
-            Console.WriteLine("[1] - ParallelFor Basic Run\n[2] - ParallelFor Concurrent Addition Run\n" +
-                "[3] - ParallelForEach demo\n[4] - ParallelInvoke demo");
+            Console.WriteLine("[1] - ParallelFor Basic Run\n[2] - ParallelFor Concurrent Addition Run\n[3] - ParallelForEach demo\n[4] - ParallelInvoke demo");
             Console.WriteLine("[5] - Task demo\n[6] - Multiple Task Demo\n[7] - Continuation Task demo\n[8] - Cancel task after 10 seconds demo.");
             Console.WriteLine("[9] - Thread demo\n[10] - Background Worker demo\n[11] - Threadpool demo\n[12] - Cancel background worker demo.");
             Console.WriteLine("[13] - Linq basic demo \n[14] - PLinq basic demo \n[15] PLinq ForAll demo");
-            Console.WriteLine("[16] - Concurrent Blocking Collection demo\n ");
+            Console.WriteLine("[16] - Concurrent Blocking Collection demo\n[17] - Cocnurrent Dictionary Collection demo\n[18] - Concurrent Bag Demo ");
+            Console.WriteLine("[19] - Async/Await Basic demo");
 
             // read the input and run the corresponding process
             string key = Console.ReadLine();
@@ -60,6 +60,12 @@ namespace ProgramFlow
                     case 15: PLinqDemo.PLinqForAllDemo();
                         break;
                     case 16: ConcurrentCollectionsDemo.BlockingCollectionAddDemo();
+                        break;
+                    case 17: ConcurrentCollectionsDemo.ConcurrentDictionaryDemo();
+                        break;
+                    case 18: ConcurrentCollectionsDemo.ConcurrentBagDemo();
+                        break;
+                    case 19: AsyncAwaitDemo.BasicDemo();
                         break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
