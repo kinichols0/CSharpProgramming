@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ProgramFlow.TaskDemos;
+using ProgramFlow.EventsCallbacksDemos;
 
 namespace ProgramFlow
 {
@@ -15,13 +16,7 @@ namespace ProgramFlow
             Console.WriteLine("Program started...{0}\n", DateTime.Now.ToString());
 
             // prompt available process to run
-            Console.WriteLine("Which demo do you want to run?");
-            Console.WriteLine("[1] - ParallelFor Basic Run\n[2] - ParallelFor Concurrent Addition Run\n[3] - ParallelForEach demo\n[4] - ParallelInvoke demo");
-            Console.WriteLine("[5] - Task demo\n[6] - Multiple Task Demo\n[7] - Continuation Task demo\n[8] - Cancel task after 10 seconds demo.");
-            Console.WriteLine("[9] - Thread demo\n[10] - Background Worker demo\n[11] - Threadpool demo\n[12] - Cancel background worker demo.");
-            Console.WriteLine("[13] - Linq basic demo \n[14] - PLinq basic demo \n[15] PLinq ForAll demo");
-            Console.WriteLine("[16] - Concurrent Blocking Collection demo\n[17] - Cocnurrent Dictionary Collection demo\n[18] - Concurrent Bag Demo ");
-            Console.WriteLine("[19] - Async/Await Basic demo");
+            PrintPrompt();
 
             // read the input and run the corresponding process
             string key = Console.ReadLine();
@@ -67,6 +62,14 @@ namespace ProgramFlow
                         break;
                     case 19: AsyncAwaitDemo.BasicDemo();
                         break;
+                    case 20:
+                        WriteOutputEventPublisher publisher = new WriteOutputEventPublisher();
+                        WriteOutputEventSubscriber subA = new WriteOutputEventSubscriber("SubA", publisher);
+                        WriteOutputEventSubscriber subB = new WriteOutputEventSubscriber("SubB", publisher);
+                        publisher.StartDemo("This is an event demo.");
+                        subA.UnsubscribeFromEvent();
+                        publisher.StartDemo("Raising another event.");
+                        break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
                 }
@@ -77,6 +80,32 @@ namespace ProgramFlow
             Console.WriteLine("Program ended...,{0}", DateTime.Now.ToString());
 
             Console.ReadLine();
+        }
+
+        public static void PrintPrompt()
+        {
+            Console.WriteLine("Which demo do you want to run?\n");
+            Console.WriteLine("[1] - ParallelFor Basic Run");
+            Console.WriteLine("[2] - ParallelFor Concurrent Addition Run");
+            Console.WriteLine("[3] - ParallelForEach demo");
+            Console.WriteLine("[4] - ParallelInvoke demo");
+            Console.WriteLine("[5] - Task demo");
+            Console.WriteLine("[6] - Multiple Task Demo");
+            Console.WriteLine("[7] - Continuation Task demo");
+            Console.WriteLine("[8] - Cancel task after 10 seconds demo.");
+            Console.WriteLine("[9] - Thread demo");
+            Console.WriteLine("[10] - Background Worker demo");
+            Console.WriteLine("[11] - Threadpool demo");
+            Console.WriteLine("[12] - Cancel background worker demo.");
+            Console.WriteLine("[13] - Linq basic demo ");
+            Console.WriteLine("[14] - PLinq basic demo");
+            Console.WriteLine("[15] PLinq ForAll demo");
+            Console.WriteLine("[16] - Concurrent Blocking Collection demo");
+            Console.WriteLine("[17] - Cocnurrent Dictionary Collection demo");
+            Console.WriteLine("[18] - Concurrent Bag Demo ");
+            Console.WriteLine("[19] - Async/Await Basic demo");
+            Console.WriteLine("[20] - Event demo");
+            Console.WriteLine();
         }
     }
 }

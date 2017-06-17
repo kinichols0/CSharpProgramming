@@ -16,14 +16,14 @@ namespace ProgramFlow.TaskDemos
             Console.WriteLine("starting work...");
 
             var task = DoWork();
-
-            for(int i = 1; i <= 5; i++)
-            {
-                Thread.Sleep(1000);
-                Console.WriteLine("Doing other work for {0} second(s)", i);
-            }
+            var taskSum = AddNumbers();
+            var taskOther = DoOtherWork();
 
             await task;
+            await taskSum;
+            await taskOther;
+
+            Console.WriteLine("Total sum is {0}", taskSum.Result);
 
             Console.WriteLine("Ended basic async/await demo...");
         }
@@ -39,6 +39,36 @@ namespace ProgramFlow.TaskDemos
                 }
             });
 
+            return task;
+        }
+
+        public static Task DoOtherWork()
+        {
+            var task = Task.Run(() =>
+            {
+                for (int i = 1; i <= 5; i++)
+                {
+                    Thread.Sleep(1000);
+                    Console.WriteLine("Doing other work for {0} second(s)", i);
+                }
+            });
+
+            return task;
+        }
+
+        public static Task<int> AddNumbers()
+        {
+            var task = Task<int>.Run(() =>
+            {
+                int total = 0;
+                for (int i = 0; i < 5; i++)
+                {
+                    Thread.Sleep(1000);
+                    Console.WriteLine("{0} + {1} = {2}", total, i, total + i);
+                    total += i;
+                }
+                return total;
+            });
             return task;
         }
     }
