@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using ProgramFlow.TaskDemos.Models;
+using ProgramFlow.Models;
 
-namespace ProgramFlow.TaskDemos
+namespace CSharpProgramming.ProgramFlow
 {
     public static class ParallelDemo
     {

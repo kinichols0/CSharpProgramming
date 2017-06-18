@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ProgramFlow.TaskDemos.Models
+namespace ProgramFlow.Models
 {
     public class ThreadPoolDemoContext
     {

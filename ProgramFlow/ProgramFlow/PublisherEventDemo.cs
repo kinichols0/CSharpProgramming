@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProgramFlow.EventsCallbacksDemos
+namespace CSharpProgramming.ProgramFlow
 {
     /// <summary>
     /// Custom event arguments for this demo
@@ -26,7 +26,7 @@ namespace ProgramFlow.EventsCallbacksDemos
     {
         public delegate void WriteOutputDelegate(object sender, DemoEventArgs e);
 
-        public event WriteOutputDelegate WriteOutputEvent;
+        public event WriteOutputDelegate WriteOutputEventCallback;
 
         public void StartDemo(string message)
         {
@@ -40,7 +40,7 @@ namespace ProgramFlow.EventsCallbacksDemos
 
         protected virtual void RaiseWriteOutputEvent(DemoEventArgs e)
         {
-            WriteOutputDelegate handler = WriteOutputEvent;
+            WriteOutputDelegate handler = WriteOutputEventCallback;
 
             if (handler != null)
                 handler(this, e);
@@ -62,7 +62,7 @@ namespace ProgramFlow.EventsCallbacksDemos
             pub = wPub;
 
             // Subscribe to the publisher's event
-            wPub.WriteOutputEvent += HandleWriteOutPutEvent;
+            wPub.WriteOutputEventCallback += HandleWriteOutPutEvent;
         }
 
         private void HandleWriteOutPutEvent(object sender, DemoEventArgs e)
@@ -73,7 +73,7 @@ namespace ProgramFlow.EventsCallbacksDemos
 
         public void UnsubscribeFromEvent()
         {
-            pub.WriteOutputEvent -= HandleWriteOutPutEvent;
+            pub.WriteOutputEventCallback -= HandleWriteOutPutEvent;
         }
     }
 }

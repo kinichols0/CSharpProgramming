@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using ProgramFlow.TaskDemos;
-using ProgramFlow.EventsCallbacksDemos;
+using CSharpProgramming.ProgramFlow;
 
-namespace ProgramFlow
+namespace CSharpProgramming
 {
     public class Program
     {
@@ -60,7 +59,7 @@ namespace ProgramFlow
                         break;
                     case 18: ConcurrentCollectionsDemo.ConcurrentBagDemo();
                         break;
-                    case 19: AsyncAwaitDemo.BasicDemo();
+                    case 19: AsyncAwaitDemo.BasicDemo().Wait();
                         break;
                     case 20:
                         WriteOutputEventPublisher publisher = new WriteOutputEventPublisher();

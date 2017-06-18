@@ -5,32 +5,30 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ProgramFlow.TaskDemos
+namespace CSharpProgramming.ProgramFlow
 {
     public class AsyncAwaitDemo
     {
-        public async static void BasicDemo()
+        public async static Task BasicDemo()
         {
             Console.WriteLine("Started basic async/await demo...");
-
             Console.WriteLine("starting work...");
 
-            var task = DoWork();
             var taskSum = AddNumbers();
-            var taskOther = DoOtherWork();
+            var task1 = DoWork();
+            var task2 = DoOtherWork();
 
-            await task;
+            await task1;
+            await task2;
             await taskSum;
-            await taskOther;
 
             Console.WriteLine("Total sum is {0}", taskSum.Result);
-
             Console.WriteLine("Ended basic async/await demo...");
         }
 
-        public static Task DoWork()
+        public static async Task DoWork()
         {
-            var task = Task.Run(() =>
+            await Task.Run(() =>
             {
                 for (int i = 1; i <= 5; i++)
                 {
@@ -38,13 +36,11 @@ namespace ProgramFlow.TaskDemos
                     Console.WriteLine("Working for {0} second(s)", i);
                 }
             });
-
-            return task;
         }
 
-        public static Task DoOtherWork()
+        public static async Task DoOtherWork()
         {
-            var task = Task.Run(() =>
+            await Task.Run(() =>
             {
                 for (int i = 1; i <= 5; i++)
                 {
@@ -52,13 +48,11 @@ namespace ProgramFlow.TaskDemos
                     Console.WriteLine("Doing other work for {0} second(s)", i);
                 }
             });
-
-            return task;
         }
 
-        public static Task<int> AddNumbers()
+        public static async Task<int> AddNumbers()
         {
-            var task = Task<int>.Run(() =>
+            return await Task.Run(() =>
             {
                 int total = 0;
                 for (int i = 0; i < 5; i++)
@@ -69,7 +63,6 @@ namespace ProgramFlow.TaskDemos
                 }
                 return total;
             });
-            return task;
         }
     }
 }

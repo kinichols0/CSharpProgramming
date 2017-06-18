@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ProgramFlow.TaskDemos
+namespace CSharpProgramming.ProgramFlow
 {
     public class TaskDemo
     {

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel;
-using ProgramFlow.TaskDemos.Models;
+using ProgramFlow.Models;
 
-namespace ProgramFlow.TaskDemos
+namespace CSharpProgramming.ProgramFlow
 {
     public class ThreadingDemo
     {

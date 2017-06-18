@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ProgramFlow.Entities;
+using CSharpProgramming.Entities;
 
-namespace ProgramFlow.TaskDemos
+namespace CSharpProgramming.ProgramFlow
 {
     public class PLinqDemo
     {

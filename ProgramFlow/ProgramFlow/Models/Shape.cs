@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProgramFlow.TaskDemos.Models
+namespace ProgramFlow.Models
 {
     public class Shape
     {
