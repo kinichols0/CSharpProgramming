@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F807D2C2-5B57-4C16-800D-4A6C5A5BADAF}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ProgramFlow</RootNamespace>
-    <AssemblyName>ProgramFlow</AssemblyName>
+    <RootNamespace>CSharpProgramming</RootNamespace>
+    <AssemblyName>CSharpProgramming</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
