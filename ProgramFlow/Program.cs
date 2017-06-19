@@ -15,7 +15,7 @@ namespace CSharpProgramming
         {            
             Console.WriteLine("Program started...{0}\n", DateTime.Now.ToString());
 
-            // prompt available process to run
+            // prompt user the available processes to run
             PrintPrompt();
             
             // read the input and run the corresponding process
@@ -85,6 +85,35 @@ namespace CSharpProgramming
 
                         Console.WriteLine("\nEnded struct demo...");
                         break;
+                    case 23:
+                        Console.WriteLine("Started basic inheritance demo...");
+
+                        StudentProfileData studentProfile = new StudentProfileData();
+                        studentProfile.Print();
+
+                        StudentProfileData studenProfile2 = new StudentProfileData("Kelvin", "Nichols", "Computer Science", ClassStanding.Senior);
+                        studenProfile2.Print();
+
+                        Console.WriteLine("Ended basic inheritance demo...");
+                        break;
+                    case 24:
+                        Console.WriteLine("Started basic boxing and unboxing demo...");
+
+                        int i = 55;
+                        Console.WriteLine("int i = {0}", i);
+                        Console.WriteLine("boxing i");
+
+                        object o = i;// implicit boxing, explicit boxing ex: object o = (object)i
+                        Console.WriteLine("i is still {0}", o);
+
+                        object x = 122;
+                        Console.WriteLine("object x = {0}", x);
+                        Console.WriteLine("unboxing x");
+                        i = (int)x;
+                        Console.WriteLine("x is still {0}", x);
+
+                        Console.WriteLine("Ended basic boxing and unboxing demo...");
+                        break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
                 }
@@ -122,6 +151,8 @@ namespace CSharpProgramming
             Console.WriteLine("[20] - Event demo");
             Console.WriteLine("[21] - Delegate Implementation Demo");
             Console.WriteLine("[22] - Basic struct demo");
+            Console.WriteLine("[23] - Inheritance basics demo");
+            Console.WriteLine("[24] - Boxing and Unboxing demo");
             Console.WriteLine();
         }
     }
