@@ -45,6 +45,7 @@
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="ProgramFlow\DelegateAnonymousMethodDemo.cs" />
     <Compile Include="ProgramFlow\PublisherEventDemo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="ProgramFlow\PLinqDemo.cs" />
     <Compile Include="ProgramFlow\TaskDemo.cs" />
     <Compile Include="ProgramFlow\ThreadingDemo.cs" />
+    <Compile Include="TypesClasses\Rectangle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

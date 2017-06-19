@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CSharpProgramming.ProgramFlow;
+using CSharpProgramming.TypesClasses;
 
 namespace CSharpProgramming
 {
@@ -16,7 +17,7 @@ namespace CSharpProgramming
 
             // prompt available process to run
             PrintPrompt();
-
+            
             // read the input and run the corresponding process
             string key = Console.ReadLine();
             if (int.TryParse(key, out int demoNum))
@@ -69,6 +70,21 @@ namespace CSharpProgramming
                         subA.UnsubscribeFromEvent();
                         publisher.StartDemo("Raising another event.");
                         break;
+                    case 21: DelegateAnonymousMethodDemo.DelegateImplementationDemo();
+                        break;
+                    case 22:
+                        Console.WriteLine("Started struct demo...\n");
+
+                        Rectangle rect = new Rectangle(5, 10);
+                        Console.WriteLine("Initialized a struct with dimensions {0}x{1} (LxW).", rect.length, rect.width);
+
+                        Rectangle rect2;
+                        rect2.length = 10;
+                        rect2.width = 20;
+                        Console.WriteLine("Initialized a struct with dimensions {0}x{1} (LxW).", rect2.length, rect2.width);
+
+                        Console.WriteLine("\nEnded struct demo...");
+                        break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
                 }
@@ -104,6 +120,8 @@ namespace CSharpProgramming
             Console.WriteLine("[18] - Concurrent Bag Demo ");
             Console.WriteLine("[19] - Async/Await Basic demo");
             Console.WriteLine("[20] - Event demo");
+            Console.WriteLine("[21] - Delegate Implementation Demo");
+            Console.WriteLine("[22] - Basic struct demo");
             Console.WriteLine();
         }
     }
