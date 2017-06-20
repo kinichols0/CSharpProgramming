@@ -43,6 +43,9 @@ namespace CSharpProgramming.ProgramFlow
         #endregion
 
         #region Basic Background Worker Demo
+        /// <summary>
+        /// Basic background worker demo. The background worker is calculating area while other work continues to run
+        /// </summary>
         public static void RunBackagroundWorker()
         {
             Console.WriteLine("Started background worker demo...\n\n");
@@ -57,19 +60,42 @@ namespace CSharpProgramming.ProgramFlow
             // Start the worker with the Shape object passed as a param as an argument
             worker.RunWorkerAsync(new Shape() { Base = 20, Height = 55 });
 
+            // other work to do while the background worker is running
+            for(int i=1; i<=5; i++)
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("Doing other work...{0} second(s) have passed...", i);
+            }
+
             Console.WriteLine("Ended background worker demo...\n\n");
         }
 
+        /// <summary>
+        /// Background worker's DoWork implementation. Code to run when the background worker starts.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void BackgroundWorkerEventHandler(object sender, DoWorkEventArgs e)
         {
+            // Get the object passed as a parameter from the e.Argument property.
             Shape shape = (Shape)e.Argument;
+            for(int i=1; i<=5; i++)
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("Calculating area...{0} second(s) have passed...", i);
+            }
             e.Result = shape.CalcArea;
         }
 
+        /// <summary>
+        /// Background RunWorkerCompleted implementation. Code to run when the worker completes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void BackgroundWorkerRunCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             double area = (double)e.Result;
-            Console.WriteLine("The area is {0}", area.ToString());
+            Console.WriteLine("Area calculated. The area is {0}", area.ToString());
         }
         #endregion
 
@@ -140,6 +166,9 @@ namespace CSharpProgramming.ProgramFlow
 
         #region Background worker cancellation demo
 
+        /// <summary>
+        /// Background workers can run intensive tasks on another thread to free up other threads such as threads for the UI
+        /// </summary>
         public static void BackgroundWorkerCancellationDemo()
         {
             Console.WriteLine("Started background worker cancellation demo...");
@@ -165,6 +194,11 @@ namespace CSharpProgramming.ProgramFlow
             Console.WriteLine("Ended background worker cancellation demo...");
         }
 
+        /// <summary>
+        /// Background worker's DoWork implementation. Code to run when the worker starts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             Console.WriteLine("Two minute process has begun. \nEnter 'cancel' to end the process sooner.");
@@ -182,6 +216,11 @@ namespace CSharpProgramming.ProgramFlow
             }
         }
 
+        /// <summary>
+        /// Backgroundworker WorkCompleted implementation. Code to run when the work is completed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void BackgroundWorker_WorkCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
