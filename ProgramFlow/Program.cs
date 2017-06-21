@@ -114,6 +114,61 @@ namespace CSharpProgramming
 
                         Console.WriteLine("Ended basic boxing and unboxing demo...");
                         break;
+                    case 25:
+                        Console.WriteLine("Started basic IComparable demo...");
+
+                        List<ComparableAgeEntity> entities = new List<ComparableAgeEntity>()
+                        {
+                            new ComparableAgeEntity("Name1", 26),
+                            new ComparableAgeEntity("Name2", 30),
+                            new ComparableAgeEntity("Name3", 5),
+                            new ComparableAgeEntity("Name4", 6),
+                            new ComparableAgeEntity("Name5", 50),
+                            new ComparableAgeEntity("Name6", 40),
+                            new ComparableAgeEntity("Name7", 33),
+                            new ComparableAgeEntity("Name8", 12),
+                            new ComparableAgeEntity("Name9", 65),
+                            new ComparableAgeEntity("Name10", 70)
+                        };
+
+                        Console.WriteLine("All comparable entities");
+                        entities.ForEach(t => Console.WriteLine(t));
+
+                        Console.WriteLine("\nComparable entities sorted by age from youngest to oldest");
+                        entities.Sort();
+                        entities.ForEach(t => Console.WriteLine(t));
+
+                        Console.WriteLine("\nComparable entities sorted by age from oldest to youngest");
+                        entities = entities.OrderByDescending(t => t).ToList();
+                        entities.ForEach(t => Console.WriteLine(t));
+
+                        Console.WriteLine("Ended basic IComparable demo...");
+                        break;
+                    case 26:
+                        Console.WriteLine("Started IEnumerable Implementation demo...");
+
+                        ComparableAgeEntity[] comparableEntities = new ComparableAgeEntity[]
+                        {
+                            new ComparableAgeEntity("Name1", 26),
+                            new ComparableAgeEntity("Name2", 30),
+                            new ComparableAgeEntity("Name3", 5),
+                            new ComparableAgeEntity("Name4", 6),
+                            new ComparableAgeEntity("Name5", 50),
+                            new ComparableAgeEntity("Name6", 40),
+                            new ComparableAgeEntity("Name7", 33),
+                            new ComparableAgeEntity("Name8", 12),
+                            new ComparableAgeEntity("Name9", 65),
+                            new ComparableAgeEntity("Name10", 70)
+                        };
+
+                        // IEnumerable implementation
+                        var collection = new EnumerableCollection<ComparableAgeEntity>(comparableEntities);
+
+                        // Custom foreach implementation
+                        collection.ForEach(t => Console.WriteLine(t));
+
+                        Console.WriteLine("Ended IEnumerable Implementation demo...");
+                        break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
                 }
@@ -134,7 +189,7 @@ namespace CSharpProgramming
             Console.WriteLine("[3] - ParallelForEach demo");
             Console.WriteLine("[4] - ParallelInvoke demo");
             Console.WriteLine("[5] - Task demo");
-            Console.WriteLine("[6] - Multiple Task Demo");
+            Console.WriteLine("[6] - Multiple Task demo");
             Console.WriteLine("[7] - Continuation Task demo");
             Console.WriteLine("[8] - Cancel task after 10 seconds demo.");
             Console.WriteLine("[9] - Thread demo");
@@ -149,10 +204,12 @@ namespace CSharpProgramming
             Console.WriteLine("[18] - Concurrent Bag Demo ");
             Console.WriteLine("[19] - Async/Await Basic demo");
             Console.WriteLine("[20] - Event demo");
-            Console.WriteLine("[21] - Delegate Implementation Demo");
+            Console.WriteLine("[21] - Delegate Implementation demo");
             Console.WriteLine("[22] - Basic struct demo");
             Console.WriteLine("[23] - Inheritance basics demo");
             Console.WriteLine("[24] - Boxing and Unboxing demo");
+            Console.WriteLine("[25] - IComparable Implementation demo");
+            Console.WriteLine("[26] - IEnumerable Implementation demo");
             Console.WriteLine();
         }
     }
