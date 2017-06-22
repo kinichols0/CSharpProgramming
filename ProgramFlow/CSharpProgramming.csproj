@@ -58,6 +58,7 @@
     <Compile Include="ProgramFlow\TaskDemo.cs" />
     <Compile Include="ProgramFlow\ThreadingDemo.cs" />
     <Compile Include="TypesClasses\ComparableAgeEntity.cs" />
+    <Compile Include="TypesClasses\DisposableEntity.cs" />
     <Compile Include="TypesClasses\EnumerableCollection.cs" />
     <Compile Include="TypesClasses\Enums.cs" />
     <Compile Include="TypesClasses\Profile.cs" />
