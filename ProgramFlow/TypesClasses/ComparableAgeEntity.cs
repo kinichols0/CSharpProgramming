@@ -37,6 +37,31 @@ namespace CSharpProgramming.TypesClasses
             throw new ArgumentException("Object is not a ComparableEntity.");
         }
 
+        /// <summary>
+        /// Overridden equals message
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {   
+            if(obj != null && obj is ComparableAgeEntity inObj)
+                return inObj.Age == Age 
+                    && inObj.Name == Name;
+            return false;
+        }
+
+        /// <summary>
+        /// Overridden GetHashCode method. Since Equals method was overriden
+        /// then GetHashCode should be overridden to reflect the Equals method.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            if (!string.IsNullOrEmpty(Name))
+                return Age + Name.GetHashCode();
+            return Age;
+        }
+
         public override string ToString()
         {
             var str = new StringBuilder();
