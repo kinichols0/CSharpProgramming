@@ -147,6 +147,21 @@ namespace CSharpProgramming
                     case 26:
                         Console.WriteLine("Started IEnumerable Implementation demo...");
 
+                        // One way to initialize the collection
+                        EnumerableCollection<ComparableAgeEntity> objs = new EnumerableCollection<ComparableAgeEntity>() {
+                            new ComparableAgeEntity("Name1", 26),
+                            new ComparableAgeEntity("Name2", 30),
+                            new ComparableAgeEntity("Name3", 5),
+                            new ComparableAgeEntity("Name4", 6),
+                            new ComparableAgeEntity("Name5", 50),
+                            new ComparableAgeEntity("Name6", 40),
+                            new ComparableAgeEntity("Name7", 33),
+                            new ComparableAgeEntity("Name8", 12),
+                            new ComparableAgeEntity("Name9", 65),
+                            new ComparableAgeEntity("Name10", 70)
+                        };
+
+                        // Another way to initialize the collection
                         ComparableAgeEntity[] comparableEntities = new ComparableAgeEntity[]
                         {
                             new ComparableAgeEntity("Name1", 26),
@@ -160,9 +175,10 @@ namespace CSharpProgramming
                             new ComparableAgeEntity("Name9", 65),
                             new ComparableAgeEntity("Name10", 70)
                         };
-
-                        // IEnumerable implementation
                         var collection = new EnumerableCollection<ComparableAgeEntity>(comparableEntities);
+
+                        // Custom Add implementation
+                        collection.Add(new ComparableAgeEntity("NameX", 16));
 
                         // Custom foreach implementation
                         collection.ForEach(t => Console.WriteLine(t));

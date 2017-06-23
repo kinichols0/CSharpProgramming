@@ -11,6 +11,10 @@ namespace CSharpProgramming.TypesClasses
     {
         private T[] collection;
 
+        public EnumerableCollection() : this(new T[0])
+        {
+        }
+
         public EnumerableCollection(T[] _collection)
         {
             // copy the array
@@ -28,6 +32,28 @@ namespace CSharpProgramming.TypesClasses
         public IEnumerator GetEnumerator()
         {
             return (new CollectionEnumerator<T>(collection));
+        }
+
+        /// <summary>
+        /// My Add implementation
+        /// </summary>
+        /// <param name="obj"></param>
+        public void Add(T obj)
+        {
+            // initialize our new array with an additional index than our current
+            T[] array = new T[collection.Length + 1];
+
+            // copy current contents to new array
+            for(int i = 0; i < collection.Length; i++)
+            {
+                array[i] = collection[i];
+            }
+
+            // place new obj at the end of the array
+            array[array.Length - 1] = obj;
+
+            // point our current collection to the new array
+            collection = array;
         }
 
         /// <summary>
