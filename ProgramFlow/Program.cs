@@ -17,7 +17,7 @@ namespace CSharpProgramming
     public class Program
     {
         public static void Main(string[] args)
-        {            
+        {
             Console.WriteLine("Program started...{0}\n", DateTime.Now.ToString());
 
             // prompt user the available processes to run
@@ -334,57 +334,117 @@ namespace CSharpProgramming
 
         /// <summary>
         /// Code Document Object Model (CodeDOM)
+        /// Generates an Employee class within Demos namespace
         /// </summary>
         private static void CodeDOMDemo()
         {
             Console.WriteLine("Starting CodeDOM demo...\n");
 
-            // CodeDOM object graph that models the source code to compile
-            CodeCompileUnit compileUnit = new CodeCompileUnit();
+            // declare a class
+            CodeTypeDeclaration customerClass = new CodeTypeDeclaration("Employee");
+            customerClass.IsClass = true;
+            customerClass.TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed;
+
+            // add empty constructor
+            CodeConstructor emptyConstructor = new CodeConstructor();
+            emptyConstructor.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+            customerClass.Members.Add(emptyConstructor);
+
+            // add parameter constructor
+            CodeConstructor constructor = new CodeConstructor();
+            constructor.Parameters.Add(new CodeParameterDeclarationExpression("System.String", "name"));
+            // constructor.Statements.Add(new CodeSnippetExpression("nameField = name"));
+            CodeVariableReferenceExpression nameFieldExpression = new CodeVariableReferenceExpression("nameField");
+            constructor.Statements.Add(new CodeAssignStatement(nameFieldExpression, new CodeVariableReferenceExpression("name")));
+            constructor.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+            customerClass.Members.Add(constructor);
+
+            // declare and id field
+            CodeMemberField idField = new CodeMemberField()
+            {
+                Name = "idField",
+                Type = new CodeTypeReference("System.Int32"),
+                Attributes = MemberAttributes.Private
+            };
+            customerClass.Members.Add(idField);
+
+            // declare and add id property
+            CodeMemberProperty idProperty = new CodeMemberProperty()
+            {
+                Name = "EmployeeId",
+                Type = new CodeTypeReference("System.Int32"),
+                Attributes = MemberAttributes.Public | MemberAttributes.Final
+            };
+            idProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "idField")));
+            idProperty.SetStatements.Add(new CodeAssignStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "idField"), new CodePropertySetValueReferenceExpression()));
+            customerClass.Members.Add(idProperty);
+
+            // declare and name field
+            CodeMemberField nameField = new CodeMemberField()
+            {
+                Name = "nameField",
+                Type = new CodeTypeReference("System.String"),
+                Attributes = MemberAttributes.Private
+            };
+            customerClass.Members.Add(nameField);
+
+            // declare and add string property
+            CodeMemberProperty nameProperty = new CodeMemberProperty()
+            {
+                Name = "Name",
+                Type = new CodeTypeReference("System.String"),
+                Attributes = MemberAttributes.Public | MemberAttributes.Final
+            };
+            nameProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "nameField")));
+            nameProperty.SetStatements.Add(new CodeAssignStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "nameField"), new CodePropertySetValueReferenceExpression()));
+            customerClass.Members.Add(nameProperty);
+
+            // declare a method
+            CodeMemberMethod helloMethod = new CodeMemberMethod()
+            {
+                Name = "SayHelloTo",
+                ReturnType = new CodeTypeReference("System.String"),
+                Attributes = MemberAttributes.Public | MemberAttributes.Final
+            };
+
+            // add method parameters
+            helloMethod.Parameters.Add(new CodeParameterDeclarationExpression("System.String", "name"));
+
+            // add method statements
+            var expression = new CodeSnippetExpression(@"""Hello "" + name +"", my name is"" + Name");
+            helloMethod.Statements.Add(new CodeMethodReturnStatement(expression));
+
+            // add method to class
+            customerClass.Members.Add(helloMethod);
 
             //  define a namespace
             CodeNamespace demoNameSpace = new CodeNamespace("Demos");
-
-            // import namespaces
             demoNameSpace.Imports.Add(new CodeNamespaceImport("System"));
-            demoNameSpace.Imports.Add(new CodeNamespaceImport("System.Collections.Generic"));
-
-            // add demos namespace to the compile unit
-            compileUnit.Namespaces.Add(demoNameSpace);
-
-            // declare a class
-            CodeTypeDeclaration customerClass = new CodeTypeDeclaration("Customer");
-            CodeTypeMember member = new CodeTypeMember();
+            demoNameSpace.Imports.Add(new CodeNamespaceImport("System.Collections"));
 
             // add class to namespace
             demoNameSpace.Types.Add(customerClass);
 
-            // code entry point of the program
-            CodeEntryPointMethod start = new CodeEntryPointMethod();
+            // CodeDOM object graph that models the source code to compile
+            CodeCompileUnit compileUnit = new CodeCompileUnit();
 
-            CodeMethodInvokeExpression cs1 = new CodeMethodInvokeExpression(
-                new CodeTypeReferenceExpression("System.Console"),
-                "WriteLine", new CodePrimitiveExpression("Hello World!"));
+            // add demos namespace to the compile unit
+            compileUnit.Namespaces.Add(demoNameSpace);
 
-            start.Statements.Add(cs1);
-
-            // add the entry point to the customer class
-            customerClass.Members.Add(start);
+            Console.WriteLine("Generating CodeDOMFile.cs file.");
 
             // CSharpCode provider that will generate the file
             CSharpCodeProvider provider = new CSharpCodeProvider();
-
-            string sourceFile = "/OutputFiles/CodeDOMFile.cs";
+            string sourceFile = "..\\..\\OutputFiles\\CodeDOMFile.cs";
             using(StreamWriter sw = new StreamWriter(sourceFile, false))
             {
-                IndentedTextWriter tw = new IndentedTextWriter(sw, "    ");
-
-                // Generate source code
-                provider.GenerateCodeFromCompileUnit(compileUnit, tw, new CodeGeneratorOptions());
-
-                // close the file
-                tw.Close();
+                using (IndentedTextWriter tw = new IndentedTextWriter(sw, "    "))
+                {
+                    // Generate source code
+                    provider.GenerateCodeFromCompileUnit(compileUnit, tw, new CodeGeneratorOptions());
+                }
             }
+
             Console.WriteLine("\nEnded CodeDOM demo...");
         }
     }
