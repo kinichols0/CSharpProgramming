@@ -11,6 +11,7 @@ using System.CodeDom;
 using Microsoft.CSharp;
 using System.IO;
 using System.CodeDom.Compiler;
+using System.Text;
 
 namespace CSharpProgramming
 {
@@ -85,6 +86,10 @@ namespace CSharpProgramming
                         break;
                     case 28: CodeDOMDemo();
                         break;
+                    case 29: StringBuilderDemo();
+                        break;
+                    case 30: StringReaderStringWriterDemo();
+                        break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
                 }
@@ -128,6 +133,8 @@ namespace CSharpProgramming
             Console.WriteLine("[26] - IEnumerable Implementation demo");
             Console.WriteLine("[27] - Attributes and Reflection demo");
             Console.WriteLine("[28] - CodeDOM demo");
+            Console.WriteLine("[29] - Stringbuilder demo");
+            Console.WriteLine("[30] - StringReader/StringWriter demo");
             Console.WriteLine();
         }
 
@@ -446,6 +453,84 @@ namespace CSharpProgramming
             }
 
             Console.WriteLine("\nEnded CodeDOM demo...");
+        }
+
+        /// <summary>
+        /// StringBuilder demo, a mutable string class
+        /// </summary>
+        private static void StringBuilderDemo()
+        {
+            Console.WriteLine("StringBuilder demo...");
+
+            // initialize stringbuilder with "ABC" and fixed length of 50
+            StringBuilder sb = new StringBuilder("ABC", 50);
+            Console.WriteLine(sb);
+
+            // insert "Alphabet: "
+            Console.WriteLine(@"Inserting ""Alphabet:""");
+            sb.Insert(0, "Alphabet: ");
+            Console.WriteLine(sb);
+
+            // append "_ACB"
+            Console.WriteLine(@"Appending ""_ACB""");
+            sb.Append("_ACB");
+            Console.WriteLine(sb);
+
+            // replace "A" with "$"
+            Console.WriteLine(@"Replaceing all ""A"" with ""$""");
+            sb.Replace('A', '$');
+            Console.WriteLine(sb);
+
+            // remove the last three characters from the string
+            Console.WriteLine("Removing the last three characters");
+            sb.Remove(sb.Length-3, 3);
+            Console.WriteLine(sb);
+
+            // write out each character
+            Console.WriteLine("Writing out each character");
+            for (int i = 0; i < sb.Length; i++)
+                Console.WriteLine(sb[i]);
+        }
+
+        private static void StringReaderStringWriterDemo()
+        {
+            Console.WriteLine("\nStringWriter demo");
+
+            string sentences = "New Initialized StringBuilder.\n" +
+                "This is the second line of text.";
+
+            StringBuilder sb = new StringBuilder();
+
+            // StringReader to read from the "sentences" string
+            using (StringReader reader = new StringReader(sentences))
+            {
+                // read the string and add to the StringBuilder
+                Console.WriteLine("Using StringReader to read the string and append to a StringBuilder object.");
+                sb.Append(reader.ReadToEnd());
+
+                //while (true)
+                //{
+                //    string line = reader.ReadLine();
+                //    if (line != null)
+                //        sb.AppendLine(line);
+                //    else
+                //        break;
+                //}
+            }
+
+            // current string
+            Console.WriteLine(@"Current StringBuilder object: ""{0}""", sb);
+
+            // string writer to write to the StringBuilder
+            using (StringWriter writer = new StringWriter(sb))
+            {
+                Console.WriteLine("Using StringWriter to append a line.");
+                writer.WriteLine();
+                writer.WriteLine();
+                writer.WriteLine("StringWriter added previous empty lines and this line you're reading");
+            }
+
+            Console.WriteLine("Final version of the StringBuilder:\n" + sb);
         }
     }
 }
