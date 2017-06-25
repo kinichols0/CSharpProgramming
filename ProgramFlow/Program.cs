@@ -5,13 +5,13 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CSharpProgramming.ProgramFlow;
-using CSharpProgramming.TypesClasses;
 using System.CodeDom;
 using Microsoft.CSharp;
 using System.IO;
 using System.CodeDom.Compiler;
-using System.Text;
+using CSharpProgramming.ProgramFlow;
+using CSharpProgramming.TypesClasses;
+using CSharpProgramming.SecurityDebugging;
 
 namespace CSharpProgramming
 {
@@ -90,6 +90,14 @@ namespace CSharpProgramming
                         break;
                     case 30: StringReaderStringWriterDemo();
                         break;
+                    case 31: JsonDemo.JsonSerializationDemo();
+                        break;
+                    case 32: DataIntegrityDemo.HashingDemo();
+                        break;
+                    case 33: RegularExpressionsDemo.CharacterClassSyntaxDemo();
+                        break;
+                    case 34: RegularExpressionsDemo.AnchorSyntaxDemo();
+                        break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
                 }
@@ -105,21 +113,21 @@ namespace CSharpProgramming
         public static void PrintPrompt()
         {
             Console.WriteLine("Which demo do you want to run?\n");
-            Console.WriteLine("[1] - ParallelFor Basic Run");
-            Console.WriteLine("[2] - ParallelFor Concurrent Addition Run");
-            Console.WriteLine("[3] - ParallelForEach demo");
-            Console.WriteLine("[4] - ParallelInvoke demo");
-            Console.WriteLine("[5] - Task demo");
-            Console.WriteLine("[6] - Multiple Task demo");
-            Console.WriteLine("[7] - Continuation Task demo");
-            Console.WriteLine("[8] - Cancel task after 10 seconds demo.");
-            Console.WriteLine("[9] - Thread demo");
+            Console.WriteLine("[1]  - ParallelFor Basic Run");
+            Console.WriteLine("[2]  - ParallelFor Concurrent Addition Run");
+            Console.WriteLine("[3]  - ParallelForEach demo");
+            Console.WriteLine("[4]  - ParallelInvoke demo");
+            Console.WriteLine("[5]  - Task demo");
+            Console.WriteLine("[6]  - Multiple Task demo");
+            Console.WriteLine("[7]  - Continuation Task demo");
+            Console.WriteLine("[8]  - Cancel task after 10 seconds demo.");
+            Console.WriteLine("[9]  - Thread demo");
             Console.WriteLine("[10] - Background Worker demo");
             Console.WriteLine("[11] - Threadpool demo");
             Console.WriteLine("[12] - Cancel background worker demo.");
             Console.WriteLine("[13] - Linq basic demo ");
             Console.WriteLine("[14] - PLinq basic demo");
-            Console.WriteLine("[15] PLinq ForAll demo");
+            Console.WriteLine("[15] - PLinq ForAll demo");
             Console.WriteLine("[16] - Concurrent Blocking Collection demo");
             Console.WriteLine("[17] - Cocnurrent Dictionary Collection demo");
             Console.WriteLine("[18] - Concurrent Bag Demo ");
@@ -135,6 +143,10 @@ namespace CSharpProgramming
             Console.WriteLine("[28] - CodeDOM demo");
             Console.WriteLine("[29] - Stringbuilder demo");
             Console.WriteLine("[30] - StringReader/StringWriter demo");
+            Console.WriteLine("[31] - Serialization JSON Data and Validation demo");
+            Console.WriteLine("[32] - Data Integrity with Hashing Demo");
+            Console.WriteLine("[33] - Regex Character Class Syntax demo");
+            Console.WriteLine("[34] - Regex Anchor Syntax demo");
             Console.WriteLine();
         }
 
