@@ -100,6 +100,12 @@ namespace CSharpProgramming
                         break;
                     case 35: RegularExpressionsDemo.GroupingConstructsDemo();
                         break;
+                    case 36: RegularExpressionsDemo.QuantifierSyntaxDemo();
+                        break;
+                    case 37: RegularExpressionsDemo.BackReferenceConstructsDemo();
+                        break;
+                    case 38: RegularExpressionsDemo.AlternationConstructDemo();
+                        break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
                 }
@@ -150,6 +156,9 @@ namespace CSharpProgramming
             Console.WriteLine("[33] - Regex Character Class Syntax demo");
             Console.WriteLine("[34] - Regex Anchor Syntax demo");
             Console.WriteLine("[35] - Regex Grouping Syntax demo");
+            Console.WriteLine("[36] - Regex Quantifier Syntax demo");
+            Console.WriteLine("[37] - Regex Backreference Constructs demo");
+            Console.WriteLine("[38] - Regex Alternation Consturcts demo");
             Console.WriteLine();
         }
 
