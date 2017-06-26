@@ -98,6 +98,8 @@ namespace CSharpProgramming
                         break;
                     case 34: RegularExpressionsDemo.AnchorSyntaxDemo();
                         break;
+                    case 35: RegularExpressionsDemo.GroupingConstructsDemo();
+                        break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
                 }
@@ -147,6 +149,7 @@ namespace CSharpProgramming
             Console.WriteLine("[32] - Data Integrity with Hashing Demo");
             Console.WriteLine("[33] - Regex Character Class Syntax demo");
             Console.WriteLine("[34] - Regex Anchor Syntax demo");
+            Console.WriteLine("[35] - Regex Grouping Syntax demo");
             Console.WriteLine();
         }
 

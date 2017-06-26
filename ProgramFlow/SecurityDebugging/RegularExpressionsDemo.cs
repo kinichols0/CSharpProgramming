@@ -109,14 +109,76 @@ namespace CSharpProgramming.SecurityDebugging
             // "\b" match must occur on a boundary between a "\w" (alphanumeric) 
             // and "\W" nonalphanumeric character
             pattern = @"\bthis\sis\b";
-            input = "Hello|this is|Hello this is ";
+            input = "Hello|this is|Hello |this is ";
             ProcessMatching(input, pattern);
 
             // "\B" match must not occur on a "\b" boundary
             pattern = @"\Bcat\B";
             input = "Tomcat Certificate blackcatdown";
             ProcessMatching(input, pattern);
+        }
 
+        public static void GroupingConstructsDemo()
+        {
+            Console.WriteLine("Regex Grouping Syntax demo\n");
+            string input, pattern;
+
+            // "(subexpresion)" captures the match and assigns it a one-based ordinal number
+            // matches a word(first captured group), a space and a repeating word (second captured group)
+            pattern = @"(\w+)\s(\1)\s\w+\s(\2)\W";
+            input = "Hello there there my there name is is James";
+            ProcessMatching(input, pattern);
+
+            // "(?<name>subexpression) or "(?'name'subexpression)" named captured group
+            // use \k<name> to reference the named expression
+            pattern = @"(?<duplicateWord>\w+)\s\k<duplicateWord>\W(?<nextWord>\w+)";
+            input = "He said that that was the the correct answer";
+            ProcessMatching(input, pattern);
+
+            // "(?:subexpression)" do not assign subexpression to captured group
+            pattern = @"(Write)(?:Line)";
+            input = "Console.WriteLine or Console.WriteOrNot";
+            ProcessMatching(input, pattern);
+
+            // "(?i:subexpression)" turns on case insentivity group options
+            // x - ignore white spacing
+            // 
+            pattern = @"(?i:\s*hello\s*)+";
+            input = "hello HellohellO HELLO";
+            ProcessMatching(input, pattern);
+
+            // "(?=subexpression)" zero width positive lookahead, matches any
+            // epxression before the group subexpression
+            pattern = @"(abc(?=\W))+";
+            input = "abc|fgh|abc#";
+            ProcessMatching(input, pattern);
+
+            // "(?!subexpression)" zero width negative lookahead, matches any
+            // string which is not followed by the subexpression
+            pattern = @"(\b(?!end)\w+\b)";
+            input = "ending this is the end. this is not the end.";
+            ProcessMatching(input, pattern);
+
+            // "(?<=subexpression)" zero width positive lookbehind. Continue match
+            // if previous expression is preceded by the subexpression
+            pattern = @"(?<=\b\d{3})\d{3}\b";
+            input = "12123 234234 334567 1234";
+            ProcessMatching(input, pattern);
+
+            // "(?<!subexpression)" zero width negative lookbehind. Continue match
+            // if previous expression is not preceded by the subexpression
+            pattern = @"(?<!\b\d{3})\d{3}\b";
+            input = "12123 234234 334567 1234";
+            ProcessMatching(input, pattern);
+
+            // "(?>subexpression)" nonbacktracking subexpressions. Disables backtracking
+            // when attempting to goback and find a match
+            pattern = @"(\w)\1+.\b";
+            input = "aaaa";
+            ProcessMatching(input, pattern);
+            pattern = @"(?>(\w)\1+).\b";
+            input = "aaaa";
+            ProcessMatching(input, pattern);
         }
 
         /// <summary>
