@@ -301,6 +301,64 @@ namespace CSharpProgramming.SecurityDebugging
         }
 
         /// <summary>
+        /// Substitutions are language elements that are recognized only within replacement patterns
+        /// </summary>
+        public static void SubstitutionsSyntaxDemo()
+        {
+            Console.WriteLine("Regex Substitutions Syntax Demo\n");
+            string input, pattern, replacementPattern;
+
+            // "$number" numbered group substitution. Replace the last substring by the number capturing group
+            // where the number of the index of the capturing group
+            pattern = @"b([a]+)d";
+            replacementPattern = "$1";// replaces the whole string matched with the first captured group "([a]+)"
+            input = "bad baad bd baaaaad";
+            ProcessReplacements(input, pattern, replacementPattern);
+
+            // "${name}" named group substitution
+            pattern = @"b(?<replacement>[a]+)d";
+            replacementPattern = "${replacement}";// replaces the whole string matched with the first captured group "([a]+)"
+            input = "bad baad bd baaaaad";
+            ProcessReplacements(input, pattern, replacementPattern);
+
+            // "$$" inserts a literla "$"
+            pattern = @"(?<replacement>[\d]+)";
+            replacementPattern = "$$${replacement}";// replaces the whole string matched with the first captured group "([a]+)"
+            input = "1 22 333 444";
+            ProcessReplacements(input, pattern, replacementPattern);
+
+            // "$&" substitute the entire match
+            pattern = @"\b[\d]+\b";
+            replacementPattern = @"$&.00";
+            input = "123 456 789 345 1 33";
+            ProcessReplacements(input, pattern, replacementPattern);
+
+            // "$'" substitutes the text before the match
+            pattern = @"\d+";
+            replacementPattern = @"$`";
+            input = "aa2bb4";
+            ProcessReplacements(input, pattern, replacementPattern);
+
+            // "$'" substitutes the text after the match
+            pattern = @"\d+";
+            replacementPattern = @"$'";
+            input = "aa2bb4";
+            ProcessReplacements(input, pattern, replacementPattern);
+
+            // "$+" substitute the last captured group
+            pattern = @"\b(\w+)\s+\1\b";
+            replacementPattern = @"$+";
+            input = "This is a repeat repeat. This is also a repeat    repeat.";
+            ProcessReplacements(input, pattern, replacementPattern);
+
+            // "$_" substitute the entire input string
+            pattern = @"\d+";
+            replacementPattern = "($_)";
+            input = "ABC1DEF2";
+            ProcessReplacements(input, pattern, replacementPattern);
+        }
+
+        /// <summary>
         /// Print pattern, input, and matches to the console
         /// </summary>
         /// <param name="input"></param>
@@ -315,6 +373,21 @@ namespace CSharpProgramming.SecurityDebugging
             }
             Console.WriteLine("Pattern: {0}\nInput: {1}\nMatch Count: {2}\nMatches: {3}\n",
                 pattern, input, matches.Count, string.Join(",", matchStrings));
+        }
+
+        /// <summary>
+        /// Uses regex to match strings in the input using the pattern and replacing
+        /// those strings with the replacement pattern
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="pattern"></param>
+        /// <param name="replacementPattern"></param>
+        private static void ProcessReplacements(string input, string pattern, string replacementPattern)
+        {
+            Console.WriteLine("Pattern: {0}", pattern);
+            Console.WriteLine("Input String: {0}", input);
+            Console.WriteLine("Replacement Pattern: {0}", replacementPattern);
+            Console.WriteLine("Result: {0}\n", Regex.Replace(input, pattern, replacementPattern));
         }
     }
 }

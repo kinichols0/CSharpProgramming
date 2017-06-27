@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="SecurityDebugging\DataIntegrityDemo.cs" />
     <Compile Include="SecurityDebugging\JsonDemo.cs" />
+    <Compile Include="SecurityDebugging\KeyEncryptionDecryption.cs" />
     <Compile Include="SecurityDebugging\RegularExpressionsDemo.cs" />
     <Compile Include="TypesClasses\Attributes.cs" />
     <Compile Include="TypesClasses\ComparableAgeEntity.cs" />

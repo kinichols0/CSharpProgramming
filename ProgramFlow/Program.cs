@@ -1,17 +1,16 @@
-﻿using System;
+﻿using CSharpProgramming.ProgramFlow;
+using CSharpProgramming.SecurityDebugging;
+using CSharpProgramming.TypesClasses;
+using Microsoft.CSharp;
+using System;
+using System.CodeDom;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.CodeDom;
-using Microsoft.CSharp;
-using System.IO;
-using System.CodeDom.Compiler;
-using CSharpProgramming.ProgramFlow;
-using CSharpProgramming.TypesClasses;
-using CSharpProgramming.SecurityDebugging;
 
 namespace CSharpProgramming
 {
@@ -106,6 +105,20 @@ namespace CSharpProgramming
                         break;
                     case 38: RegularExpressionsDemo.AlternationConstructDemo();
                         break;
+                    case 39: RegularExpressionsDemo.SubstitutionsSyntaxDemo();
+                        break;
+                    case 40: StringOperationsDemo();
+                        break ;
+                    case 41: KeyEncryptionDecryption.GeneratingKeysDemo();
+                        break;
+                    case 42: KeyEncryptionDecryption.StoringAsymmetricKeysDemo();
+                        break;
+                    case 43: KeyEncryptionDecryption.SymmetricEncryptionDecryptionDemo();
+                        break;
+                    case 44: KeyEncryptionDecryption.AsymmetricEncryptionDecryptionDemo();
+                        break;
+                    case 45: KeyEncryptionDecryption.AESByteEncryptionDecryptionDemo();
+                        break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
                 }
@@ -159,6 +172,13 @@ namespace CSharpProgramming
             Console.WriteLine("[36] - Regex Quantifier Syntax demo");
             Console.WriteLine("[37] - Regex Backreference Constructs demo");
             Console.WriteLine("[38] - Regex Alternation Consturcts demo");
+            Console.WriteLine("[39] - Regex Substitutions demo");
+            Console.WriteLine("[40] - String operations demo");
+            Console.WriteLine("[41] - Generating Symmetric/Assymetric keys demo");
+            Console.WriteLine("[42] - Storing asymmetric generated keys in key container demo");
+            Console.WriteLine("[43] - Symmetric Encryption/Decryption demo");
+            Console.WriteLine("[44] - Asymmetric Encryption/Decryption demo");
+            Console.WriteLine("[45] - AES Encryption/Decryption demo");
             Console.WriteLine();
         }
 
@@ -555,6 +575,45 @@ namespace CSharpProgramming
             }
 
             Console.WriteLine("Final version of the StringBuilder:\n" + sb);
+        }
+
+        /// <summary>
+        /// String padding, trimming, changing case
+        /// </summary>
+        private static void StringOperationsDemo()
+        {
+            Console.WriteLine("String operations demo...\n");
+
+            // initialize string from char[]
+            char[] chars = new char[] { 'H', 'e', 'l', 'l', 'o', ' ', 't', 'h', 'e', 'r', 'e', '!' };
+            string greeting = new string(chars);
+            Console.WriteLine("Original string: {0}\n", greeting);
+
+            // increase the length of the string and '-' in the empty spaces
+            Console.WriteLine("Padded with five '-' to the left: {0}\n", greeting.PadLeft(greeting.Length + 5, '-'));
+            Console.WriteLine("Padded with five '-' to the right: {0}\n", greeting.PadRight(greeting.Length + 5, '-'));
+
+            // trim the '!' from the end of the string
+            Console.WriteLine("Trimming '!': {0}\n", greeting.Trim(new char[] { '!' }));
+
+            // trimming 'H' from the beginning of the string
+            Console.WriteLine("Trimming 'H': {0}\n", greeting.TrimStart(new char[] { 'H' }));
+
+            // remove four characters starting from index two
+            Console.WriteLine("Removing four characters starting at index two: {0}\n", greeting.Remove(2, 4));
+
+            // reomve the substring "there"
+            Console.WriteLine("Removing substring 'there': {0}\n", greeting.Replace("there", ""));
+
+            // make all caps
+            Console.WriteLine("Upper case: {0}\n", greeting.ToUpper());
+
+            // make lower case
+            Console.WriteLine("Lower case: {0}\n", greeting.ToLower());
+
+            // make title case
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            Console.WriteLine("Title case: {0}\n", ti.ToTitleCase(greeting));
         }
     }
 }
