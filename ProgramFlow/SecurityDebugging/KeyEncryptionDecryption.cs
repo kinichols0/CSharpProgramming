@@ -44,6 +44,7 @@ namespace CSharpProgramming.SecurityDebugging
 
         /// <summary>
         /// Symmetric encryption is performed on streams and is therefore useful to encrypt large amounts of data.
+        /// This demo uses Rijndael algorithm. Other symmetric algorithms are AES, DES, RC2, and TripleDES
         /// </summary>
         public static void SymmetricEncryptionDecryptionDemo()
         {
@@ -122,9 +123,27 @@ namespace CSharpProgramming.SecurityDebugging
 
         }
 
+        /// <summary>
+        /// AES Encryption/Decryption deom
+        /// </summary>
         public static void AESByteEncryptionDecryptionDemo()
         {
+            Console.WriteLine("AES Encryption/Decryption demo\n");
 
+            string message = "This was an encrypted this message that has been decrypted.";
+
+            using (Aes aes = Aes.Create())
+            {
+                // encrypt the string
+                byte[] encrypted = AES_EncryptString(message, aes.Key, aes.IV);
+                Console.WriteLine("Encrypted string in byte array:\n{0}\n",
+                    string.Join(" ", encrypted.Select(t => t.ToString())));
+
+                // decrypt the string
+                string decryptedMessage = AES_DecryptString(encrypted, aes.Key, aes.IV);
+                Console.WriteLine("Decrypted message:\n{0}\n", decryptedMessage);
+
+            }
         }
 
         /// <summary>
@@ -140,17 +159,23 @@ namespace CSharpProgramming.SecurityDebugging
 
             using (Aes aesObj = Aes.Create())
             {
+                // set the Key and Initialization vector (IV)
                 aesObj.Key = key;
                 aesObj.IV = iv;
 
+                // Initialize the crypto transform. defines the symmetric encryptor object.
                 ICryptoTransform encryptor = aesObj.CreateEncryptor(aesObj.Key, aesObj.IV);
 
+                // Initialize a new Memory Stream used for encryption
                 using (MemoryStream ms = new MemoryStream())
                 {
+                    // Initialize the crypto stream passing the Stream we're using, the crypto transform object, and the stream mode
                     using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
                     {
+                        // Initialize the stream writer we will use to write to the stream
                         using (StreamWriter writer = new StreamWriter(cs))
                         {
+                            // write data to the encrypted stream
                             writer.Write(text);
                         }
                         encrypted = ms.ToArray();
@@ -158,6 +183,7 @@ namespace CSharpProgramming.SecurityDebugging
                 }
             }
 
+            // return the encrypted bytes.
             return encrypted;
         }
 
@@ -177,14 +203,18 @@ namespace CSharpProgramming.SecurityDebugging
                 aesObj.Key = key;
                 aesObj.IV = iv;
 
-                ICryptoTransform decryptor = aesObj.CreateEncryptor(aesObj.Key, aesObj.IV);
+                ICryptoTransform decryptor = aesObj.CreateDecryptor(aesObj.Key, aesObj.IV);
 
+                // Initialize MemoryStream based on the passed in byte array
                 using (MemoryStream ms = new MemoryStream(encryptedText))
                 {
+                    // Initialize the crypto stream passing the target Stream, the transformation algorithm to use, and stream mode
                     using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
                     {
+                        // Initalize the stream reader to read from the Crypto Stream
                         using (StreamReader reader = new StreamReader(cs))
                         {
+                            // Read the stream
                             text = reader.ReadToEnd();
                         }
                     }
