@@ -45,7 +45,7 @@ namespace CSharpProgramming.SecurityDebugging
                 JToken.Parse(json);
                 return true;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }

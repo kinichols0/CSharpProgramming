@@ -115,7 +115,7 @@ namespace CSharpProgramming
                         break;
                     case 43: KeyEncryptionDecryption.SymmetricEncryptionDecryptionDemo();
                         break;
-                    case 44: KeyEncryptionDecryption.AsymmetricEncryptionDecryptionDemo();
+                    case 44: KeyEncryptionDecryption.AsymmetricEncryptionDecryptionRSADemo();
                         break;
                     case 45: KeyEncryptionDecryption.AESByteEncryptionDecryptionDemo();
                         break;
@@ -177,7 +177,7 @@ namespace CSharpProgramming
             Console.WriteLine("[41] - Generating Symmetric/Assymetric keys demo");
             Console.WriteLine("[42] - Storing asymmetric generated keys in key container demo");
             Console.WriteLine("[43] - Symmetric Encryption/Decryption demo");
-            Console.WriteLine("[44] - Asymmetric Encryption/Decryption demo");
+            Console.WriteLine("[44] - RSA Asymmetric Encryption/Decryption demo");
             Console.WriteLine("[45] - AES Encryption/Decryption demo");
             Console.WriteLine();
         }

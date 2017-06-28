@@ -115,12 +115,45 @@ namespace CSharpProgramming.SecurityDebugging
         }
 
         /// <summary>
-        /// Asymmetric encryption is performed on a small number of bytes and is therefore useful for only small
+        /// Asymmetric encryption is performed on a small number of bytes and is therefore useful for only small.
+        /// This demo uses RSA for asymmetric encryption
         /// amounts of data
         /// </summary>
-        public static void AsymmetricEncryptionDecryptionDemo()
+        public static void AsymmetricEncryptionDecryptionRSADemo()
         {
+            try
+            {
+                Console.WriteLine("Asymmetric RSA Encryption/Decryption demo\n");
 
+                // create the message
+                string message = "Encrypted message";
+                Console.WriteLine("Message to encrypt:\n{0}\n", message);
+
+                // Byte encode the message
+                UnicodeEncoding encoding = new UnicodeEncoding();
+                var encodedMsg = encoding.GetBytes(message);
+                Console.WriteLine("Byte encoded message:\n{0}\n",
+                        string.Join(" ", encodedMsg.Select(t => t.ToString())));
+
+                using (RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider())
+                {
+                    // encrypt the data, exclude the private key
+                    byte[] encryptedData = RSAEncrypt(encodedMsg, rsaProvider.ExportParameters(false), false);
+                    Console.WriteLine("Byte encrypted message message:\n{0}\n",
+                        string.Join(" ", encryptedData.Select(t => t.ToString())));
+                    
+                    // decrypt the data, include the private key
+                    byte[] decryptedData = RSADecrypt(encryptedData, rsaProvider.ExportParameters(true), false);
+                    Console.WriteLine("Byte encrypted message message:\n{0}\n",
+                        string.Join(" ", decryptedData.Select(t => t.ToString())));
+                    
+                    // Display the text
+                    Console.WriteLine("Decrypted text:\n{0}\n", encoding.GetString(decryptedData));
+                }
+            }catch(ArgumentNullException)
+            {
+                Console.WriteLine("Encryption demo failed.");
+            }
         }
 
         /// <summary>
@@ -222,6 +255,66 @@ namespace CSharpProgramming.SecurityDebugging
             }
 
             return text;
+        }
+
+        /// <summary>
+        /// Encrypt data using RSA
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="rsaKeyInfo"></param>
+        /// <param name="doOAEPadding"></param>
+        /// <returns></returns>
+        private static byte[] RSAEncrypt(byte[] data, RSAParameters rsaKeyInfo, bool doOAEPadding)
+        {
+            try
+            {
+                byte[] encryptedMessage = null;
+
+                using (RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider())
+                {
+                    // set the keys from the rsa parameters passed in
+                    rsaProvider.ImportParameters(rsaKeyInfo);
+
+                    encryptedMessage = rsaProvider.Encrypt(data, doOAEPadding);
+                }
+
+                return encryptedMessage;
+            }
+            catch (CryptographicException e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Decrypt data using RSA
+        /// </summary>
+        /// <param name="encryptedData"></param>
+        /// <param name="rsaKeyInfo"></param>
+        /// <param name="doOAEPadding"></param>
+        /// <returns></returns>
+        private static byte[] RSADecrypt(byte[] encryptedData, RSAParameters rsaKeyInfo, bool doOAEPadding)
+        {
+            try
+            {
+                byte[] decryptedData = null;
+
+                using (RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider())
+                {
+                    // set the keys from the RSA params passed in
+                    rsaProvider.ImportParameters(rsaKeyInfo);
+
+                    decryptedData = rsaProvider.Decrypt(encryptedData, doOAEPadding);
+                }
+
+                return decryptedData;
+            }
+            catch (CryptographicException e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
         }
 
         /// <summary>
