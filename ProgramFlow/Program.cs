@@ -109,15 +109,17 @@ namespace CSharpProgramming
                         break;
                     case 40: StringOperationsDemo();
                         break ;
-                    case 41: KeyEncryptionDecryption.GeneratingKeysDemo();
+                    case 41: EncryptionDecryption.GeneratingKeysDemo();
                         break;
-                    case 42: KeyEncryptionDecryption.StoringAsymmetricKeysDemo();
+                    case 42: EncryptionDecryption.StoringAsymmetricKeysDemo();
                         break;
-                    case 43: KeyEncryptionDecryption.SymmetricEncryptionDecryptionDemo();
+                    case 43: EncryptionDecryption.SymmetricEncryptionDecryptionDemo();
                         break;
-                    case 44: KeyEncryptionDecryption.AsymmetricEncryptionDecryptionRSADemo();
+                    case 44: EncryptionDecryption.AsymmetricEncryptionDecryptionRSADemo();
                         break;
-                    case 45: KeyEncryptionDecryption.AESByteEncryptionDecryptionDemo();
+                    case 45: EncryptionDecryption.AESByteEncryptionDecryptionDemo();
+                        break;
+                    case 46: DataIntegrityDemo.DigitalSignatureDemo();
                         break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
@@ -179,6 +181,7 @@ namespace CSharpProgramming
             Console.WriteLine("[43] - Symmetric Encryption/Decryption demo");
             Console.WriteLine("[44] - RSA Asymmetric Encryption/Decryption demo");
             Console.WriteLine("[45] - AES Encryption/Decryption demo");
+            Console.WriteLine("[46] - Digital Signature demo");
             Console.WriteLine();
         }
 

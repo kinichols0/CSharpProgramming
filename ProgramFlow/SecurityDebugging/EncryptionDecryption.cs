@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace CSharpProgramming.SecurityDebugging
 {
-    public class KeyEncryptionDecryption
+    public class EncryptionDecryption
     {
         public static void GeneratingKeysDemo()
         {
