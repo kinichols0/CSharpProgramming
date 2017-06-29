@@ -81,7 +81,9 @@ namespace CSharpProgramming.SecurityDebugging
             RSAPKCS1SignatureDeformatter rsaDeformatter = new RSAPKCS1SignatureDeformatter(rsaVerifier);
             rsaDeformatter.SetHashAlgorithm("SHA1");
 
-            Console.WriteLine("Validated Signature: {0}", rsaDeformatter.VerifySignature(sha1HashedMsg, signedHashValue));
+            // verifies if the hash has been altered verifies that the data came from the signee.
+            bool verified = rsaDeformatter.VerifySignature(sha1HashedMsg, signedHashValue);
+            Console.WriteLine("Validated Signature: {0}", verified);
         }
 
         private static byte[] SHA1HashGenerator(string msg)
