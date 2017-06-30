@@ -179,6 +179,33 @@ namespace CSharpProgramming.SecurityDebugging
             }
         }
 
+        public static void EncryptFile()
+        {
+            Console.WriteLine("File Encryption demo\n");
+
+            using(Aes aes = Aes.Create())
+            {
+                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+                string fileSource = @"..\..\OutputFiles\sourceFile.txt";
+                string fileDestination = @"..\..\OutputFiles\destinationFile.enc";
+
+                using (FileStream fs = new FileStream(fileSource, FileMode.Open, FileAccess.Read))
+                {
+                    using (CryptoStream cs = new CryptoStream(fs, encryptor, CryptoStreamMode.Write))
+                    {
+                        int count = 0;
+                        int offset = 0;
+
+                        using (FileStream oFs = new FileStream(fileDestination, FileMode.Create, FileAccess.Write))
+                        {
+
+                        }
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Encrypt string to a byte array using AES symmetric key algorithm
         /// </summary>

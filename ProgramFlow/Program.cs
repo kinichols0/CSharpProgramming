@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using CSharpProgramming.DataAccessFileIO;
 
 namespace CSharpProgramming
 {
@@ -121,6 +122,10 @@ namespace CSharpProgramming
                         break;
                     case 46: DataIntegrityDemo.DigitalSignatureDemo();
                         break;
+                    case 47: EncryptionDecryption.EncryptFile();
+                        break;
+                    case 48: FileIO.ReadAndWriteToFileStream();
+                        break;
                     default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
                 }
@@ -182,6 +187,8 @@ namespace CSharpProgramming
             Console.WriteLine("[44] - RSA Asymmetric Encryption/Decryption demo");
             Console.WriteLine("[45] - AES Encryption/Decryption demo");
             Console.WriteLine("[46] - Digital Signature demo");
+            Console.WriteLine("[47] - Encrypt file demo.");
+            Console.WriteLine("[48] - Copy File Using FileStream demo");
             Console.WriteLine();
         }
 
