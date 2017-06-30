@@ -179,31 +179,116 @@ namespace CSharpProgramming.SecurityDebugging
             }
         }
 
-        public static void EncryptFile()
+        /// <summary>
+        /// Encrypt/Decrypt file using AES symmetric algorithm
+        /// </summary>
+        public static void EncryptDecryptFile()
         {
-            Console.WriteLine("File Encryption demo\n");
-
-            using(Aes aes = Aes.Create())
+            try
             {
-                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+                Console.WriteLine("File Encryption demo\n");
 
-                string fileSource = @"..\..\OutputFiles\sourceFile.txt";
-                string fileDestination = @"..\..\OutputFiles\destinationFile.enc";
+                string fileSource = @"..\..\OutputFiles\EncryptionDecryption\sourceFile.txt";
+                string fileEncryptedDestination = @"..\..\OutputFiles\EncryptionDecryption\destinationFile.enc";
+                string outputFile = @"..\..\OutputFiles\EncryptionDecryption\destinationFileDecrypted.txt";
 
-                using (FileStream fs = new FileStream(fileSource, FileMode.Open, FileAccess.Read))
+                using (Aes aes = Aes.Create())
                 {
-                    using (CryptoStream cs = new CryptoStream(fs, encryptor, CryptoStreamMode.Write))
+                    // encrypt the file
+                    Console.WriteLine("Encrypting the file.");
+                    EncryptFile(aes, fileSource, fileEncryptedDestination);
+
+                    // decrypt the file
+                    Console.WriteLine("Decrypting the file.");
+                    DecryptFile(aes, fileEncryptedDestination, outputFile);
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error:\n{0}\n", ex);
+            }
+        }
+
+        /// <summary>
+        /// Encrypt the file
+        /// </summary>
+        /// <param name="aes"></param>
+        /// <param name="fileSource"></param>
+        /// <param name="fileDestination"></param>
+        private static void EncryptFile(Aes aes, string fileSource, string fileDestination)
+        {
+            ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+            // Initialize the file stream that will have encrypted contents written to it
+            using (FileStream targetFileStream = new FileStream(fileDestination, FileMode.Create))
+            {
+                // crypto stream that will contain the cipher text
+                using (CryptoStream encryptedStream = new CryptoStream(targetFileStream, encryptor, CryptoStreamMode.Write))
+                {
+                    // read from the file and write the encrypted contents to the destination file
+                    using (FileStream sourceFileStream = new FileStream(fileSource, FileMode.Open, FileAccess.Read))
                     {
+                        // indexes for incrypting a chunk at a time
                         int count = 0;
                         int offset = 0;
 
-                        using (FileStream oFs = new FileStream(fileDestination, FileMode.Create, FileAccess.Write))
-                        {
+                        int blockSizeBytes = aes.BlockSize / 8;
+                        byte[] data = new byte[blockSizeBytes];
+                        int bytesRead = 0;
 
+                        do
+                        {
+                            // writes bytes to the byte array and returns the total number of bytes read
+                            count = sourceFileStream.Read(data, 0, blockSizeBytes);
+
+                            // set the offset to the count 
+                            offset += count;
+
+                            encryptedStream.Write(data, 0, count);
+
+                            bytesRead += blockSizeBytes;
                         }
+                        while (count > 0);
+                    }
+                    encryptedStream.FlushFinalBlock();
+                }
+            }
+            Console.WriteLine("File encrypted.");
+        }
+
+        /// <summary>
+        /// Decrypt the file
+        /// </summary>
+        private static void DecryptFile(Aes aes, string encryptedFile, string outputFile)
+        {
+            using (FileStream encryptedFileStream = new FileStream(encryptedFile, FileMode.Open))
+            {
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+                using (FileStream decryptedFileStream = new FileStream(outputFile, FileMode.Create))
+                {
+                    int cnt = 0;
+                    int offset = 0;
+
+                    int blockSizeBytes = aes.BlockSize / 8;
+                    byte[] data = new byte[blockSizeBytes];
+
+                    using (CryptoStream decryptedStream = new CryptoStream(decryptedFileStream, decryptor, CryptoStreamMode.Write))
+                    {
+                        do
+                        {
+                            cnt = encryptedFileStream.Read(data, 0, blockSizeBytes);
+                            offset += cnt;
+                            decryptedStream.Write(data, 0, cnt);
+                        }
+                        while (cnt > 0);
+
+                        decryptedStream.FlushFinalBlock();
                     }
                 }
             }
+
+            Console.WriteLine("File decrypted");
         }
 
         /// <summary>

@@ -26,6 +26,7 @@ namespace CSharpProgramming
             
             // read the input and run the corresponding process
             string key = Console.ReadLine();
+
             if (int.TryParse(key, out int demoNum))
             {
                 switch (demoNum)
@@ -68,27 +69,27 @@ namespace CSharpProgramming
                         break;
                     case 19: AsyncAwaitDemo.BasicDemo().Wait();
                         break;
-                    case 20: EventPublisherDemo();
+                    case 20: EventsDelegatesDemos.EventPublisherDemo();
                         break;
                     case 21: DelegateAnonymousMethodDemo.DelegateImplementationDemo();
                         break;
-                    case 22: BasicStructDemo();
+                    case 22: TypesImplementationDemos.BasicStructDemo();
                         break;
-                    case 23: InheritanceDemo();
+                    case 23: TypesImplementationDemos.InheritanceDemo();
                         break;
-                    case 24: BoxingUnboxingDemo();
+                    case 24: TypesImplementationDemos.BoxingUnboxingDemo();
                         break;
-                    case 25: IComparableDemo();
+                    case 25: TypesImplementationDemos.IComparableDemo();
                         break;
-                    case 26: IEnumerableDemo();
+                    case 26: TypesImplementationDemos.IEnumerableDemo();
                         break;
-                    case 27: AttributesAndReflectionDemo();
+                    case 27: DynamicsReflection.AttributesAndReflectionDemo();
                         break;
-                    case 28: CodeDOMDemo();
+                    case 28: DynamicsReflection.CodeDOMDemo();
                         break;
-                    case 29: StringBuilderDemo();
+                    case 29: StringManipulation.StringBuilderDemo();
                         break;
-                    case 30: StringReaderStringWriterDemo();
+                    case 30: StringManipulation.StringReaderStringWriterDemo();
                         break;
                     case 31: JsonDemo.JsonSerializationDemo();
                         break;
@@ -108,7 +109,7 @@ namespace CSharpProgramming
                         break;
                     case 39: RegularExpressionsDemo.SubstitutionsSyntaxDemo();
                         break;
-                    case 40: StringOperationsDemo();
+                    case 40: StringManipulation.StringOperationsDemo();
                         break ;
                     case 41: EncryptionDecryption.GeneratingKeysDemo();
                         break;
@@ -122,7 +123,7 @@ namespace CSharpProgramming
                         break;
                     case 46: DataIntegrityDemo.DigitalSignatureDemo();
                         break;
-                    case 47: EncryptionDecryption.EncryptFile();
+                    case 47: EncryptionDecryption.EncryptDecryptFile();
                         break;
                     case 48: FileIO.ReadAndWriteToFileStream();
                         break;
@@ -190,440 +191,6 @@ namespace CSharpProgramming
             Console.WriteLine("[47] - Encrypt file demo.");
             Console.WriteLine("[48] - Copy File Using FileStream demo");
             Console.WriteLine();
-        }
-
-        private static void EventPublisherDemo()
-        {
-            WriteOutputEventPublisher publisher = new WriteOutputEventPublisher();
-            WriteOutputEventSubscriber subA = new WriteOutputEventSubscriber("SubA", publisher);
-            WriteOutputEventSubscriber subB = new WriteOutputEventSubscriber("SubB", publisher);
-            publisher.StartDemo("This is an event demo.");
-            subA.UnsubscribeFromEvent();
-            publisher.StartDemo("Raising another event.");
-        }
-
-        private static void BasicStructDemo()
-        {
-            Console.WriteLine("Started struct demo...\n");
-
-            Rectangle rect = new Rectangle(5, 10);
-            Console.WriteLine("Initialized a struct with dimensions {0}x{1} (LxW).", rect.length, rect.width);
-
-            Rectangle rect2;
-            rect2.length = 10;
-            rect2.width = 20;
-            Console.WriteLine("Initialized a struct with dimensions {0}x{1} (LxW).", rect2.length, rect2.width);
-
-            Console.WriteLine("\nEnded struct demo...");
-        }
-
-        private static void InheritanceDemo()
-        {
-            Console.WriteLine("Started basic inheritance demo...");
-
-            StudentProfileData studentProfile = new StudentProfileData();
-            studentProfile.Print();
-
-            StudentProfileData studenProfile2 = new StudentProfileData("Kelvin", "Nichols", "Computer Science", ClassStanding.Senior);
-            studenProfile2.Print();
-
-            Console.WriteLine("Ended basic inheritance demo...");
-        }
-
-        private static void BoxingUnboxingDemo()
-        {
-            Console.WriteLine("Started basic boxing and unboxing demo...");
-
-            int i = 55;
-            Console.WriteLine("int i = {0}", i);
-            Console.WriteLine("boxing i");
-
-            object o = i;// implicit boxing, explicit boxing ex: object o = (object)i
-            Console.WriteLine("i is still {0}", o);
-
-            object x = 122;
-            Console.WriteLine("object x = {0}", x);
-            Console.WriteLine("unboxing x");
-            i = (int)x;
-            Console.WriteLine("x is still {0}", x);
-
-            Console.WriteLine("Ended basic boxing and unboxing demo...");
-        }
-
-        private static void IComparableDemo()
-        {
-            Console.WriteLine("Started basic IComparable demo...");
-
-            List<ComparableAgeEntity> entities = new List<ComparableAgeEntity>()
-                        {
-                            new ComparableAgeEntity("Name1", 26),
-                            new ComparableAgeEntity("Name2", 30),
-                            new ComparableAgeEntity("Name3", 5),
-                            new ComparableAgeEntity("Name4", 6),
-                            new ComparableAgeEntity("Name5", 50),
-                            new ComparableAgeEntity("Name6", 40),
-                            new ComparableAgeEntity("Name7", 33),
-                            new ComparableAgeEntity("Name8", 12),
-                            new ComparableAgeEntity("Name9", 65),
-                            new ComparableAgeEntity("Name10", 70)
-                        };
-
-            Console.WriteLine("All comparable entities");
-            entities.ForEach(t => Console.WriteLine(t));
-
-            Console.WriteLine("\nComparable entities sorted by age from youngest to oldest");
-            entities.Sort();
-            entities.ForEach(t => Console.WriteLine(t));
-
-            Console.WriteLine("\nComparable entities sorted by age from oldest to youngest");
-            entities = entities.OrderByDescending(t => t).ToList();
-            entities.ForEach(t => Console.WriteLine(t));
-
-            Console.WriteLine("Ended basic IComparable demo...");
-        }
-
-        private static void IEnumerableDemo()
-        {
-            Console.WriteLine("Started IEnumerable Implementation demo...");
-
-            // One way to initialize the collection
-            EnumerableCollection<ComparableAgeEntity> objs = new EnumerableCollection<ComparableAgeEntity>() {
-                            new ComparableAgeEntity("Name1", 26),
-                            new ComparableAgeEntity("Name2", 30),
-                            new ComparableAgeEntity("Name3", 5),
-                            new ComparableAgeEntity("Name4", 6),
-                            new ComparableAgeEntity("Name5", 50),
-                            new ComparableAgeEntity("Name6", 40),
-                            new ComparableAgeEntity("Name7", 33),
-                            new ComparableAgeEntity("Name8", 12),
-                            new ComparableAgeEntity("Name9", 65),
-                            new ComparableAgeEntity("Name10", 70)
-                        };
-
-            // Another way to initialize the collection
-            ComparableAgeEntity[] comparableEntities = new ComparableAgeEntity[]
-            {
-                            new ComparableAgeEntity("Name1", 26),
-                            new ComparableAgeEntity("Name2", 30),
-                            new ComparableAgeEntity("Name3", 5),
-                            new ComparableAgeEntity("Name4", 6),
-                            new ComparableAgeEntity("Name5", 50),
-                            new ComparableAgeEntity("Name6", 40),
-                            new ComparableAgeEntity("Name7", 33),
-                            new ComparableAgeEntity("Name8", 12),
-                            new ComparableAgeEntity("Name9", 65),
-                            new ComparableAgeEntity("Name10", 70)
-            };
-            var collection = new EnumerableCollection<ComparableAgeEntity>(comparableEntities);
-
-            // Custom Add implementation
-            collection.Add(new ComparableAgeEntity("NameX", 16));
-
-            // Custom foreach implementation
-            collection.ForEach(t => Console.WriteLine(t));
-
-            Console.WriteLine("Ended IEnumerable Implementation demo...");
-        }
-
-        private static void AttributesAndReflectionDemo()
-        {
-            Console.WriteLine("Started Attributes and Reflection demo...");
-
-            // Type info
-            Console.WriteLine("\nGetting type info of Order class.");
-            TypeInfo tInfo = typeof(Order).GetTypeInfo();
-            Console.WriteLine("Assembly qualified name of Order: " + tInfo.AssemblyQualifiedName);
-
-            // Member info
-            Console.WriteLine("\nGetting member info of Order class and displaying attributes:");
-            MemberInfo mInfo = typeof(Order);
-            foreach (var attr in mInfo.GetCustomAttributes())
-            {
-                Console.WriteLine(attr.GetType().Name + " - attribute properties:");
-                var attrProps = attr.GetType().GetRuntimeProperties();
-                foreach (var prop in attrProps)
-                {
-                    Console.WriteLine(prop.Name + " : " + attr.GetType().GetProperty(prop.Name).GetValue(attr, null));
-                }
-            }
-
-            Console.WriteLine("\nMember Properties");
-            var pInfo = typeof(Order).GetProperties();
-            foreach (var prop in pInfo)
-            {
-                Console.WriteLine("\n" + prop.Name + " - attributes:");
-                var propAttrs = prop.GetCustomAttributes();
-                foreach (var propAttr in propAttrs)
-                {
-                    Console.WriteLine(propAttr.GetType().Name);
-
-                    var attrProps = propAttr.GetType().GetProperties();
-                    foreach (var attrProp in attrProps)
-                    {
-                        Console.WriteLine(attrProp.Name + " : " + propAttr.GetType().GetProperty(attrProp.Name).GetValue(propAttr));
-                    }
-                }
-
-            }
-
-            // Order object initialization
-            Console.WriteLine("\nInitialize Order object:");
-            var order = new Order() { Id = 132, CustomerId = 2543, ItemId = 523456, OrderPlacedDate = DateTime.Now };
-            Console.WriteLine(order);
-
-            // Mapping Order properties to attributes
-            Console.WriteLine("\nMapping Order object to attributes");
-            Console.WriteLine("DB Table Name: " + ((order.GetType().GetCustomAttribute(typeof(DBTableAttribute)) is DBTableAttribute tblAttr) ? tblAttr.Name : null));
-
-            foreach (var prop in order.GetType().GetProperties())
-            {
-                StringBuilder builder = new StringBuilder();
-                foreach (var attr in prop.GetCustomAttributes())
-                {
-                    if (attr is DBColumnAttribute colAttr)
-                        builder.AppendLine(colAttr.Name + " : " + prop.GetValue(order));
-                }
-                Console.WriteLine(builder.ToString());
-            }
-
-            // String's assembly info
-            Console.WriteLine("\nString's Assembly info:\nFull name - " + typeof(System.String).Assembly);
-            Console.WriteLine("Code base - " + typeof(String).Assembly.CodeBase);
-
-            Console.WriteLine("\nEnded Attributes and Reflection demo...");
-        }
-
-        /// <summary>
-        /// Code Document Object Model (CodeDOM)
-        /// Generates an Employee class within Demos namespace
-        /// </summary>
-        private static void CodeDOMDemo()
-        {
-            Console.WriteLine("Starting CodeDOM demo...\n");
-
-            // declare a class
-            CodeTypeDeclaration customerClass = new CodeTypeDeclaration("Employee");
-            customerClass.IsClass = true;
-            customerClass.TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed;
-
-            // add empty constructor
-            CodeConstructor emptyConstructor = new CodeConstructor();
-            emptyConstructor.Attributes = MemberAttributes.Public | MemberAttributes.Final;
-            customerClass.Members.Add(emptyConstructor);
-
-            // add parameter constructor
-            CodeConstructor constructor = new CodeConstructor();
-            constructor.Parameters.Add(new CodeParameterDeclarationExpression("System.String", "name"));
-            // constructor.Statements.Add(new CodeSnippetExpression("nameField = name"));
-            CodeVariableReferenceExpression nameFieldExpression = new CodeVariableReferenceExpression("nameField");
-            constructor.Statements.Add(new CodeAssignStatement(nameFieldExpression, new CodeVariableReferenceExpression("name")));
-            constructor.Attributes = MemberAttributes.Public | MemberAttributes.Final;
-            customerClass.Members.Add(constructor);
-
-            // declare and id field
-            CodeMemberField idField = new CodeMemberField()
-            {
-                Name = "idField",
-                Type = new CodeTypeReference("System.Int32"),
-                Attributes = MemberAttributes.Private
-            };
-            customerClass.Members.Add(idField);
-
-            // declare and add id property
-            CodeMemberProperty idProperty = new CodeMemberProperty()
-            {
-                Name = "EmployeeId",
-                Type = new CodeTypeReference("System.Int32"),
-                Attributes = MemberAttributes.Public | MemberAttributes.Final
-            };
-            idProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "idField")));
-            idProperty.SetStatements.Add(new CodeAssignStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "idField"), new CodePropertySetValueReferenceExpression()));
-            customerClass.Members.Add(idProperty);
-
-            // declare and name field
-            CodeMemberField nameField = new CodeMemberField()
-            {
-                Name = "nameField",
-                Type = new CodeTypeReference("System.String"),
-                Attributes = MemberAttributes.Private
-            };
-            customerClass.Members.Add(nameField);
-
-            // declare and add string property
-            CodeMemberProperty nameProperty = new CodeMemberProperty()
-            {
-                Name = "Name",
-                Type = new CodeTypeReference("System.String"),
-                Attributes = MemberAttributes.Public | MemberAttributes.Final
-            };
-            nameProperty.GetStatements.Add(new CodeMethodReturnStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "nameField")));
-            nameProperty.SetStatements.Add(new CodeAssignStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), "nameField"), new CodePropertySetValueReferenceExpression()));
-            customerClass.Members.Add(nameProperty);
-
-            // declare a method
-            CodeMemberMethod helloMethod = new CodeMemberMethod()
-            {
-                Name = "SayHelloTo",
-                ReturnType = new CodeTypeReference("System.String"),
-                Attributes = MemberAttributes.Public | MemberAttributes.Final
-            };
-
-            // add method parameters
-            helloMethod.Parameters.Add(new CodeParameterDeclarationExpression("System.String", "name"));
-
-            // add method statements
-            var expression = new CodeSnippetExpression(@"""Hello "" + name +"", my name is"" + Name");
-            helloMethod.Statements.Add(new CodeMethodReturnStatement(expression));
-
-            // add method to class
-            customerClass.Members.Add(helloMethod);
-
-            //  define a namespace
-            CodeNamespace demoNameSpace = new CodeNamespace("Demos");
-            demoNameSpace.Imports.Add(new CodeNamespaceImport("System"));
-            demoNameSpace.Imports.Add(new CodeNamespaceImport("System.Collections"));
-
-            // add class to namespace
-            demoNameSpace.Types.Add(customerClass);
-
-            // CodeDOM object graph that models the source code to compile
-            CodeCompileUnit compileUnit = new CodeCompileUnit();
-
-            // add demos namespace to the compile unit
-            compileUnit.Namespaces.Add(demoNameSpace);
-
-            Console.WriteLine("Generating CodeDOMFile.cs file.");
-
-            // CSharpCode provider that will generate the file
-            CSharpCodeProvider provider = new CSharpCodeProvider();
-            string sourceFile = "..\\..\\OutputFiles\\CodeDOMFile.cs";
-            using(StreamWriter sw = new StreamWriter(sourceFile, false))
-            {
-                using (IndentedTextWriter tw = new IndentedTextWriter(sw, "    "))
-                {
-                    // Generate source code
-                    provider.GenerateCodeFromCompileUnit(compileUnit, tw, new CodeGeneratorOptions());
-                }
-            }
-
-            Console.WriteLine("\nEnded CodeDOM demo...");
-        }
-
-        /// <summary>
-        /// StringBuilder demo, a mutable string class
-        /// </summary>
-        private static void StringBuilderDemo()
-        {
-            Console.WriteLine("StringBuilder demo...");
-
-            // initialize stringbuilder with "ABC" and fixed length of 50
-            StringBuilder sb = new StringBuilder("ABC", 50);
-            Console.WriteLine(sb);
-
-            // insert "Alphabet: "
-            Console.WriteLine(@"Inserting ""Alphabet:""");
-            sb.Insert(0, "Alphabet: ");
-            Console.WriteLine(sb);
-
-            // append "_ACB"
-            Console.WriteLine(@"Appending ""_ACB""");
-            sb.Append("_ACB");
-            Console.WriteLine(sb);
-
-            // replace "A" with "$"
-            Console.WriteLine(@"Replaceing all ""A"" with ""$""");
-            sb.Replace('A', '$');
-            Console.WriteLine(sb);
-
-            // remove the last three characters from the string
-            Console.WriteLine("Removing the last three characters");
-            sb.Remove(sb.Length-3, 3);
-            Console.WriteLine(sb);
-
-            // write out each character
-            Console.WriteLine("Writing out each character");
-            for (int i = 0; i < sb.Length; i++)
-                Console.WriteLine(sb[i]);
-        }
-
-        private static void StringReaderStringWriterDemo()
-        {
-            Console.WriteLine("\nStringWriter demo");
-
-            string sentences = "New Initialized StringBuilder.\n" +
-                "This is the second line of text.";
-
-            StringBuilder sb = new StringBuilder();
-
-            // StringReader to read from the "sentences" string
-            using (StringReader reader = new StringReader(sentences))
-            {
-                // read the string and add to the StringBuilder
-                Console.WriteLine("Using StringReader to read the string and append to a StringBuilder object.");
-                sb.Append(reader.ReadToEnd());
-
-                //while (true)
-                //{
-                //    string line = reader.ReadLine();
-                //    if (line != null)
-                //        sb.AppendLine(line);
-                //    else
-                //        break;
-                //}
-            }
-
-            // current string
-            Console.WriteLine(@"Current StringBuilder object: ""{0}""", sb);
-
-            // string writer to write to the StringBuilder
-            using (StringWriter writer = new StringWriter(sb))
-            {
-                Console.WriteLine("Using StringWriter to append a line.");
-                writer.WriteLine();
-                writer.WriteLine();
-                writer.WriteLine("StringWriter added previous empty lines and this line you're reading");
-            }
-
-            Console.WriteLine("Final version of the StringBuilder:\n" + sb);
-        }
-
-        /// <summary>
-        /// String padding, trimming, changing case
-        /// </summary>
-        private static void StringOperationsDemo()
-        {
-            Console.WriteLine("String operations demo...\n");
-
-            // initialize string from char[]
-            char[] chars = new char[] { 'H', 'e', 'l', 'l', 'o', ' ', 't', 'h', 'e', 'r', 'e', '!' };
-            string greeting = new string(chars);
-            Console.WriteLine("Original string: {0}\n", greeting);
-
-            // increase the length of the string and '-' in the empty spaces
-            Console.WriteLine("Padded with five '-' to the left: {0}\n", greeting.PadLeft(greeting.Length + 5, '-'));
-            Console.WriteLine("Padded with five '-' to the right: {0}\n", greeting.PadRight(greeting.Length + 5, '-'));
-
-            // trim the '!' from the end of the string
-            Console.WriteLine("Trimming '!': {0}\n", greeting.Trim(new char[] { '!' }));
-
-            // trimming 'H' from the beginning of the string
-            Console.WriteLine("Trimming 'H': {0}\n", greeting.TrimStart(new char[] { 'H' }));
-
-            // remove four characters starting from index two
-            Console.WriteLine("Removing four characters starting at index two: {0}\n", greeting.Remove(2, 4));
-
-            // reomve the substring "there"
-            Console.WriteLine("Removing substring 'there': {0}\n", greeting.Replace("there", ""));
-
-            // make all caps
-            Console.WriteLine("Upper case: {0}\n", greeting.ToUpper());
-
-            // make lower case
-            Console.WriteLine("Lower case: {0}\n", greeting.ToLower());
-
-            // make title case
-            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
-            Console.WriteLine("Title case: {0}\n", ti.ToTitleCase(greeting));
         }
     }
 }

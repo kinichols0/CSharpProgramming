@@ -49,7 +49,7 @@
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Product.cs" />
-    <Compile Include="OutputFiles\CodeDOMFile.cs" />
+    <Compile Include="OutputFiles\DynamicCode\CodeDOMFile.cs" />
     <Compile Include="ProgramFlow\DelegateAnonymousMethodDemo.cs" />
     <Compile Include="ProgramFlow\PublisherEventDemo.cs" />
     <Compile Include="Program.cs" />
@@ -74,13 +74,17 @@
     <Compile Include="TypesClasses\Attributes.cs" />
     <Compile Include="TypesClasses\ComparableAgeEntity.cs" />
     <Compile Include="TypesClasses\DisposableEntity.cs" />
+    <Compile Include="TypesClasses\DynamicsReflection.cs" />
     <Compile Include="TypesClasses\EnumerableCollection.cs" />
     <Compile Include="TypesClasses\Enums.cs" />
     <Compile Include="TypesClasses\Profile.cs" />
     <Compile Include="TypesClasses\Rectangle.cs" />
+    <Compile Include="TypesClasses\StringManipulation.cs" />
+    <Compile Include="TypesClasses\TypesImplementationDemos.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="OutputFiles\EncryptionDecryption\destinationFile.enc" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -88,8 +92,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OutputFiles\destinationFile.txt" />
-    <Content Include="OutputFiles\sourceFile.txt" />
+    <Content Include="OutputFiles\FileIO\destinationFile.txt" />
+    <Content Include="OutputFiles\EncryptionDecryption\destinationFileDecrypted.txt" />
+    <Content Include="OutputFiles\EncryptionDecryption\sourceFile.txt" />
+    <Content Include="OutputFiles\FileIO\sourceFile.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

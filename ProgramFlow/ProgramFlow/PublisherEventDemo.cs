@@ -6,6 +6,19 @@ using System.Threading.Tasks;
 
 namespace CSharpProgramming.ProgramFlow
 {
+    public class EventsDelegatesDemos
+    {
+        public static void EventPublisherDemo()
+        {
+            WriteOutputEventPublisher publisher = new WriteOutputEventPublisher();
+            WriteOutputEventSubscriber subA = new WriteOutputEventSubscriber("SubA", publisher);
+            WriteOutputEventSubscriber subB = new WriteOutputEventSubscriber("SubB", publisher);
+            publisher.StartDemo("This is an event demo.");
+            subA.UnsubscribeFromEvent();
+            publisher.StartDemo("Raising another event.");
+        }
+    }
+
     /// <summary>
     /// Custom event arguments for this demo
     /// </summary>

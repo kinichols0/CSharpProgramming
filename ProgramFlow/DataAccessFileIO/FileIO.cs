@@ -15,8 +15,8 @@ namespace CSharpProgramming.DataAccessFileIO
             {
                 Console.WriteLine("Copy file to stream demo\n");
 
-                string fileSource = @"..\..\OutputFiles\sourceFile.txt";
-                string fileDestination = @"..\..\OutputFiles\destinationFile.txt";
+                string fileSource = @"..\..\OutputFiles\FileIO\sourceFile.txt";
+                string fileDestination = @"..\..\OutputFiles\FileIO\destinationFile.txt";
 
                 using (FileStream fileStream = new FileStream(fileSource, FileMode.Open, FileAccess.Read))
                 {
