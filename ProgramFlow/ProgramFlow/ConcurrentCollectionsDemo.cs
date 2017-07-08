@@ -10,6 +10,11 @@ namespace CSharpProgramming.ProgramFlow
 {
     public class ConcurrentCollectionsDemo
     {
+        /// <summary>
+        /// Blocking collection demo. Thread safe collection of items providing
+        /// blocking and bounding capabilities. Producer and consumer pattern use.
+        /// Blocks Add and Take operations on the collection.
+        /// </summary>
         public static void BlockingCollectionAddDemo()
         {
             Console.WriteLine("Started blocking collection demo...");
@@ -49,6 +54,10 @@ namespace CSharpProgramming.ProgramFlow
             Console.WriteLine("Ended blocking collection demo...");
         }
 
+        /// <summary>
+        /// Concurrent dictionary demo. Thread safe collection of key value
+        /// pairs.
+        /// </summary>
         public static void ConcurrentDictionaryDemo()
         {
             Console.WriteLine("Started concurrent dictionary demo...");
@@ -112,6 +121,10 @@ namespace CSharpProgramming.ProgramFlow
             Console.WriteLine("Ended concurrent dictionary demo...");
         }
 
+        /// <summary>
+        /// Concurrent bag demo. Supports parallel operations on a thread safe
+        /// unordered collection of objects
+        /// </summary>
         public static void ConcurrentBagDemo()
         {
             Console.WriteLine("Started Concurrent Bag demo...");

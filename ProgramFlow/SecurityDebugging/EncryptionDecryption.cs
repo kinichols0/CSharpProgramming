@@ -217,6 +217,7 @@ namespace CSharpProgramming.SecurityDebugging
         /// <param name="fileDestination"></param>
         private static void EncryptFile(Aes aes, string fileSource, string fileDestination)
         {
+            // encryptor
             ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
             // Initialize the file stream that will have encrypted contents written to it
@@ -230,7 +231,6 @@ namespace CSharpProgramming.SecurityDebugging
                     {
                         // indexes for incrypting a chunk at a time
                         int count = 0;
-                        int offset = 0;
 
                         int blockSizeBytes = aes.BlockSize / 8;
                         byte[] data = new byte[blockSizeBytes];
@@ -238,12 +238,10 @@ namespace CSharpProgramming.SecurityDebugging
 
                         do
                         {
-                            // writes bytes to the byte array and returns the total number of bytes read
+                            // read the input filestream bytes into the data byte array
                             count = sourceFileStream.Read(data, 0, blockSizeBytes);
 
-                            // set the offset to the count 
-                            offset += count;
-
+                            // encrypt and write the bytes from the byte array into the output filestream
                             encryptedStream.Write(data, 0, count);
 
                             bytesRead += blockSizeBytes;
@@ -261,27 +259,31 @@ namespace CSharpProgramming.SecurityDebugging
         /// </summary>
         private static void DecryptFile(Aes aes, string encryptedFile, string outputFile)
         {
+            // open a stream of the encrypted file
             using (FileStream encryptedFileStream = new FileStream(encryptedFile, FileMode.Open))
             {
+                // decryptor
                 ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
+                // create a stream to right the decrypted file contents to.
                 using (FileStream decryptedFileStream = new FileStream(outputFile, FileMode.Create))
                 {
                     int cnt = 0;
-                    int offset = 0;
-
                     int blockSizeBytes = aes.BlockSize / 8;
                     byte[] data = new byte[blockSizeBytes];
 
+                    // Cryptostream to decrypt the encrypted file contents and write to the destination filestream
                     using (CryptoStream decryptedStream = new CryptoStream(decryptedFileStream, decryptor, CryptoStreamMode.Write))
                     {
                         do
                         {
+                            // read/decrypt contents of the encrypted stream into the byte array
                             cnt = encryptedFileStream.Read(data, 0, blockSizeBytes);
-                            offset += cnt;
+
+                            // write the decrypted bytes to the ouput file stream
                             decryptedStream.Write(data, 0, cnt);
                         }
-                        while (cnt > 0);
+                        while (cnt > 0);// a cnt of 0 means we read all the bytes from the filestream
 
                         decryptedStream.FlushFinalBlock();
                     }

@@ -1,17 +1,8 @@
-﻿using CSharpProgramming.ProgramFlow;
+﻿using CSharpProgramming.DataAccessFileIO;
+using CSharpProgramming.ProgramFlow;
 using CSharpProgramming.SecurityDebugging;
 using CSharpProgramming.TypesClasses;
-using Microsoft.CSharp;
 using System;
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using CSharpProgramming.DataAccessFileIO;
 
 namespace CSharpProgramming
 {
@@ -23,7 +14,7 @@ namespace CSharpProgramming
 
             // prompt user the available processes to run
             PrintPrompt();
-            
+
             // read the input and run the corresponding process
             string key = Console.ReadLine();
 
@@ -31,103 +22,152 @@ namespace CSharpProgramming
             {
                 switch (demoNum)
                 {
-                    case 1: ParallelDemo.RunParallelForBasic();
+                    case 1:
+                        ParallelDemo.RunParallelForBasic();
                         break;
-                    case 2: ParallelDemo.ParallelForAdditionRun();
+                    case 2:
+                        ParallelDemo.ParallelForAdditionRun();
                         break;
-                    case 3: ParallelDemo.ParallelForEach();
+                    case 3:
+                        ParallelDemo.ParallelForEach();
                         break;
-                    case 4: ParallelDemo.ParallelInvokeRun();
+                    case 4:
+                        ParallelDemo.ParallelInvokeRun();
                         break;
-                    case 5: TaskDemo.Run();
+                    case 5:
+                        TaskDemo.Run();
                         break;
-                    case 6: TaskDemo.RunTasks();
+                    case 6:
+                        TaskDemo.RunTasks();
                         break;
-                    case 7: TaskDemo.RunTasksWithContinution();
+                    case 7:
+                        TaskDemo.RunTasksWithContinution();
                         break;
-                    case 8: TaskDemo.CancelAfterTenSecondsDemo();
+                    case 8:
+                        TaskDemo.CancelAfterTenSecondsDemo();
                         break;
-                    case 9: ThreadingDemo.BasicRun();
+                    case 9:
+                        ThreadingDemo.BasicRun();
                         break;
-                    case 10: ThreadingDemo.RunBackagroundWorker();
+                    case 10:
+                        ThreadingDemo.RunBackagroundWorker();
                         break;
-                    case 11: ThreadingDemo.ThreadPoolDemoRun();
+                    case 11:
+                        ThreadingDemo.ThreadPoolDemoRun();
                         break;
-                    case 12: ThreadingDemo.BackgroundWorkerCancellationDemo();
+                    case 12:
+                        ThreadingDemo.BackgroundWorkerCancellationDemo();
                         break;
-                    case 13: PLinqDemo.LinqBasicDemo();
+                    case 13:
+                        PLinqDemo.LinqBasicDemo();
                         break;
-                    case 14: PLinqDemo.PLinqBasicDemo();
+                    case 14:
+                        PLinqDemo.PLinqBasicDemo();
                         break;
-                    case 15: PLinqDemo.PLinqForAllDemo();
+                    case 15:
+                        PLinqDemo.PLinqForAllDemo();
                         break;
-                    case 16: ConcurrentCollectionsDemo.BlockingCollectionAddDemo();
+                    case 16:
+                        ConcurrentCollectionsDemo.BlockingCollectionAddDemo();
                         break;
-                    case 17: ConcurrentCollectionsDemo.ConcurrentDictionaryDemo();
+                    case 17:
+                        ConcurrentCollectionsDemo.ConcurrentDictionaryDemo();
                         break;
-                    case 18: ConcurrentCollectionsDemo.ConcurrentBagDemo();
+                    case 18:
+                        ConcurrentCollectionsDemo.ConcurrentBagDemo();
                         break;
-                    case 19: AsyncAwaitDemo.BasicDemo().Wait();
+                    case 19:
+                        AsyncAwaitDemo.BasicDemo().Wait();
                         break;
-                    case 20: EventsDelegatesDemos.EventPublisherDemo();
+                    case 20:
+                        EventsDelegatesDemos.EventPublisherDemo();
                         break;
-                    case 21: DelegateAnonymousMethodDemo.DelegateImplementationDemo();
+                    case 21:
+                        DelegateAnonymousMethodDemo.DelegateImplementationDemo();
                         break;
-                    case 22: TypesImplementationDemos.BasicStructDemo();
+                    case 22:
+                        TypesImplementationDemos.BasicStructDemo();
                         break;
-                    case 23: TypesImplementationDemos.InheritanceDemo();
+                    case 23:
+                        TypesImplementationDemos.InheritanceDemo();
                         break;
-                    case 24: TypesImplementationDemos.BoxingUnboxingDemo();
+                    case 24:
+                        TypesImplementationDemos.BoxingUnboxingDemo();
                         break;
-                    case 25: TypesImplementationDemos.IComparableDemo();
+                    case 25:
+                        TypesImplementationDemos.IComparableDemo();
                         break;
-                    case 26: TypesImplementationDemos.IEnumerableDemo();
+                    case 26:
+                        TypesImplementationDemos.IEnumerableDemo();
                         break;
-                    case 27: DynamicsReflection.AttributesAndReflectionDemo();
+                    case 27:
+                        DynamicsReflection.AttributesAndReflectionDemo();
                         break;
-                    case 28: DynamicsReflection.CodeDOMDemo();
+                    case 28:
+                        DynamicsReflection.CodeDOMDemo();
                         break;
-                    case 29: StringManipulation.StringBuilderDemo();
+                    case 29:
+                        StringManipulation.StringBuilderDemo();
                         break;
-                    case 30: StringManipulation.StringReaderStringWriterDemo();
+                    case 30:
+                        StringManipulation.StringReaderStringWriterDemo();
                         break;
-                    case 31: JsonDemo.JsonSerializationDemo();
+                    case 31:
+                        JsonDemo.JsonSerializationDemo();
                         break;
-                    case 32: DataIntegrityDemo.HashingDemo();
+                    case 32:
+                        DataIntegrityDemo.HashingDemo();
                         break;
-                    case 33: RegularExpressionsDemo.CharacterClassSyntaxDemo();
+                    case 33:
+                        RegularExpressionsDemo.CharacterClassSyntaxDemo();
                         break;
-                    case 34: RegularExpressionsDemo.AnchorSyntaxDemo();
+                    case 34:
+                        RegularExpressionsDemo.AnchorSyntaxDemo();
                         break;
-                    case 35: RegularExpressionsDemo.GroupingConstructsDemo();
+                    case 35:
+                        RegularExpressionsDemo.GroupingConstructsDemo();
                         break;
-                    case 36: RegularExpressionsDemo.QuantifierSyntaxDemo();
+                    case 36:
+                        RegularExpressionsDemo.QuantifierSyntaxDemo();
                         break;
-                    case 37: RegularExpressionsDemo.BackReferenceConstructsDemo();
+                    case 37:
+                        RegularExpressionsDemo.BackReferenceConstructsDemo();
                         break;
-                    case 38: RegularExpressionsDemo.AlternationConstructDemo();
+                    case 38:
+                        RegularExpressionsDemo.AlternationConstructDemo();
                         break;
-                    case 39: RegularExpressionsDemo.SubstitutionsSyntaxDemo();
+                    case 39:
+                        RegularExpressionsDemo.SubstitutionsSyntaxDemo();
                         break;
-                    case 40: StringManipulation.StringOperationsDemo();
-                        break ;
-                    case 41: EncryptionDecryption.GeneratingKeysDemo();
+                    case 40:
+                        StringManipulation.StringOperationsDemo();
                         break;
-                    case 42: EncryptionDecryption.StoringAsymmetricKeysDemo();
+                    case 41:
+                        EncryptionDecryption.GeneratingKeysDemo();
                         break;
-                    case 43: EncryptionDecryption.SymmetricEncryptionDecryptionDemo();
+                    case 42:
+                        EncryptionDecryption.StoringAsymmetricKeysDemo();
                         break;
-                    case 44: EncryptionDecryption.AsymmetricEncryptionDecryptionRSADemo();
+                    case 43:
+                        EncryptionDecryption.SymmetricEncryptionDecryptionDemo();
                         break;
-                    case 45: EncryptionDecryption.AESByteEncryptionDecryptionDemo();
+                    case 44:
+                        EncryptionDecryption.AsymmetricEncryptionDecryptionRSADemo();
                         break;
-                    case 46: DataIntegrityDemo.DigitalSignatureDemo();
+                    case 45:
+                        EncryptionDecryption.AESByteEncryptionDecryptionDemo();
                         break;
-                    case 47: EncryptionDecryption.EncryptDecryptFile();
+                    case 46:
+                        DataIntegrityDemo.DigitalSignatureDemo();
                         break;
-                    case 48: FileIO.ReadAndWriteToFileStream();
+                    case 47:
+                        EncryptionDecryption.EncryptDecryptFile();
                         break;
-                    default: Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
+                    case 48:
+                        FileIO.ReadAndWriteToFileStream();
+                        break;
+                    default:
+                        Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
                 }
             }

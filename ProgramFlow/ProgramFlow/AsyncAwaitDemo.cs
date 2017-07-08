@@ -14,10 +14,12 @@ namespace CSharpProgramming.ProgramFlow
             Console.WriteLine("Started basic async/await demo...");
             Console.WriteLine("starting work...");
 
+            // start each task
             var taskSum = AddNumbers();
             var task1 = DoWork();
             var task2 = DoOtherWork();
 
+            // await eacg task
             await task1;
             await task2;
             await taskSum;

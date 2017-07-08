@@ -58,10 +58,10 @@ namespace CSharpProgramming.SecurityDebugging
             Console.WriteLine("Encoded message:\n{0}\n", string.Join(" ", sha1HashedMsg.Select(t => t.ToString())));
 
             // Get public/private key
-            RSACryptoServiceProvider rsaSigner = new RSACryptoServiceProvider();
+            RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider();
 
             // Create a RSAPKCS1SignatureFormatter and pass it the RSA provider to give it the private key.
-            RSAPKCS1SignatureFormatter rsaFormatter = new RSAPKCS1SignatureFormatter(rsaSigner);
+            RSAPKCS1SignatureFormatter rsaFormatter = new RSAPKCS1SignatureFormatter(rsaProvider);
 
             // specify the hash algorithm to use. Here we use SHA1.
             rsaFormatter.SetHashAlgorithm("SHA1");
@@ -74,11 +74,11 @@ namespace CSharpProgramming.SecurityDebugging
             RSACryptoServiceProvider rsaVerifier = new RSACryptoServiceProvider();
 
             // get public key info from previous RSA
-            RSAParameters rsaParams = rsaSigner.ExportParameters(false);
+            RSAParameters rsaParams = rsaProvider.ExportParameters(false);
             rsaVerifier.ImportParameters(rsaParams);
 
-            // initialize the rsa deformatter
-            RSAPKCS1SignatureDeformatter rsaDeformatter = new RSAPKCS1SignatureDeformatter(rsaVerifier);
+            // initialize the rsa deformatter to verify the signature on the hashed message byte array
+            RSAPKCS1SignatureDeformatter rsaDeformatter = new RSAPKCS1SignatureDeformatter(rsaProvider);
             rsaDeformatter.SetHashAlgorithm("SHA1");
 
             // verifies if the hash has been altered verifies that the data came from the signee.
