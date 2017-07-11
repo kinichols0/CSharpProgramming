@@ -41,22 +41,28 @@ namespace CSharpProgramming.ProgramFlow
 
         public event WriteOutputDelegate WriteOutputEventCallback;
 
+        /// <summary>
+        /// When this method is ran it raises the event each subscriber will receive
+        /// </summary>
+        /// <param name="message"></param>
         public void StartDemo(string message)
         {
             Console.WriteLine("Started Basic Event demo...");
 
-            // Raise an event.
+            // Raise the event
             RaiseWriteOutputEvent(new DemoEventArgs(message));
 
             Console.WriteLine("Ended basic event demo...");
         }
 
+        /// <summary>
+        /// Invokes the WriteOutputDelegate event if it is not null
+        /// </summary>
+        /// <param name="e"></param>
         protected virtual void RaiseWriteOutputEvent(DemoEventArgs e)
         {
-            WriteOutputDelegate handler = WriteOutputEventCallback;
-
-            if (handler != null)
-                handler(this, e);
+            // if event delegate is not null, execute it
+            WriteOutputEventCallback?.Invoke(this, e);
         }
     }
 

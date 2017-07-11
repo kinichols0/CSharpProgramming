@@ -44,7 +44,7 @@ namespace CSharpProgramming.ProgramFlow
 
         #region Basic Background Worker Demo
         /// <summary>
-        /// Basic background worker demo. The background worker is calculating area while other work continues to run
+        /// Basic background worker demo. The background worker is calculating area while other work executes.
         /// </summary>
         public static void RunBackagroundWorker()
         {

@@ -85,9 +85,6 @@ namespace CSharpProgramming.ProgramFlow
 
             Console.WriteLine("Displaying all numbers between 1 and 100 divisible by 3\n");
 
-            // parallel collections that each linq process will add back to with order preserved
-            ConcurrentBag<int> concurrentBag = new ConcurrentBag<int>();
-
             // query to filter all number between 1 and 100 divisible by 3
             var source = Enumerable.Range(1, 100);
             var query = from num in source.AsParallel()
