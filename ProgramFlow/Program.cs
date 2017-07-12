@@ -3,6 +3,8 @@ using CSharpProgramming.ProgramFlow;
 using CSharpProgramming.SecurityDebugging;
 using CSharpProgramming.TypesClasses;
 using System;
+using System.Reflection;
+using Serilog;
 
 namespace CSharpProgramming
 {
@@ -10,7 +12,16 @@ namespace CSharpProgramming
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Program started...{0}\n", DateTime.Now.ToString());
+            // configure the logger
+            ILogger logger = new LoggerConfiguration()
+                .ReadFrom.AppSettings()
+                .CreateLogger();
+
+            // configure the global logger
+            Log.Logger = logger;
+
+            // log the start of the program
+            Log.Information("C Sharp demo application started.");
 
             // prompt user the available processes to run
             PrintPrompt();
@@ -140,6 +151,7 @@ namespace CSharpProgramming
                         RegularExpressionsDemo.SubstitutionsSyntaxDemo();
                         break;
                     case 40:
+                        Log.Information("Executing string demo.");
                         StringManipulation.StringOperationsDemo();
                         break;
                     case 41:
@@ -172,9 +184,10 @@ namespace CSharpProgramming
                 }
             }
             else
-                Console.WriteLine("Not valid input. Program will exit now.");
+                Log.Warning("Not valid input. Program will exit now.");
 
-            Console.WriteLine("Program ended...,{0}", DateTime.Now.ToString());
+            // log end of the program
+            Log.Information("C Sharp Programming demo ended.\n");
 
             Console.ReadLine();
         }

@@ -93,7 +93,7 @@ namespace CSharpProgramming.TypesClasses
         /// </summary>
         public static void StringOperationsDemo()
         {
-            Console.WriteLine("String operations demo...\n");
+            Console.WriteLine("String operations demo.");
 
             // initialize string from char[]
             char[] chars = new char[] { 'H', 'e', 'l', 'l', 'o', ' ', 't', 'h', 'e', 'r', 'e', '!' };
