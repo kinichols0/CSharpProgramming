@@ -3,8 +3,8 @@ using CSharpProgramming.ProgramFlow;
 using CSharpProgramming.SecurityDebugging;
 using CSharpProgramming.TypesClasses;
 using System;
-using System.Reflection;
 using Serilog;
+using System.Diagnostics;
 
 namespace CSharpProgramming
 {
@@ -178,6 +178,12 @@ namespace CSharpProgramming
                     case 48:
                         FileIO.ReadAndWriteToFileStream();
                         break;
+                    case 49:
+                        FileIO.BinaryReadBinaryWriteFileStream();
+                        break;
+                    case 50:
+                        FileIO.ReadWriteToNetworkStream();
+                        break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
@@ -189,12 +195,13 @@ namespace CSharpProgramming
             // log end of the program
             Log.Information("C Sharp Programming demo ended.\n");
 
+            Console.WriteLine("\nPress any key to close the program...");
             Console.ReadLine();
         }
 
         public static void PrintPrompt()
         {
-            Console.WriteLine("Which demo do you want to run?\n");
+            Console.WriteLine("\nWhich demo do you want to run?\n");
             Console.WriteLine("[1]  - ParallelFor Basic Run");
             Console.WriteLine("[2]  - ParallelFor Concurrent Addition Run");
             Console.WriteLine("[3]  - ParallelForEach demo");
@@ -243,6 +250,8 @@ namespace CSharpProgramming
             Console.WriteLine("[46] - Digital Signature demo");
             Console.WriteLine("[47] - Encrypt file demo.");
             Console.WriteLine("[48] - Copy File Using FileStream demo");
+            Console.WriteLine("[49] - Copy File using FileStream, BinaryRead, and BinaryWrite demo");
+            Console.WriteLine("[50] - Read/Write to NetworkStream demo");
             Console.WriteLine();
         }
     }

@@ -1,1 +1,1 @@
-﻿This is a text file with very sensitive
+﻿This file has very sensitive data. Will be read by a byte reader

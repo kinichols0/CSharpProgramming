@@ -1,3 +1,1 @@
-﻿This file has very sensitive data. It could
-ruin the world if found in the wrong hands
-Ah !! Ah!
+﻿This file has very sensitive data. Will be read by a byte reader
