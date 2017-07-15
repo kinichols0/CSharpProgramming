@@ -196,6 +196,12 @@ namespace CSharpProgramming
                     case 54:
                         Serialization.DeserializeObjectFromBinaryFileDemo();
                         break;
+                    case 55:
+                        Serialization.SerializeObjectToJsonDemo();
+                        break;
+                    case 56:
+                        Serialization.DeserializeObjectFromJsonDemo();
+                        break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
@@ -268,6 +274,8 @@ namespace CSharpProgramming
             Console.WriteLine("[52] - Deserialize an Object from XML File demo");
             Console.WriteLine("[53] - Serialize to Text File in Binary Format demo");
             Console.WriteLine("[54] - Deserialize an Object from Text File in Binary Format demo");
+            Console.WriteLine("[55] - Serialize to Text File in Json Format demo");
+            Console.WriteLine("[56] - Deserialize an Object from Text File in Json Format demo");
             Console.WriteLine();
         }
     }
