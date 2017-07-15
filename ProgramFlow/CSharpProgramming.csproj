@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessFileIO\FileIO.cs" />
+    <Compile Include="DataAccessFileIO\Serialization.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Product.cs" />
@@ -112,6 +113,10 @@
     <Content Include="OutputFiles\EncryptionDecryption\destinationFileDecrypted.txt" />
     <Content Include="OutputFiles\EncryptionDecryption\sourceFile.txt" />
     <Content Include="OutputFiles\FileIO\sourceFile.txt" />
+    <Content Include="OutputFiles\SerializedObjectFiles\SerializableObjectBinaryFile.txt" />
+    <Content Include="OutputFiles\SerializedObjectFiles\SerializableObjectFile.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OutputFiles\Logs\" />

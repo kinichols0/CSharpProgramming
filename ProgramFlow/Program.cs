@@ -184,6 +184,18 @@ namespace CSharpProgramming
                     case 50:
                         FileIO.ReadWriteToNetworkStream();
                         break;
+                    case 51:
+                        Serialization.SerializeObjectToXmlFileDemo();
+                        break;
+                    case 52:
+                        Serialization.DeserializeObjectFromXmlFileDemo();
+                        break;
+                    case 53:
+                        Serialization.SerializeObjectToBinaryFileDemo();
+                        break;
+                    case 54:
+                        Serialization.DeserializeObjectFromBinaryFileDemo();
+                        break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
@@ -252,6 +264,10 @@ namespace CSharpProgramming
             Console.WriteLine("[48] - Copy File Using FileStream demo");
             Console.WriteLine("[49] - Copy File using FileStream, BinaryRead, and BinaryWrite demo");
             Console.WriteLine("[50] - Read/Write to NetworkStream demo");
+            Console.WriteLine("[51] - Serialize to XML File demo");
+            Console.WriteLine("[52] - Deserialize an Object from XML File demo");
+            Console.WriteLine("[53] - Serialize to Text File in Binary Format demo");
+            Console.WriteLine("[54] - Deserialize an Object from Text File in Binary Format demo");
             Console.WriteLine();
         }
     }

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<SerializableEmail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ToEmails>
+    <string>test@test.com</string>
+    <string>test2@test.com</string>
+    <string>test3@test.com</string>
+  </ToEmails>
+  <FromEmail>sender@test.com</FromEmail>
+  <Subject>Serializable Objects to XML</Subject>
+  <Body>Objects can be serialized to xml and written to a file.</Body>
+</SerializableEmail>
