@@ -18,13 +18,13 @@ namespace CSharpProgramming.ProgramFlow
             // initialize delegate with inline code
             PrintMessageDelegate printA = delegate (string msg)
             {
-                Console.WriteLine(msg);
+                Console.WriteLine("Print A: {0}", msg);
             };
 
             // initialize delegate with lambda in inline code
             PrintMessageDelegate printB = (msg) =>
             {
-                Console.WriteLine(msg);
+                Console.WriteLine("Print B: {0}", msg);
             };
 
             // initialize delegate with named method
@@ -40,7 +40,7 @@ namespace CSharpProgramming.ProgramFlow
 
         private static void PrintMessage(string msg)
         {
-            Console.WriteLine(msg);
+            Console.WriteLine("Print C: {0}", msg);
         }
     }
 }

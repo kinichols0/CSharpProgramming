@@ -2,97 +2,179 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CSharpProgramming.ProgramFlow
 {
-    public class EventsDelegatesDemos
+    public enum ConnectionStatus
     {
-        public static void EventPublisherDemo()
+        Open, Closed
+    }
+
+    public class NetworkStatusEventArgs : EventArgs
+    {
+        public ConnectionStatus ConnectionStatus { get; private set; }
+
+        public NetworkStatusEventArgs(ConnectionStatus status)
         {
-            WriteOutputEventPublisher publisher = new WriteOutputEventPublisher();
-            WriteOutputEventSubscriber subA = new WriteOutputEventSubscriber("SubA", publisher);
-            WriteOutputEventSubscriber subB = new WriteOutputEventSubscriber("SubB", publisher);
-            publisher.StartDemo("This is an event demo.");
-            subA.UnsubscribeFromEvent();
-            publisher.StartDemo("Raising another event.");
+            ConnectionStatus = status;
         }
     }
 
-    /// <summary>
-    /// Custom event arguments for this demo
-    /// </summary>
-    public class DemoEventArgs : EventArgs
+    public class NetworkMessageBroadCastEventArgs : EventArgs
     {
+        public int SenderId { get; private set; }
+        public string SenderName { get; private set; }
         public string Message { get; private set; }
 
-        public DemoEventArgs(string message)
+        public NetworkMessageBroadCastEventArgs(int senderId, string senderName, string message)
         {
+            SenderId = senderId;
+            SenderName = senderName;
             Message = message;
         }
     }
 
-    /// <summary>
-    /// Publisher that raises an event that can be subscribed to
-    /// </summary>
-    public class WriteOutputEventPublisher
+    public class NetworkEventPublisher
     {
-        public delegate void WriteOutputDelegate(object sender, DemoEventArgs e);
+        // declare an event for network status change
+        public delegate void NetworkEventDelegate(object sender, NetworkStatusEventArgs args);
+        public event NetworkEventDelegate NetworkStatusChange;
 
-        public event WriteOutputDelegate WriteOutputEventCallback;
+        // delcare an event for when a subscriber broadcasts a message.
+        // this is alternative syntax to declare an event.
+        public EventHandler<NetworkMessageBroadCastEventArgs> NetworkOnMessageBroadcastAll;
 
         /// <summary>
-        /// When this method is ran it raises the event each subscriber will receive
+        /// Raise network open event
         /// </summary>
-        /// <param name="message"></param>
-        public void StartDemo(string message)
+        public void RaiseNetworkOpenEvent()
         {
-            Console.WriteLine("Started Basic Event demo...");
-
-            // Raise the event
-            RaiseWriteOutputEvent(new DemoEventArgs(message));
-
-            Console.WriteLine("Ended basic event demo...");
+            Console.WriteLine("Network connection is open...");
+            NetworkStatus_OnChange(new NetworkStatusEventArgs(ConnectionStatus.Open));
         }
 
         /// <summary>
-        /// Invokes the WriteOutputDelegate event if it is not null
+        /// Raise network closed event
         /// </summary>
-        /// <param name="e"></param>
-        protected virtual void RaiseWriteOutputEvent(DemoEventArgs e)
+        public void RaiseNetworkCloseEvent()
         {
-            // if event delegate is not null, execute it
-            WriteOutputEventCallback?.Invoke(this, e);
+            Console.WriteLine("Network connection has closed...");
+            NetworkStatus_OnChange(new NetworkStatusEventArgs(ConnectionStatus.Closed));
+        }
+
+        /// <summary>
+        /// Broadcast message from subscriber to all
+        /// </summary>
+        /// <param name="senderId"></param>
+        /// <param name="senderName"></param>
+        /// <param name="message"></param>
+        public void BroadCastMessageToAll(int senderId, string senderName, string message)
+        {
+            Console.WriteLine("{0} to all: {1}", senderName, message);
+            NetworkOnMessageBroadcastAll?.Invoke(this, new NetworkMessageBroadCastEventArgs(senderId, senderName, message));
+        }
+
+        private void NetworkStatus_OnChange(NetworkStatusEventArgs args)
+        {
+            NetworkStatusChange?.Invoke(this, args);
         }
     }
 
-    /// <summary>
-    /// Subscriber that can subscribe to a publisher's event and
-    /// run code when that event is raised.
-    /// </summary>
-    public class WriteOutputEventSubscriber
+    public class NetworkEventSubscriber
     {
-        private string name;
-        private WriteOutputEventPublisher pub;
+        private NetworkEventPublisher publisher;
 
-        public WriteOutputEventSubscriber(string name, WriteOutputEventPublisher wPub)
+        public string Name { get; private set; }
+
+        public int Id { get; set; }
+
+        public NetworkEventSubscriber(NetworkEventPublisher publisher, string name, int id)
         {
-            this.name = name;
-            pub = wPub;
+            // set properties
+            Name = name;
+            Id = id;
 
-            // Subscribe to the publisher's event
-            wPub.WriteOutputEventCallback += HandleWriteOutPutEvent;
+            // subscribe to publisher events
+            publisher.NetworkStatusChange += NetworkStatus_OnChange;
+            publisher.NetworkOnMessageBroadcastAll += Network_OnMessageBroadcastAll;
+
+            this.publisher = publisher;
         }
 
-        private void HandleWriteOutPutEvent(object sender, DemoEventArgs e)
+        /// <summary>
+        /// Call the publisher's BroadCastMessageToAll function to raise the event
+        /// to send the message to all subscribers
+        /// </summary>
+        /// <param name="msg"></param>
+        public void BroadcastMessage(string msg)
         {
-            // Code that runs when the event is raised by the publisher
-            Console.WriteLine(name + " received this message: " + e.Message);
+            publisher.BroadCastMessageToAll(Id, Name, msg);
         }
 
-        public void UnsubscribeFromEvent()
+        /// <summary>
+        /// Code to execute when a NetworkStatusChange event is raised
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public void NetworkStatus_OnChange(object sender, NetworkStatusEventArgs args)
         {
-            pub.WriteOutputEventCallback -= HandleWriteOutPutEvent;
+            if (args.ConnectionStatus == ConnectionStatus.Open)
+                Console.WriteLine("{0} has received word that the connection is open.", Name);
+            else if (args.ConnectionStatus == ConnectionStatus.Closed)
+                Console.WriteLine("{0} has received word that the connection is closed.", Name);
+        }
+
+        /// <summary>
+        /// Code to execute when NetworkOnMessageBroadcastAll event is raised
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public void Network_OnMessageBroadcastAll(object sender, NetworkMessageBroadCastEventArgs args)
+        {
+            if (Id != args.SenderId)
+                Console.WriteLine("{0}'s message from {1}: {2}", Name, args.SenderName, args.Message);
+        }
+    }
+
+    public class NetworkEventPublisherDemo
+    {
+        /// <summary>
+        /// Event Publisher/Subscriber demo
+        /// </summary>
+        public static void Run()
+        {
+            // initialize the publisher
+            NetworkEventPublisher publisher = new NetworkEventPublisher();
+
+            // initialize subscribers
+            NetworkEventSubscriber subscriber1 = new NetworkEventSubscriber(publisher, "Peter", 1);
+            NetworkEventSubscriber subscriber2 = new NetworkEventSubscriber(publisher, "Tom", 2);
+            NetworkEventSubscriber subscriber3 = new NetworkEventSubscriber(publisher, "Joe", 3);
+
+            // raise network open event
+            publisher.RaiseNetworkOpenEvent();
+
+            // sleep for three seconds
+            for(int i = 0; i < 3; i++)
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("open...");
+            }
+
+            // broadcast a message from subscriber 1 to all subscribers
+            subscriber1.BroadcastMessage("Hello there!");
+
+            // sleep for three seconds
+            for (int i = 0; i < 3; i++)
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("open...");
+            }
+
+            // raise network close event
+            publisher.RaiseNetworkCloseEvent();
         }
     }
 }

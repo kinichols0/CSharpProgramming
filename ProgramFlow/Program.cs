@@ -93,7 +93,7 @@ namespace CSharpProgramming
                         AsyncAwaitDemo.BasicDemo().Wait();
                         break;
                     case 20:
-                        EventsDelegatesDemos.EventPublisherDemo();
+                        NetworkEventPublisherDemo.Run();
                         break;
                     case 21:
                         DelegateAnonymousMethodDemo.DelegateImplementationDemo();

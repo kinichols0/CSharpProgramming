@@ -35,10 +35,8 @@ namespace CSharpProgramming.ProgramFlow
             // Delegate that removes items from the blocking collection and add them to the sum
             Action AddToSum = () =>
             {
-                int localItem;
                 int localSum = 0;
-
-                while (blockingCollection.TryTake(out localItem))
+                while (blockingCollection.TryTake(out int localItem))
                 {
                     localSum += localItem;
                 }
@@ -140,12 +138,11 @@ namespace CSharpProgramming.ProgramFlow
                 while (!bag.IsEmpty)
                 {
                     if (bag.TryTake(out string item))
-                        Console.WriteLine("Task-{0} took ({1}) from the bag.",taskId, item);
+                        Console.WriteLine("Task-{0} took ({1}) from the bag.", taskId, item);
                 }
             };
 
             Parallel.For(1, 3, emptyBag);
-
             
             Console.WriteLine("Ended Concurrent Bag demo...");
         }
