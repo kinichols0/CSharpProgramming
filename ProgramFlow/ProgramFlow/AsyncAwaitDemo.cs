@@ -19,7 +19,7 @@ namespace CSharpProgramming.ProgramFlow
             var task1 = DoWork();
             var task2 = DoOtherWork();
 
-            // await eacg task
+            // await each task
             await task1;
             await task2;
             await taskSum;
@@ -42,8 +42,7 @@ namespace CSharpProgramming.ProgramFlow
 
         public static async Task DoOtherWork()
         {
-            await Task.Run(() =>
-            {
+            await Task.Run(() => {
                 for (int i = 1; i <= 5; i++)
                 {
                     Thread.Sleep(1000);
@@ -54,8 +53,7 @@ namespace CSharpProgramming.ProgramFlow
 
         public static async Task<int> AddNumbers()
         {
-            return await Task.Run(() =>
-            {
+            return await Task.Run(delegate () {
                 int total = 0;
                 for (int i = 0; i < 5; i++)
                 {

@@ -34,9 +34,11 @@ namespace CSharpProgramming
                 switch (demoNum)
                 {
                     case 1:
+                        Log.Information("ParallelFor Basic Demo.");
                         ParallelDemo.RunParallelForBasic();
                         break;
                     case 2:
+                        Log.Information("ParallelFor Addition Demo");
                         ParallelDemo.ParallelForAdditionRun();
                         break;
                     case 3:

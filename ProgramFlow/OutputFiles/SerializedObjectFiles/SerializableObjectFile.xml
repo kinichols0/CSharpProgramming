@@ -1,11 +1,28 @@
 <?xml version="1.0"?>
-<SerializableEmail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ToEmails>
-    <string>test@test.com</string>
-    <string>test2@test.com</string>
-    <string>test3@test.com</string>
-  </ToEmails>
-  <FromEmail>sender@test.com</FromEmail>
-  <Subject>Serializable Objects to XML</Subject>
-  <Body>Objects can be serialized to xml and written to a file.</Body>
-</SerializableEmail>
+<Album xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Title>Sidtastic</Title>
+  <Artist>Rapper Sid</Artist>
+  <Genre>Rap/Hip-Hop</Genre>
+  <Tracks>
+    <Song>
+      <Title>Title 1</Title>
+      <TrackNumber>1</TrackNumber>
+    </Song>
+    <Song>
+      <Title>Title 2</Title>
+      <TrackNumber>2</TrackNumber>
+    </Song>
+    <Song>
+      <Title>Title 3</Title>
+      <TrackNumber>3</TrackNumber>
+    </Song>
+    <Song>
+      <Title>Title 4</Title>
+      <TrackNumber>4</TrackNumber>
+    </Song>
+    <Song>
+      <Title>Title 5</Title>
+      <TrackNumber>5</TrackNumber>
+    </Song>
+  </Tracks>
+</Album>
