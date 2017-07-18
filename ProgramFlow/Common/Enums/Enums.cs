@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpProgramming.TypesClasses
+namespace CSharpProgramming.Common.Enums
 {
     public enum Grade
     {
@@ -22,5 +22,11 @@ namespace CSharpProgramming.TypesClasses
         Junior,
         Senior,
         Graduate
+    }
+
+    public enum ConnectionStatus
+    {
+        Open,
+        Closed
     }
 }

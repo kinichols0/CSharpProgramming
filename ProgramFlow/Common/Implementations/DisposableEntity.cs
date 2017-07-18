@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpProgramming.TypesClasses
+namespace CSharpProgramming.Common.Implementations
 {
     public class DisposableEntity : IDisposable
     {

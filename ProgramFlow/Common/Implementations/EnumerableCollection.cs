@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpProgramming.TypesClasses
+namespace CSharpProgramming.TypesClasses.Implementations
 {
     public class EnumerableCollection<T> : IEnumerable
     {
@@ -17,12 +17,17 @@ namespace CSharpProgramming.TypesClasses
 
         public EnumerableCollection(T[] _collection)
         {
-            // copy the array
-            collection = new T[_collection.Length];
-            for(int i = 0; i < _collection.Length; i++)
+            if (_collection != null)
             {
-                collection[i] = _collection[i];
+                // copy the array
+                collection = new T[_collection.Length];
+                for (int i = 0; i < _collection.Length; i++)
+                {
+                    collection[i] = _collection[i];
+                }
             }
+            else
+                collection = new T[0];
         }
 
         /// <summary>
@@ -31,7 +36,7 @@ namespace CSharpProgramming.TypesClasses
         /// <returns></returns>
         public IEnumerator GetEnumerator()
         {
-            return (new CollectionEnumerator<T>(collection));
+            return new CollectionEnumerator<T>(collection);
         }
 
         /// <summary>
@@ -95,7 +100,7 @@ namespace CSharpProgramming.TypesClasses
         {
             generics = _generics;
         }
-        
+
         object IEnumerator.Current
         {
             get

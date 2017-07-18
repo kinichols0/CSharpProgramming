@@ -118,23 +118,23 @@ namespace CSharpProgramming
                         break;
                     case 22:
                         Log.Information("Struct Basic Demo");
-                        TypesImplementationDemos.BasicStructDemo();
+                        TypesImplementation.BasicStructDemo();
                         break;
                     case 23:
                         Log.Information("Inheritance Demo");
-                        TypesImplementationDemos.InheritanceDemo();
+                        TypesImplementation.InheritanceDemo();
                         break;
                     case 24:
                         Log.Information("Boxing/Unboxing Demo");
-                        TypesImplementationDemos.BoxingUnboxingDemo();
+                        TypesImplementation.BoxingUnboxingDemo();
                         break;
                     case 25:
                         Log.Information("IComparable Implementation Demo");
-                        TypesImplementationDemos.IComparableDemo();
+                        TypesImplementation.IComparableDemo();
                         break;
                     case 26:
                         Log.Information("IEnumerable Implementation Demo");
-                        TypesImplementationDemos.IEnumerableDemo();
+                        TypesImplementation.IEnumerableDemo();
                         break;
                     case 27:
                         Log.Information("Attributes and Reflection Demo");

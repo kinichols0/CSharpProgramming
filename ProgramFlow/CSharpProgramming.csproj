@@ -63,11 +63,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Abstracts\ProfileData.cs" />
+    <Compile Include="Common\Models\Album.cs" />
+    <Compile Include="Common\Models\NetworkEventPublisher.cs" />
+    <Compile Include="Common\Models\NetworkEventSubscriber.cs" />
+    <Compile Include="Common\Models\NetworkMessageBroadCastEventArgs.cs" />
+    <Compile Include="Common\Models\NetworkStatusEventArgs.cs" />
+    <Compile Include="Common\Models\ProfessorProfileData.cs" />
+    <Compile Include="Common\Models\Shape.cs" />
+    <Compile Include="Common\Models\Song.cs" />
+    <Compile Include="Common\Models\StudentProfileData.cs" />
+    <Compile Include="Common\Models\ThreadPoolDemoContext.cs" />
+    <Compile Include="Common\Utilities.cs" />
     <Compile Include="DataAccessFileIO\FileIO.cs" />
     <Compile Include="DataAccessFileIO\Serialization.cs" />
-    <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\Order.cs" />
-    <Compile Include="Entities\Product.cs" />
+    <Compile Include="Common\Models\Category.cs" />
+    <Compile Include="Common\Models\Order.cs" />
+    <Compile Include="Common\Models\Product.cs" />
     <Compile Include="OutputFiles\DynamicCode\CodeDOMFile.cs" />
     <Compile Include="ProgramFlow\DelegateAnonymousMethodDemo.cs" />
     <Compile Include="ProgramFlow\PublisherEventDemo.cs" />
@@ -75,8 +87,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgramFlow\AsyncAwaitDemo.cs" />
     <Compile Include="ProgramFlow\ConcurrentCollectionsDemo.cs" />
-    <Compile Include="ProgramFlow\Models\Shape.cs" />
-    <Compile Include="ProgramFlow\Models\ThreadPoolDemoContext.cs" />
     <Compile Include="ProgramFlow\ParallelDemo.cs" />
     <Compile Include="ProgramFlow\PLinqDemo.cs" />
     <Compile Include="ProgramFlow\TaskDemo.cs" />
@@ -90,16 +100,16 @@
     <Compile Include="SecurityDebugging\JsonDemo.cs" />
     <Compile Include="SecurityDebugging\EncryptionDecryption.cs" />
     <Compile Include="SecurityDebugging\RegularExpressionsDemo.cs" />
-    <Compile Include="TypesClasses\Attributes.cs" />
-    <Compile Include="TypesClasses\ComparableAgeEntity.cs" />
-    <Compile Include="TypesClasses\DisposableEntity.cs" />
+    <Compile Include="Common\Attributes\DBColumnAttribute.cs" />
+    <Compile Include="Common\Attributes\DBTableAttribute.cs" />
+    <Compile Include="Common\Implementations\ComparableEntity.cs" />
+    <Compile Include="Common\Implementations\DisposableEntity.cs" />
     <Compile Include="TypesClasses\DynamicsReflection.cs" />
-    <Compile Include="TypesClasses\EnumerableCollection.cs" />
-    <Compile Include="TypesClasses\Enums.cs" />
-    <Compile Include="TypesClasses\Profile.cs" />
-    <Compile Include="TypesClasses\Rectangle.cs" />
+    <Compile Include="Common\Implementations\EnumerableCollection.cs" />
+    <Compile Include="Common\Enums\Enums.cs" />
+    <Compile Include="Common\Structs\Rectangle.cs" />
     <Compile Include="TypesClasses\StringManipulation.cs" />
-    <Compile Include="TypesClasses\TypesImplementationDemos.cs" />
+    <Compile Include="TypesClasses\TypesImplementation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -122,6 +132,7 @@
     <Content Include="OutputFiles\SerializedObjectFiles\SerializableObjectJson.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\Interfaces\" />
     <Folder Include="OutputFiles\Logs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

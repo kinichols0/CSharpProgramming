@@ -8,6 +8,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using CSharpProgramming.Common.Models;
+using CSharpProgramming.Common.Attributes;
 
 namespace CSharpProgramming.TypesClasses
 {

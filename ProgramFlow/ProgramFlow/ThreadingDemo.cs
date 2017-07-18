@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel;
-using ProgramFlow.Models;
+using CSharpProgramming.Common.Models;
 
 namespace CSharpProgramming.ProgramFlow
 {

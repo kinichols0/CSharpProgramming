@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSharpProgramming.TypesClasses.Implementations;
+using CSharpProgramming.Common.Structs;
+using CSharpProgramming.Common.Models;
+using CSharpProgramming.Common.Enums;
 
 namespace CSharpProgramming.TypesClasses
 {
-    public class TypesImplementationDemos
+    public class TypesImplementation
     {
         public static void BasicStructDemo()
         {
@@ -60,19 +64,19 @@ namespace CSharpProgramming.TypesClasses
         {
             Console.WriteLine("Started basic IComparable demo...");
 
-            List<ComparableAgeEntity> entities = new List<ComparableAgeEntity>()
-                        {
-                            new ComparableAgeEntity("Name1", 26),
-                            new ComparableAgeEntity("Name2", 30),
-                            new ComparableAgeEntity("Name3", 5),
-                            new ComparableAgeEntity("Name4", 6),
-                            new ComparableAgeEntity("Name5", 50),
-                            new ComparableAgeEntity("Name6", 40),
-                            new ComparableAgeEntity("Name7", 33),
-                            new ComparableAgeEntity("Name8", 12),
-                            new ComparableAgeEntity("Name9", 65),
-                            new ComparableAgeEntity("Name10", 70)
-                        };
+            List<ComparableEntity> entities = new List<ComparableEntity>()
+            {
+                new ComparableEntity("Name1", 26),
+                new ComparableEntity("Name2", 30),
+                new ComparableEntity("Name3", 5),
+                new ComparableEntity("Name4", 6),
+                new ComparableEntity("Name5", 50),
+                new ComparableEntity("Name6", 40),
+                new ComparableEntity("Name7", 33),
+                new ComparableEntity("Name8", 12),
+                new ComparableEntity("Name9", 65),
+                new ComparableEntity("Name10", 70)
+            };
 
             Console.WriteLine("All comparable entities");
             entities.ForEach(t => Console.WriteLine(t));
@@ -93,37 +97,38 @@ namespace CSharpProgramming.TypesClasses
             Console.WriteLine("Started IEnumerable Implementation demo...");
 
             // One way to initialize the collection
-            EnumerableCollection<ComparableAgeEntity> objs = new EnumerableCollection<ComparableAgeEntity>() {
-                            new ComparableAgeEntity("Name1", 26),
-                            new ComparableAgeEntity("Name2", 30),
-                            new ComparableAgeEntity("Name3", 5),
-                            new ComparableAgeEntity("Name4", 6),
-                            new ComparableAgeEntity("Name5", 50),
-                            new ComparableAgeEntity("Name6", 40),
-                            new ComparableAgeEntity("Name7", 33),
-                            new ComparableAgeEntity("Name8", 12),
-                            new ComparableAgeEntity("Name9", 65),
-                            new ComparableAgeEntity("Name10", 70)
-                        };
+            EnumerableCollection<ComparableEntity> objs = new EnumerableCollection<ComparableEntity>()
+            {
+                new ComparableEntity("Name1", 26),
+                new ComparableEntity("Name2", 30),
+                new ComparableEntity("Name3", 5),
+                new ComparableEntity("Name4", 6),
+                new ComparableEntity("Name5", 50),
+                new ComparableEntity("Name6", 40),
+                new ComparableEntity("Name7", 33),
+                new ComparableEntity("Name8", 12),
+                new ComparableEntity("Name9", 65),
+                new ComparableEntity("Name10", 70)
+            };
 
             // Another way to initialize the collection
-            ComparableAgeEntity[] comparableEntities = new ComparableAgeEntity[]
+            ComparableEntity[] comparableEntities = new ComparableEntity[]
             {
-                            new ComparableAgeEntity("Name1", 26),
-                            new ComparableAgeEntity("Name2", 30),
-                            new ComparableAgeEntity("Name3", 5),
-                            new ComparableAgeEntity("Name4", 6),
-                            new ComparableAgeEntity("Name5", 50),
-                            new ComparableAgeEntity("Name6", 40),
-                            new ComparableAgeEntity("Name7", 33),
-                            new ComparableAgeEntity("Name8", 12),
-                            new ComparableAgeEntity("Name9", 65),
-                            new ComparableAgeEntity("Name10", 70)
+                new ComparableEntity("Name1", 26),
+                new ComparableEntity("Name2", 30),
+                new ComparableEntity("Name3", 5),
+                new ComparableEntity("Name4", 6),
+                new ComparableEntity("Name5", 50),
+                new ComparableEntity("Name6", 40),
+                new ComparableEntity("Name7", 33),
+                new ComparableEntity("Name8", 12),
+                new ComparableEntity("Name9", 65),
+                new ComparableEntity("Name10", 70)
             };
-            var collection = new EnumerableCollection<ComparableAgeEntity>(comparableEntities);
+            var collection = new EnumerableCollection<ComparableEntity>(comparableEntities);
 
             // Custom Add implementation
-            collection.Add(new ComparableAgeEntity("NameX", 16));
+            collection.Add(new ComparableEntity("NameX", 16));
 
             // Custom foreach implementation
             collection.ForEach(t => Console.WriteLine(t));

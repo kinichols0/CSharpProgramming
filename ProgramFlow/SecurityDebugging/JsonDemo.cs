@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using CSharpProgramming.TypesClasses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using CSharpProgramming.Common.Models;
+using CSharpProgramming.Common.Enums;
 
 namespace CSharpProgramming.SecurityDebugging
 {

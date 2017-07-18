@@ -3,22 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.IO;
+using CSharpProgramming.Common;
 
-namespace CSharpProgramming.TypesClasses
+namespace CSharpProgramming.TypesClasses.Implementations
 {
     /// <summary>
     /// IComparable implementation
     /// </summary>
-    public class ComparableAgeEntity : IComparable
+    [DataContract]
+    public class ComparableEntity : IComparable
     {
-        public string Name { get; set; }
+        [DataMember]
+        public string CompareName { get; set; }
 
-        public int Age { get; set; }
+        [DataMember]
+        public int CompareId { get; set; }
 
-        public ComparableAgeEntity(string name, int age)
+        public ComparableEntity() : this(null, 0) { }
+
+        public ComparableEntity(string name, int id)
         {
-            Name = name;
-            Age = age;
+            CompareName = name;
+            CompareId = id;
         }
 
         /// <summary>
@@ -31,8 +39,8 @@ namespace CSharpProgramming.TypesClasses
             if (obj == null)
                 return 0;
 
-            if (obj is ComparableAgeEntity incomingComparable)
-                return this.Age.CompareTo(incomingComparable.Age);
+            if (obj is ComparableEntity incomingComparable)
+                return this.CompareId.CompareTo(incomingComparable.CompareId);
 
             throw new ArgumentException("Object is not a ComparableEntity.");
         }
@@ -44,9 +52,9 @@ namespace CSharpProgramming.TypesClasses
         /// <returns></returns>
         public override bool Equals(object obj)
         {   
-            if(obj != null && obj is ComparableAgeEntity inObj)
-                return inObj.Age == Age 
-                    && inObj.Name == Name;
+            if(obj != null && obj is ComparableEntity inObj)
+                return inObj.CompareId == CompareId 
+                    && inObj.CompareName == CompareName;
             return false;
         }
 
@@ -57,18 +65,15 @@ namespace CSharpProgramming.TypesClasses
         /// <returns></returns>
         public override int GetHashCode()
         {
-            if (!string.IsNullOrEmpty(Name))
-                return Age + Name.GetHashCode();
-            return Age;
+            if (!string.IsNullOrEmpty(CompareName))
+                return CompareId + CompareName.GetHashCode();
+            return CompareId;
         }
 
         public override string ToString()
         {
-            var str = new StringBuilder();
-            str.Append("{ ");
-            str.Append("Name:" + Name + ", ");
-            str.Append("Age:" + Age + " }");
-            return str.ToString();
+            // return json string representation
+            return Utilities.ReadToJsonString(this);
         }
     }
 }
