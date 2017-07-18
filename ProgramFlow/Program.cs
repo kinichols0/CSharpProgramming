@@ -261,8 +261,8 @@ namespace CSharpProgramming
                         Serialization.MemoryStreamJsonSerializationDemo();
                         break;
                     case 58:
-                        Log.Information("Serialize/Deserialize Object to Xml using MemoryStream Demo.");
-                        Serialization.MemoryStreamXmlSerializationDemo();
+                        Log.Information("Serialize/Deserialize Object to Xml String Demo.");
+                        Serialization.ObjectToXmlStringSerializationDemo();
                         break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
@@ -339,7 +339,7 @@ namespace CSharpProgramming
             Console.WriteLine("[55] - Serialize to Text File in Json Format demo");
             Console.WriteLine("[56] - Deserialize an Object from Text File in Json Format demo");
             Console.WriteLine("[57] - Serialize/Deserialize Object to JSON using MemoryStream Demo.");
-            Console.WriteLine("[58] - Serialize/Deserialize Object to Xml using MemoryStream Demo.");
+            Console.WriteLine("[58] - Serialize/Deserialize Object to Xml String Demo.");
             Console.WriteLine();
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -233,9 +234,9 @@ namespace CSharpProgramming.DataAccessFileIO
             }
         }
 
-        public static void MemoryStreamXmlSerializationDemo()
+        public static void ObjectToXmlStringSerializationDemo()
         {
-            Console.WriteLine("Serialization to MemoryStream Demo.");
+            Console.WriteLine("Object Serialization to Xml String Demo.");
 
             // initialize the json serializer
             XmlSerializer serializer = new XmlSerializer(typeof(Album));
@@ -255,23 +256,22 @@ namespace CSharpProgramming.DataAccessFileIO
                     new Song(){ Title = "Title 5", TrackNumber = 5 }
                 }
             };
-            Console.WriteLine("Album object initialized:\n{0}", album);
+            Console.WriteLine("Album object initialized:\n{0}\n", album);
 
-            // Serialize and write to MemoryStream
-            byte[] memoryStreamBytes;
-            using (MemoryStream stream = new MemoryStream())
+            // Serialize to xml string
+            string xmlString = null;
+            using (StringWriter writer = new StringWriter())
             {
-                serializer.Serialize(stream, album);
-                memoryStreamBytes = stream.ToArray();
-                Console.WriteLine("Bytes of Album object serialized to JSON and written to a MemoryStream object:\n{0}\n",
-                    string.Join(" ", stream.ToArray().Select(t => t.ToString())));
+                serializer.Serialize(writer, album);
+                xmlString = writer.ToString();
+                Console.WriteLine("Xml string of Album object:\n{0}\n", xmlString);
             }
 
-            // open another MemoryStream to read the bytes and deserialize the JSON String
-            using (MemoryStream stream = new MemoryStream(memoryStreamBytes))
+            // Deserialize xml string to object
+            using (StringReader reader = new StringReader(xmlString))
             {
-                var deserializedAlbum = (Album)serializer.Deserialize(stream);
-                Console.WriteLine("Album deserialized:\n{0}\n", album);
+                var deserializedAlbum = (Album)serializer.Deserialize(reader);
+                Console.WriteLine("Derialized Album Object:\n{0}\n", deserializedAlbum);
             }
         }
     }
@@ -292,16 +292,29 @@ namespace CSharpProgramming.DataAccessFileIO
         [DataMember]
         public Song[] Tracks { get; set; }
 
+        /// <summary>
+        /// Override the ToString() and return a JSON representation
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            StringBuilder builder = new StringBuilder();
-            builder.AppendLine("{");
-            builder.AppendLine("\tTitle: " + Title + ",");
-            builder.AppendLine("\tArtist: " + Artist + ",");
-            builder.AppendLine("\tGenre: " + Genre + ",");
-            builder.AppendLine("\tTracks: [" + string.Join(", ", Tracks.Select(t => "{ Title: " + t.Title + ", TrackNumber: " + t.TrackNumber + " }")) + "]");
-            builder.AppendLine("}");
-            return builder.ToString();
+            // open a MemoryStream object
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                // data contract serializer
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Album));
+
+                // serialize the object to json and write to the memory stream
+                serializer.WriteObject(memoryStream, this);
+
+                // open a StreamReader to read the string from the MemoryStream
+                using (StreamReader streamReader = new StreamReader(memoryStream))
+                {
+                    // set the position back to the beginning of the MemoryStream and read out and return the entire string
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    return streamReader.ReadToEnd();
+                }
+            }
         }
     }
 
