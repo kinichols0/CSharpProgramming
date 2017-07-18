@@ -190,6 +190,90 @@ namespace CSharpProgramming.DataAccessFileIO
                 }
             }
         }
+
+        public static void MemoryStreamJsonSerializationDemo()
+        {
+            Console.WriteLine("Serialization to MemoryStream Demo.");
+
+            // initialize the json serializer
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Album));
+
+            // Initialize Album object
+            Album album = new Album()
+            {
+                Title = "90s R&B Classics",
+                Artist = "Various Artists",
+                Genre = "R&B",
+                Tracks = new Song[]
+                {
+                    new Song(){ Title = "Title 1", TrackNumber = 1 },
+                    new Song(){ Title = "Title 2", TrackNumber = 2 },
+                    new Song(){ Title = "Title 3", TrackNumber = 3 },
+                    new Song(){ Title = "Title 4", TrackNumber = 4 },
+                    new Song(){ Title = "Title 5", TrackNumber = 5 }
+                }
+            };
+            Console.WriteLine("Album object initialized:\n{0}", album);
+
+            // Serialize and write to MemoryStream
+            byte[] memoryStreamBytes;
+            using(MemoryStream stream = new MemoryStream())
+            {
+                serializer.WriteObject(stream, album);
+                memoryStreamBytes = stream.ToArray();
+                Console.WriteLine("Bytes of Album object serialized to JSON and written to a MemoryStream object:\n{0}\n",
+                    string.Join(" ", stream.ToArray().Select(t => t.ToString())));
+            }
+
+            // open another MemoryStream to read the bytes and deserialize the JSON String
+            using (MemoryStream stream = new MemoryStream(memoryStreamBytes))
+            {
+                var deserializedAlbum = (Album)serializer.ReadObject(stream);
+                Console.WriteLine("Album deserialized:\n{0}\n", album);
+            }
+        }
+
+        public static void MemoryStreamXmlSerializationDemo()
+        {
+            Console.WriteLine("Serialization to MemoryStream Demo.");
+
+            // initialize the json serializer
+            XmlSerializer serializer = new XmlSerializer(typeof(Album));
+
+            // Initialize Album object
+            Album album = new Album()
+            {
+                Title = "90s R&B Classics",
+                Artist = "Various Artists",
+                Genre = "R&B",
+                Tracks = new Song[]
+                {
+                    new Song(){ Title = "Title 1", TrackNumber = 1 },
+                    new Song(){ Title = "Title 2", TrackNumber = 2 },
+                    new Song(){ Title = "Title 3", TrackNumber = 3 },
+                    new Song(){ Title = "Title 4", TrackNumber = 4 },
+                    new Song(){ Title = "Title 5", TrackNumber = 5 }
+                }
+            };
+            Console.WriteLine("Album object initialized:\n{0}", album);
+
+            // Serialize and write to MemoryStream
+            byte[] memoryStreamBytes;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                serializer.Serialize(stream, album);
+                memoryStreamBytes = stream.ToArray();
+                Console.WriteLine("Bytes of Album object serialized to JSON and written to a MemoryStream object:\n{0}\n",
+                    string.Join(" ", stream.ToArray().Select(t => t.ToString())));
+            }
+
+            // open another MemoryStream to read the bytes and deserialize the JSON String
+            using (MemoryStream stream = new MemoryStream(memoryStreamBytes))
+            {
+                var deserializedAlbum = (Album)serializer.Deserialize(stream);
+                Console.WriteLine("Album deserialized:\n{0}\n", album);
+            }
+        }
     }
 
     [DataContract]
