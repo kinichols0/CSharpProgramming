@@ -8,6 +8,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using CSharpProgramming.Common.Utilities;
 
 namespace CSharpProgramming.SecurityDebugging
 {
@@ -165,17 +166,15 @@ namespace CSharpProgramming.SecurityDebugging
 
             string message = "This was an encrypted this message that has been decrypted.";
 
-            using (Aes aes = Aes.Create())
+            using (Aes aes = new AesCryptoServiceProvider() { Padding = PaddingMode.PKCS7 })
             {
                 // encrypt the string
-                byte[] encrypted = AES_EncryptString(message, aes.Key, aes.IV);
-                Console.WriteLine("Encrypted string in byte array:\n{0}\n",
-                    string.Join(" ", encrypted.Select(t => t.ToString())));
+                byte[] encrypted = SecurityUtility.AES_EncryptString(message, aes);
+                Console.WriteLine("Encrypted string in byte array:\n{0}\n", string.Join(" ", encrypted.Select(t => t.ToString())));
 
                 // decrypt the string
-                string decryptedMessage = AES_DecryptString(encrypted, aes.Key, aes.IV);
+                string decryptedMessage = SecurityUtility.AES_DecryptString(encrypted, aes);
                 Console.WriteLine("Decrypted message:\n{0}\n", decryptedMessage);
-
             }
         }
 
@@ -291,84 +290,6 @@ namespace CSharpProgramming.SecurityDebugging
             }
 
             Console.WriteLine("File decrypted");
-        }
-
-        /// <summary>
-        /// Encrypt string to a byte array using AES symmetric key algorithm
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="key"></param>
-        /// <param name="iv"></param>
-        /// <returns></returns>
-        private static byte[] AES_EncryptString(string text, byte[] key, byte[] iv)
-        {
-            byte[] encrypted;
-
-            using (Aes aesObj = Aes.Create())
-            {
-                // set the Key and Initialization vector (IV)
-                aesObj.Key = key;
-                aesObj.IV = iv;
-
-                // Initialize the crypto transform. defines the symmetric encryptor object.
-                ICryptoTransform encryptor = aesObj.CreateEncryptor(aesObj.Key, aesObj.IV);
-
-                // Initialize a new Memory Stream used for encryption
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    // Initialize the crypto stream passing the Stream we're using, the crypto transform object, and the stream mode
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
-                    {
-                        // Initialize the stream writer we will use to write to the stream
-                        using (StreamWriter writer = new StreamWriter(cs))
-                        {
-                            // write data to the encrypted stream
-                            writer.Write(text);
-                        }
-                        encrypted = ms.ToArray();
-                    }
-                }
-            }
-
-            // return the encrypted bytes.
-            return encrypted;
-        }
-
-        /// <summary>
-        /// Decrypt string from byte array using AES symmetric key algorthm
-        /// </summary>
-        /// <param name="encryptedText"></param>
-        /// <param name="key"></param>
-        /// <param name="iv"></param>
-        /// <returns></returns>
-        private static string AES_DecryptString(byte[] encryptedText, byte[] key, byte[] iv)
-        {
-            string text;
-
-            using (Aes aesObj = Aes.Create())
-            {
-                aesObj.Key = key;
-                aesObj.IV = iv;
-
-                ICryptoTransform decryptor = aesObj.CreateDecryptor(aesObj.Key, aesObj.IV);
-
-                // Initialize MemoryStream based on the passed in byte array
-                using (MemoryStream ms = new MemoryStream(encryptedText))
-                {
-                    // Initialize the crypto stream passing the target Stream, the transformation algorithm to use, and stream mode
-                    using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
-                    {
-                        // Initalize the stream reader to read from the Crypto Stream
-                        using (StreamReader reader = new StreamReader(cs))
-                        {
-                            // Read the stream
-                            text = reader.ReadToEnd();
-                        }
-                    }
-                }
-            }
-
-            return text;
         }
 
         /// <summary>

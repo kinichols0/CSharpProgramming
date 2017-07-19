@@ -9,7 +9,7 @@ using System.IO;
 using System.Xml.Serialization;
 using CSharpProgramming.Common.Interfaces;
 
-namespace CSharpProgramming.Common.Implementations
+namespace CSharpProgramming.Common.Utilities
 {
     public class SerializationUtility : ISerializationUtility, IDisposable
     {

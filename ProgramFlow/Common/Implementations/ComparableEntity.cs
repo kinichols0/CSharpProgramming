@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.IO;
 using CSharpProgramming.Common;
-using CSharpProgramming.Common.Implementations;
+using CSharpProgramming.Common.Utilities;
 
 namespace CSharpProgramming.TypesClasses.Implementations
 {

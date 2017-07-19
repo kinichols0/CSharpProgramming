@@ -64,8 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Abstracts\ProfileData.cs" />
-    <Compile Include="Common\Implementations\SecurityUtility.cs" />
-    <Compile Include="Common\Interfaces\ISecurityUtility.cs" />
+    <Compile Include="Common\Interfaces\ICryptographyService.cs" />
+    <Compile Include="Common\Utilities\SecurityUtility.cs" />
     <Compile Include="Common\Interfaces\ISerializationUtility.cs" />
     <Compile Include="Common\Models\Album.cs" />
     <Compile Include="Common\Models\NetworkEventPublisher.cs" />
@@ -77,7 +77,7 @@
     <Compile Include="Common\Models\Song.cs" />
     <Compile Include="Common\Models\StudentProfileData.cs" />
     <Compile Include="Common\Models\ThreadPoolDemoContext.cs" />
-    <Compile Include="Common\Implementations\SerializationUtility.cs" />
+    <Compile Include="Common\Utilities\SerializationUtility.cs" />
     <Compile Include="DataAccessFileIO\FileIO.cs" />
     <Compile Include="DataAccessFileIO\Serialization.cs" />
     <Compile Include="Common\Models\Category.cs" />
