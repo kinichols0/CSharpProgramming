@@ -7,10 +7,11 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Xml.Serialization;
+using CSharpProgramming.Common.Interfaces;
 
-namespace CSharpProgramming.Common
+namespace CSharpProgramming.Common.Implementations
 {
-    public class Utilities
+    public class SerializationUtility : ISerializationUtility, IDisposable
     {
         /// <summary>
         /// Get the Json string representation of an object. The class
@@ -20,7 +21,7 @@ namespace CSharpProgramming.Common
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string ReadToJsonString<T>(T obj ) where T : class
+        public string SerializeToJsonString<T>(T obj ) where T : class
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -40,7 +41,7 @@ namespace CSharpProgramming.Common
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string ReadToXmlString<T>(T obj) where T : class
+        public string SerializeToXmlString<T>(T obj) where T : class
         {
             using (StringWriter stringWriter = new StringWriter())
             {
@@ -48,6 +49,42 @@ namespace CSharpProgramming.Common
                 serializer.Serialize(stringWriter, obj);
                 return stringWriter.ToString();
             }
+        }
+
+        /// <summary>
+        /// Deserialize a json string
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public T DeserializeJson<T>(string str) where T : class
+        {
+            byte[] utfEncodedBytes = Encoding.UTF8.GetBytes(str);
+            using (MemoryStream stream = new MemoryStream(utfEncodedBytes))
+            {
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
+                return (T)serializer.ReadObject(stream);
+            }
+        }
+
+        /// <summary>
+        /// Deserialize an Xml string
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public T DeserializeXml<T>(string str) where T : class
+        {
+            using (StringReader reader = new StringReader(str))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                return (T)serializer.Deserialize(reader);
+            }
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }

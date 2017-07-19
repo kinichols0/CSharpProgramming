@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.IO;
 using CSharpProgramming.Common;
+using CSharpProgramming.Common.Implementations;
 
 namespace CSharpProgramming.TypesClasses.Implementations
 {
@@ -73,7 +74,10 @@ namespace CSharpProgramming.TypesClasses.Implementations
         public override string ToString()
         {
             // return json string representation
-            return Utilities.ReadToJsonString(this);
+            using (SerializationUtility utility = new SerializationUtility())
+            {
+                return utility.SerializeToJsonString(this);
+            }
         }
     }
 }

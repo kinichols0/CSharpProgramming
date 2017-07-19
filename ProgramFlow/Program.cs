@@ -4,6 +4,8 @@ using CSharpProgramming.SecurityDebugging;
 using CSharpProgramming.TypesClasses;
 using System;
 using Serilog;
+using CSharpProgramming.Common.Implementations;
+using CSharpProgramming.Common.Models;
 
 namespace CSharpProgramming
 {
