@@ -116,7 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="OutputFiles\EncryptionDecryption\destinationFile.enc" />
+    <Content Include="OutputFiles\EncryptionDecryption\destinationFile.txt" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

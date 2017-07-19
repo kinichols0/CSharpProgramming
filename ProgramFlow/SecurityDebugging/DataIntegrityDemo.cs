@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using CSharpProgramming.Common.Utilities;
 
 namespace CSharpProgramming.SecurityDebugging
 {
@@ -24,7 +25,7 @@ namespace CSharpProgramming.SecurityDebugging
             Console.WriteLine("My original message:\n{0}\n", message);
 
             // get and write the hash value to the console
-            var originalHash = SHA1HashGenerator(message);
+            var originalHash = SecurityUtility.ComputSHA256Hash(message);
             Console.WriteLine("Message hash value:\n{0}\n",
                 string.Join(" ", originalHash.ToList().Select(b => b.ToString())));
 
@@ -33,7 +34,7 @@ namespace CSharpProgramming.SecurityDebugging
             Console.WriteLine("New message \n{0}\n", newMessage);
 
             // Display new message hash value
-            var newHash = SHA1HashGenerator(newMessage);
+            var newHash = SecurityUtility.ComputSHA256Hash(newMessage);
             Console.WriteLine("New message hash value:\n{0}\n",
                 string.Join(" ", newHash.ToList().Select(b => b.ToString())));
 
@@ -53,9 +54,10 @@ namespace CSharpProgramming.SecurityDebugging
             var msg = "This message should not change";
             Console.WriteLine("Message:\n{0}\n", msg);
 
-            // hash message using SHA1
-            byte[] sha1HashedMsg = SHA1HashGenerator(msg);
-            Console.WriteLine("Encoded message:\n{0}\n", string.Join(" ", sha1HashedMsg.Select(t => t.ToString())));
+            // hash message
+            byte[] hashedMessage = SecurityUtility.ComputSHA256Hash(msg);
+            string hashName = "SHA256";
+            Console.WriteLine("Encoded message:\n{0}\n", string.Join(" ", hashedMessage.Select(t => t.ToString())));
 
             // Get public/private key
             RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider();
@@ -64,10 +66,10 @@ namespace CSharpProgramming.SecurityDebugging
             RSAPKCS1SignatureFormatter rsaFormatter = new RSAPKCS1SignatureFormatter(rsaProvider);
 
             // specify the hash algorithm to use. Here we use SHA1.
-            rsaFormatter.SetHashAlgorithm("SHA1");
+            rsaFormatter.SetHashAlgorithm(hashName);
 
             // Create a signature for the msg and set it to a byte array
-            byte[] signedHashValue = rsaFormatter.CreateSignature(sha1HashedMsg);
+            byte[] signedHashValue = rsaFormatter.CreateSignature(hashedMessage);
             Console.WriteLine("Signed value:\n{0}\n", string.Join(" ", signedHashValue.Select(t => t.ToString())));
 
             // Verify the value
@@ -79,24 +81,11 @@ namespace CSharpProgramming.SecurityDebugging
 
             // initialize the rsa deformatter to verify the signature on the hashed message byte array
             RSAPKCS1SignatureDeformatter rsaDeformatter = new RSAPKCS1SignatureDeformatter(rsaProvider);
-            rsaDeformatter.SetHashAlgorithm("SHA1");
+            rsaDeformatter.SetHashAlgorithm(hashName);
 
             // verifies if the hash has been altered verifies that the data came from the signee.
-            bool verified = rsaDeformatter.VerifySignature(sha1HashedMsg, signedHashValue);
+            bool verified = rsaDeformatter.VerifySignature(hashedMessage, signedHashValue);
             Console.WriteLine("Validated Signature: {0}", verified);
-        }
-
-        private static byte[] SHA1HashGenerator(string msg)
-        {
-            // convert the string into an array of Unicode bytes using UnicodeEncoding class
-            UnicodeEncoding uEncoding = new UnicodeEncoding();
-            byte[] msgBytes = uEncoding.GetBytes(msg);
-
-            // compute the hash using SHA1Managed class
-            SHA1Managed sha1Hash = new SHA1Managed();
-            byte[] hashValue = sha1Hash.ComputeHash(msgBytes);
-
-            return hashValue;
         }
     }
 }

@@ -139,19 +139,21 @@ namespace CSharpProgramming.SecurityDebugging
                 using (RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider())
                 {
                     // encrypt the data, exclude the private key
-                    byte[] encryptedData = RSAEncrypt(encodedMsg, rsaProvider.ExportParameters(false), false);
+                    byte[] encryptedData = SecurityUtility.RSA_EncryptBytes(encodedMsg, rsaProvider.ToXmlString(false));
                     Console.WriteLine("Byte encrypted message message:\n{0}\n",
                         string.Join(" ", encryptedData.Select(t => t.ToString())));
-                    
+
                     // decrypt the data, include the private key
-                    byte[] decryptedData = RSADecrypt(encryptedData, rsaProvider.ExportParameters(true), false);
-                    Console.WriteLine("Byte encrypted message message:\n{0}\n",
+                    byte[] decryptedData = SecurityUtility.RSA_DecryptBytes(encryptedData, rsaProvider.ToXmlString(true));
+                    Console.WriteLine("Byte decrypted message message:\n{0}\n",
                         string.Join(" ", decryptedData.Select(t => t.ToString())));
                     
                     // Display the text
                     Console.WriteLine("Decrypted text:\n{0}\n", encoding.GetString(decryptedData));
                 }
-            }catch(ArgumentNullException)
+
+            }
+            catch (ArgumentNullException)
             {
                 Console.WriteLine("Encryption demo failed.");
             }
@@ -169,11 +171,11 @@ namespace CSharpProgramming.SecurityDebugging
             using (Aes aes = new AesCryptoServiceProvider() { Padding = PaddingMode.PKCS7 })
             {
                 // encrypt the string
-                byte[] encrypted = SecurityUtility.AES_EncryptString(message, aes);
+                byte[] encrypted = SecurityUtility.SymmetricKeyEncryptString(message, aes);
                 Console.WriteLine("Encrypted string in byte array:\n{0}\n", string.Join(" ", encrypted.Select(t => t.ToString())));
 
                 // decrypt the string
-                string decryptedMessage = SecurityUtility.AES_DecryptString(encrypted, aes);
+                string decryptedMessage = SecurityUtility.SymmetricKeyDecryptString(encrypted, aes);
                 Console.WriteLine("Decrypted message:\n{0}\n", decryptedMessage);
             }
         }
@@ -186,169 +188,24 @@ namespace CSharpProgramming.SecurityDebugging
             try
             {
                 Console.WriteLine("File Encryption demo\n");
-
                 string fileSource = @"..\..\OutputFiles\EncryptionDecryption\sourceFile.txt";
-                string fileEncryptedDestination = @"..\..\OutputFiles\EncryptionDecryption\destinationFile.enc";
+                string fileEncryptedDestination = @"..\..\OutputFiles\EncryptionDecryption\destinationFile.txt";
                 string outputFile = @"..\..\OutputFiles\EncryptionDecryption\destinationFileDecrypted.txt";
 
                 using (Aes aes = Aes.Create())
                 {
                     // encrypt the file
                     Console.WriteLine("Encrypting the file.");
-                    EncryptFile(aes, fileSource, fileEncryptedDestination);
+                    SecurityUtility.CreateSymmetricKeyEncryptedFile(fileSource, fileEncryptedDestination, aes);
 
                     // decrypt the file
                     Console.WriteLine("Decrypting the file.");
-                    DecryptFile(aes, fileEncryptedDestination, outputFile);
+                    SecurityUtility.DecryptedSymmetricKeyEncryptedFile(fileEncryptedDestination, outputFile, aes);
                 }
             }
             catch(Exception ex)
             {
                 Console.WriteLine("Error:\n{0}\n", ex);
-            }
-        }
-
-        /// <summary>
-        /// Encrypt the file
-        /// </summary>
-        /// <param name="aes"></param>
-        /// <param name="fileSource"></param>
-        /// <param name="fileDestination"></param>
-        private static void EncryptFile(Aes aes, string fileSource, string fileDestination)
-        {
-            // encryptor
-            ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-
-            // Initialize the file stream that will have encrypted contents written to it
-            using (FileStream targetFileStream = new FileStream(fileDestination, FileMode.Create))
-            {
-                // crypto stream that will contain the cipher text
-                using (CryptoStream encryptedStream = new CryptoStream(targetFileStream, encryptor, CryptoStreamMode.Write))
-                {
-                    // read from the file and write the encrypted contents to the destination file
-                    using (FileStream sourceFileStream = new FileStream(fileSource, FileMode.Open, FileAccess.Read))
-                    {
-                        // indexes for incrypting a chunk at a time
-                        int count = 0;
-
-                        int blockSizeBytes = aes.BlockSize / 8;
-                        byte[] data = new byte[blockSizeBytes];
-                        int bytesRead = 0;
-
-                        do
-                        {
-                            // read the input filestream bytes into the data byte array
-                            count = sourceFileStream.Read(data, 0, blockSizeBytes);
-
-                            // encrypt and write the bytes from the byte array into the output filestream
-                            encryptedStream.Write(data, 0, count);
-
-                            bytesRead += blockSizeBytes;
-                        }
-                        while (count > 0);
-                    }
-                    encryptedStream.FlushFinalBlock();
-                }
-            }
-            Console.WriteLine("File encrypted.");
-        }
-
-        /// <summary>
-        /// Decrypt the file
-        /// </summary>
-        private static void DecryptFile(Aes aes, string encryptedFile, string outputFile)
-        {
-            // open a stream of the encrypted file
-            using (FileStream encryptedFileStream = new FileStream(encryptedFile, FileMode.Open))
-            {
-                // decryptor
-                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-
-                // create a stream to right the decrypted file contents to.
-                using (FileStream decryptedFileStream = new FileStream(outputFile, FileMode.Create))
-                {
-                    int cnt = 0;
-                    int blockSizeBytes = aes.BlockSize / 8;
-                    byte[] data = new byte[blockSizeBytes];
-
-                    // Cryptostream to decrypt the encrypted file contents and write to the destination filestream
-                    using (CryptoStream decryptedStream = new CryptoStream(decryptedFileStream, decryptor, CryptoStreamMode.Write))
-                    {
-                        do
-                        {
-                            // read/decrypt contents of the encrypted stream into the byte array
-                            cnt = encryptedFileStream.Read(data, 0, blockSizeBytes);
-
-                            // write the decrypted bytes to the ouput file stream
-                            decryptedStream.Write(data, 0, cnt);
-                        }
-                        while (cnt > 0);// a cnt of 0 means we read all the bytes from the filestream
-
-                        decryptedStream.FlushFinalBlock();
-                    }
-                }
-            }
-
-            Console.WriteLine("File decrypted");
-        }
-
-        /// <summary>
-        /// Encrypt data using RSA
-        /// </summary>
-        /// <param name="data"></param>
-        /// <param name="rsaKeyInfo"></param>
-        /// <param name="doOAEPadding"></param>
-        /// <returns></returns>
-        private static byte[] RSAEncrypt(byte[] data, RSAParameters rsaKeyInfo, bool doOAEPadding)
-        {
-            try
-            {
-                byte[] encryptedMessage = null;
-
-                using (RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider())
-                {
-                    // set the keys from the rsa parameters passed in
-                    rsaProvider.ImportParameters(rsaKeyInfo);
-
-                    encryptedMessage = rsaProvider.Encrypt(data, doOAEPadding);
-                }
-
-                return encryptedMessage;
-            }
-            catch (CryptographicException e)
-            {
-                Console.WriteLine(e);
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Decrypt data using RSA
-        /// </summary>
-        /// <param name="encryptedData"></param>
-        /// <param name="rsaKeyInfo"></param>
-        /// <param name="doOAEPadding"></param>
-        /// <returns></returns>
-        private static byte[] RSADecrypt(byte[] encryptedData, RSAParameters rsaKeyInfo, bool doOAEPadding)
-        {
-            try
-            {
-                byte[] decryptedData = null;
-
-                using (RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider())
-                {
-                    // set the keys from the RSA params passed in
-                    rsaProvider.ImportParameters(rsaKeyInfo);
-
-                    decryptedData = rsaProvider.Decrypt(encryptedData, doOAEPadding);
-                }
-
-                return decryptedData;
-            }
-            catch (CryptographicException e)
-            {
-                Console.WriteLine(e);
-                return null;
             }
         }
 
