@@ -50,6 +50,10 @@ namespace CSharpProgramming.SecurityDebugging
         {
             Console.WriteLine("Digital Signature demo...\n");
 
+            /******************************************************************************************************************/
+            /* Sign a hashed message */
+            /******************************************************************************************************************/
+
             // initialize the message
             var msg = "This message should not change";
             Console.WriteLine("Message:\n{0}\n", msg);
@@ -65,26 +69,32 @@ namespace CSharpProgramming.SecurityDebugging
             // Create a RSAPKCS1SignatureFormatter and pass it the RSA provider to give it the private key.
             RSAPKCS1SignatureFormatter rsaFormatter = new RSAPKCS1SignatureFormatter(rsaProvider);
 
-            // specify the hash algorithm to use. Here we use SHA1.
+            // specify the hash algorithm to use.
             rsaFormatter.SetHashAlgorithm(hashName);
 
             // Create a signature for the msg and set it to a byte array
             byte[] signedHashValue = rsaFormatter.CreateSignature(hashedMessage);
             Console.WriteLine("Signed value:\n{0}\n", string.Join(" ", signedHashValue.Select(t => t.ToString())));
 
-            // Verify the value
-            RSACryptoServiceProvider rsaVerifier = new RSACryptoServiceProvider();
+            /******************************************************************************************************************/
+            /* Verify a signed hashed message */
+            /******************************************************************************************************************/
 
             // get public key info from previous RSA
             RSAParameters rsaParams = rsaProvider.ExportParameters(false);
+
+            // initialize the RSA service provider and pass it the public key
+            RSACryptoServiceProvider rsaVerifier = new RSACryptoServiceProvider();
             rsaVerifier.ImportParameters(rsaParams);
 
-            // initialize the rsa deformatter to verify the signature on the hashed message byte array
+            // initialize the rsa signature deformatter and tell it the name of the hash used
             RSAPKCS1SignatureDeformatter rsaDeformatter = new RSAPKCS1SignatureDeformatter(rsaProvider);
             rsaDeformatter.SetHashAlgorithm(hashName);
 
-            // verifies if the hash has been altered verifies that the data came from the signee.
-            bool verified = rsaDeformatter.VerifySignature(hashedMessage, signedHashValue);
+            // verify if the hash has been altered and verify that the data came from the signee.
+            byte[] clientHashedMessage = SecurityUtility.ComputSHA256Hash(msg);
+            bool verified = rsaDeformatter.VerifySignature(clientHashedMessage, signedHashValue);
+
             Console.WriteLine("Validated Signature: {0}", verified);
         }
     }
