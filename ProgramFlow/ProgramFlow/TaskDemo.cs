@@ -65,8 +65,8 @@ namespace CSharpProgramming.ProgramFlow
         {
             Console.WriteLine("Tasks with continuation demo started...\n\n");
 
-            Task<int>[] tasks = new Task<int>[10];
-            Task[] continuationTasks = new Task[tasks.Length];
+            // an array of tasks
+            Task[] tasks = new Task[10];
 
             for(int i = 0; i < tasks.Length; i++)
             {
@@ -77,30 +77,20 @@ namespace CSharpProgramming.ProgramFlow
                     Console.WriteLine("ThreadId: {2} - {0} squared is {1}\n", num, (num * num)
                         , Thread.CurrentThread.ManagedThreadId);
                     return (num * num);
-                }, i);
-
-                // Tasks that cube the index
-                continuationTasks[i] = tasks[i].ContinueWith(t =>
+                }, i).ContinueWith(t =>
                 {
-                    // Check if thread ran to completion
-                    if (t.Status == TaskStatus.RanToCompletion)
-                    {
-                        int root = (int)Math.Sqrt(t.Result);
-                        Console.WriteLine("TaskId: {2} - {0} cubed is {1}\n", root, (root * root * root), t.Id);
-                    }
-                    else
-                    {
-                        Console.WriteLine("{0} did not run to completion.\n", t.Id);
-                    }
-                });
+                    // continuation tasks is only ran if prior task ran to completion
+                    int root = (int)Math.Sqrt(t.Result);
+                    Console.WriteLine("TaskId: {2} - {0} cubed is {1}\n", root, (root * root * root), t.Id);
+                }, TaskContinuationOptions.OnlyOnRanToCompletion);
             }
 
             // wait for all tasks complete
             // task exception handling
             try
             {
+                // wait for all tasks to complete
                 Task.WaitAll(tasks);
-                Task.WaitAll(continuationTasks);
                 Console.WriteLine("Tasks with continuation demo ended...\n\n");
             }
             catch(ArgumentException e)

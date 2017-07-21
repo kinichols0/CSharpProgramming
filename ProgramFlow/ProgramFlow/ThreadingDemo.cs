@@ -13,31 +13,59 @@ namespace CSharpProgramming.ProgramFlow
     {
         #region Basic Thread Demo
 
-        private static AutoResetEvent autoEvent;
-
         public static void BasicRun()
         {
             Console.WriteLine("Threading basic demo run started...");
 
-            autoEvent = new AutoResetEvent(false);
+            int resetEventsCnt = 4;
+            AutoResetEvent[] resetEvents = new AutoResetEvent[resetEventsCnt];
+            Random rnd = new Random();
 
-            // create and start the thread
-            Thread thread = new Thread(BasicRunMethod);
-            thread.Start();
+            for (int i = 0; i < resetEventsCnt; i++)
+            {
+                // initialize reset event
+                resetEvents[i] = new AutoResetEvent(false);
 
-            // wait for the one thread to end
-            autoEvent.WaitOne();
+                // initialize threads with the reset events
+                var dictionary = new Dictionary<string, object>()
+                {
+                    ["ResetEvent"] = resetEvents[i],
+                    ["RunTimeSeconds"] = rnd.Next(1, 4),
+                    ["ThreadId"] = i + 1
+                };
+                Thread thread = new Thread((dict) => BasicRunMethod(dictionary));
+                thread.Start();
+            }
 
-            Console.WriteLine("Ended threading basic run...\n");
+            // wait for all rest events to signal
+            WaitHandle.WaitAll(resetEvents);
         }
 
-        private static void BasicRunMethod()
+        private static void BasicRunMethod(Dictionary<string, object> data)
         {
-            // run the thread process
-            Console.WriteLine("Basic thread process writing to the console...");
+            AutoResetEvent resetEvent = (AutoResetEvent)data["ResetEvent"];
+            int threadId = (int)data["ThreadId"];
+            int runTime = (int)data["RunTimeSeconds"];
 
-            // signal that the one thread ended
-            autoEvent.Set();
+            try
+            {
+                // run the thread process
+                for(int i = 0; i < runTime; i++)
+                {
+                    Console.WriteLine("Thread {0} executing...", threadId);
+                    Thread.Sleep(1000);
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error for thread Id {0}", threadId);
+            }
+            finally
+            {
+                // signal that this thread is completed
+                Console.WriteLine("Thread {0} done!", threadId);
+                resetEvent.Set();
+            }
         }
 
         #endregion

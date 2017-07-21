@@ -20,6 +20,7 @@ namespace CSharpProgramming.DataAccessFileIO
         /// </summary>
         public static void SerializeObjectToXmlFileDemo()
         {
+
             Console.WriteLine("Serialize an Object to Xml File Demo.");
 
             // initialize the object
