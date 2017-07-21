@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSharpProgramming.Common.Enums;
+using CSharpProgramming.Common.Models;
 
 namespace CSharpProgramming.Common.Models
 {
@@ -15,7 +16,7 @@ namespace CSharpProgramming.Common.Models
 
         // delcare an event for when a subscriber broadcasts a message.
         // this is alternative syntax to declare an event.
-        public EventHandler<NetworkMessageBroadCastEventArgs> NetworkOnMessageBroadcastAll;
+        public event EventHandler<NetworkMessageBroadCastEventArgs> NetworkOnMessageBroadcastAll;
 
         /// <summary>
         /// Raise network open event
