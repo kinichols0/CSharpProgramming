@@ -1,9 +1,10 @@
-﻿using CSharpProgramming.DataAccessFileIO;
+﻿using System;
+using Serilog;
+using CSharpProgramming.Common.Utilities;
+using CSharpProgramming.DataAccessFileIO;
 using CSharpProgramming.ProgramFlow;
 using CSharpProgramming.SecurityDebugging;
 using CSharpProgramming.TypesClasses;
-using Serilog;
-using System;
 
 namespace CSharpProgramming
 {
@@ -11,13 +12,8 @@ namespace CSharpProgramming
     {
         public static void Main(string[] args)
         {
-            // configure the logger
-            ILogger logger = new LoggerConfiguration()
-                .ReadFrom.AppSettings()
-                .CreateLogger();
-
-            // configure the global logger
-            Log.Logger = logger;
+            // configure any logging, tracing etc.
+            LogTraceTrackUtility.Configure();
 
             // log the start of the program
             Log.Information("C Sharp demo application started.");
@@ -264,6 +260,14 @@ namespace CSharpProgramming
                         Log.Information("Serialize/Deserialize Object to Xml String Demo.");
                         Serialization.ObjectToXmlStringSerializationDemo();
                         break;
+                    case 59:
+                        Log.Information("Linq to Xml Demo. List all Album Songs");
+                        LinqToData.LinqToXmlQueryDemo();
+                        break;
+                    case 60:
+                        Log.Information("ICustomFormatter and IFormatProvider Implementation Demo");
+                        StringManipulation.ICustomFormatIFormProviderDemo();
+                        break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
@@ -275,8 +279,8 @@ namespace CSharpProgramming
             // log end of the program
             Log.Information("C Sharp Programming demo ended.\n");
 
-            Console.WriteLine("\nPress any key to close the program...");
-            Console.ReadLine();
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
         }
 
         public static void PrintPrompt()
@@ -340,6 +344,8 @@ namespace CSharpProgramming
             Console.WriteLine("[56] - Deserialize an Object from Text File in Json Format demo");
             Console.WriteLine("[57] - Serialize/Deserialize Object to JSON using MemoryStream Demo.");
             Console.WriteLine("[58] - Serialize/Deserialize Object to Xml String Demo.");
+            Console.WriteLine("[59] - Linq to Xml Demo, query elements");
+            Console.WriteLine("[60] - ICustomFormatter and IFormatProvider Implementation Demo");
             Console.WriteLine();
         }
     }

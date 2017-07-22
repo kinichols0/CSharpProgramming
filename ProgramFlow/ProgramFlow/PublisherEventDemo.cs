@@ -8,7 +8,7 @@ using CSharpProgramming.Common.Models;
 
 namespace CSharpProgramming.ProgramFlow
 {
-    public class NetworkEventPublisherDemo
+    public static class NetworkEventPublisherDemo
     {
         /// <summary>
         /// Event Publisher/Subscriber demo

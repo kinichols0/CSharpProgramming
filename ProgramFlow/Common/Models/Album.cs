@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Xml.Linq;
 
 namespace CSharpProgramming.Common.Models
 {
@@ -23,7 +24,30 @@ namespace CSharpProgramming.Common.Models
         public string Genre { get; set; }
 
         [DataMember]
-        public Song[] Tracks { get; set; }
+        public Track[] Tracks { get; set; }
+
+        /// <summary>
+        /// Returns an XElement representation of the Album
+        /// </summary>
+        /// <returns></returns>
+        public XElement ToXElement()
+        {
+            XElement element = new XElement("Album");
+            element.Add(new XElement("Title", Title));
+            element.Add(new XElement("Artist", Artist));
+            element.Add(new XElement("Genre", Genre));
+
+            if (Tracks != null && Tracks.Length > 0)
+            {
+                element.Add(new XElement("Tracks", Tracks.Select(t => new XElement("Track",
+                new XElement("Title", t.Title),
+                new XElement("TrackNumber", t.TrackNumber))).ToList()));
+            }
+            else
+                element.Add("Tracks");
+
+            return element;
+        }
 
         /// <summary>
         /// Override the ToString() and return a JSON representation

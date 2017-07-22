@@ -9,7 +9,7 @@ using CSharpProgramming.Common.Models;
 
 namespace CSharpProgramming.ProgramFlow
 {
-    public class ThreadingDemo
+    public static class ThreadingDemo
     {
         #region Basic Thread Demo
 
@@ -56,7 +56,7 @@ namespace CSharpProgramming.ProgramFlow
                     Thread.Sleep(1000);
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 Console.WriteLine("Error for thread Id {0}", threadId);
             }

@@ -74,10 +74,7 @@ namespace CSharpProgramming.TypesClasses.Implementations
         public override string ToString()
         {
             // return json string representation
-            using (SerializationUtility utility = new SerializationUtility())
-            {
-                return utility.SerializeToJsonString(this);
-            }
+            return SerializationUtility.SerializeToJsonString(this);
         }
     }
 }

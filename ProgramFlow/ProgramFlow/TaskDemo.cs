@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CSharpProgramming.ProgramFlow
 {
-    public class TaskDemo
+    public static class TaskDemo
     {
         public static void Run()
         {

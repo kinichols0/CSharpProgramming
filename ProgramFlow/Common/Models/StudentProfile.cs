@@ -8,7 +8,7 @@ using CSharpProgramming.Common.Enums;
 
 namespace CSharpProgramming.Common.Models
 {
-    public class StudentProfileData : ProfileData
+    public class StudentProfile : Profile
     {
         public string Major { get; set; }
 
@@ -17,13 +17,13 @@ namespace CSharpProgramming.Common.Models
         /// <summary>
         /// Call constructor for empty constructor with values
         /// </summary>
-        public StudentProfileData() :
+        public StudentProfile() :
             this("n/a", "n/a", "Undecided", ClassStanding.Freshman)
         {
 
         }
 
-        public StudentProfileData(string firstName, string lastName, string major, ClassStanding standing) :
+        public StudentProfile(string firstName, string lastName, string major, ClassStanding standing) :
             base(firstName, lastName)
         {
             Major = major;

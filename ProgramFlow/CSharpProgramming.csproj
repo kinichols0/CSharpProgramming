@@ -63,22 +63,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Abstracts\ProfileData.cs" />
+    <Compile Include="Common\Abstracts\Profile.cs" />
+    <Compile Include="Common\Implementations\PhoneNumberFormatter.cs" />
     <Compile Include="Common\Interfaces\ICryptographyService.cs" />
+    <Compile Include="Common\Utilities\LogTraceTrackUtility.cs" />
     <Compile Include="Common\Utilities\SecurityUtility.cs" />
-    <Compile Include="Common\Interfaces\ISerializationUtility.cs" />
     <Compile Include="Common\Models\Album.cs" />
     <Compile Include="Common\Models\NetworkEventPublisher.cs" />
     <Compile Include="Common\Models\NetworkEventSubscriber.cs" />
     <Compile Include="Common\Models\NetworkMessageBroadCastEventArgs.cs" />
     <Compile Include="Common\Models\NetworkStatusEventArgs.cs" />
-    <Compile Include="Common\Models\ProfessorProfileData.cs" />
+    <Compile Include="Common\Models\ProfessorProfile.cs" />
     <Compile Include="Common\Models\Shape.cs" />
-    <Compile Include="Common\Models\Song.cs" />
-    <Compile Include="Common\Models\StudentProfileData.cs" />
+    <Compile Include="Common\Models\Track.cs" />
+    <Compile Include="Common\Models\StudentProfile.cs" />
     <Compile Include="Common\Models\ThreadPoolDemoContext.cs" />
     <Compile Include="Common\Utilities\SerializationUtility.cs" />
     <Compile Include="DataAccessFileIO\FileIO.cs" />
+    <Compile Include="DataAccessFileIO\LinqToData.cs" />
     <Compile Include="DataAccessFileIO\Serialization.cs" />
     <Compile Include="Common\Models\Category.cs" />
     <Compile Include="Common\Models\Order.cs" />

@@ -10,7 +10,7 @@ using CSharpProgramming.Common.Enums;
 
 namespace CSharpProgramming.TypesClasses
 {
-    public class TypesImplementation
+    public static class TypesImplementation
     {
         public static void BasicStructDemo()
         {
@@ -31,10 +31,10 @@ namespace CSharpProgramming.TypesClasses
         {
             Console.WriteLine("Started basic inheritance demo...");
 
-            StudentProfileData studentProfile = new StudentProfileData();
+            StudentProfile studentProfile = new StudentProfile();
             studentProfile.Print();
 
-            StudentProfileData studenProfile2 = new StudentProfileData("Kelvin", "Nichols", "Computer Science", ClassStanding.Senior);
+            StudentProfile studenProfile2 = new StudentProfile("Kelvin", "Nichols", "Computer Science", ClassStanding.Senior);
             studenProfile2.Print();
 
             Console.WriteLine("Ended basic inheritance demo...");

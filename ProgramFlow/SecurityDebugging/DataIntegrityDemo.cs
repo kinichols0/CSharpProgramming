@@ -8,7 +8,7 @@ using CSharpProgramming.Common.Utilities;
 
 namespace CSharpProgramming.SecurityDebugging
 {
-    public class DataIntegrityDemo
+    public static class DataIntegrityDemo
     {
         /// <summary>
         /// Data can be compared using a hash value to check for integrity. If the hash value

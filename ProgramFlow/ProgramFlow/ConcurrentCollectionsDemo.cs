@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CSharpProgramming.ProgramFlow
 {
-    public class ConcurrentCollectionsDemo
+    public static class ConcurrentCollectionsDemo
     {
         /// <summary>
         /// Blocking collection demo. Thread safe collection of items providing

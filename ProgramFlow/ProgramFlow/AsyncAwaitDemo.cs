@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CSharpProgramming.ProgramFlow
 {
-    public class AsyncAwaitDemo
+    public static class AsyncAwaitDemo
     {
         public async static Task BasicDemo()
         {

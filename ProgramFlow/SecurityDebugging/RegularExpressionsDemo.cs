@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace CSharpProgramming.SecurityDebugging
 {
-    public class RegularExpressionsDemo
+    public static class RegularExpressionsDemo
     {
         /// <summary>
         /// Character classes define a set of characters, any one of which can

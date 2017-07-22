@@ -8,7 +8,7 @@ using CSharpProgramming.Common.Models;
 
 namespace CSharpProgramming.ProgramFlow
 {
-    public class PLinqDemo
+    public static class PLinqDemo
     {
         public static void LinqBasicDemo()
         {

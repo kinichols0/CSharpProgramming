@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace CSharpProgramming.Common.Abstracts
 {
-    public abstract class ProfileData
+    public abstract class Profile
     {
-        public ProfileData(string firstName, string lastName)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-        }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
+
+        public Profile(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
 
         public virtual void Print()
         {

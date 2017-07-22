@@ -19,7 +19,7 @@ namespace CSharpProgramming.SecurityDebugging
             Console.WriteLine("Initializing StudentProfileData object\n");
 
             // initialize the object we are going to serialize to json
-            StudentProfileData data = new StudentProfileData("John", "Doe", "Computer Science", ClassStanding.Junior)
+            StudentProfile data = new StudentProfile("John", "Doe", "Computer Science", ClassStanding.Junior)
             {
                 DateOfBirth = DateTime.Now
             };
@@ -31,7 +31,7 @@ namespace CSharpProgramming.SecurityDebugging
             Console.WriteLine("Is valid json: {0}\n", IsValidJson(json));
 
             // deserialize the json string back to object
-            StudentProfileData deserializedData = JsonConvert.DeserializeObject<StudentProfileData>(json);
+            StudentProfile deserializedData = JsonConvert.DeserializeObject<StudentProfile>(json);
             Console.WriteLine("Deseserialized the string to StudentProfileData object:\n{0}\n", deserializedData);
 
             // test an invalid json string

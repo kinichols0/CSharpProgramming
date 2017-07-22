@@ -20,11 +20,11 @@ namespace CSharpProgramming.Common.Models
         public int CustomerId { get; set; }
 
         [DBColumn(Name = "OrderDate")]
-        public DateTime OrderPlacedDate { get; set; }
+        public DateTime? OrderDate { get; set; }
 
         public override string ToString()
         {
-            return string.Format("[ Id:{0}, ItemId:{1}, CustomerId:{2}, OrderPlacedDate:{3} ]", Id, CustomerId, ItemId, OrderPlacedDate.ToString("d"));
+            return string.Format("[ Id:{0}, ItemId:{1}, CustomerId:{2}, OrderPlacedDate:{3} ]", Id, CustomerId, ItemId, OrderDate.HasValue ? OrderDate.Value.ToString("d") : "");
         }
     }
 }

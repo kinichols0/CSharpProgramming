@@ -11,7 +11,7 @@ using CSharpProgramming.Common.Interfaces;
 
 namespace CSharpProgramming.Common.Utilities
 {
-    public class SerializationUtility : ISerializationUtility, IDisposable
+    public static class SerializationUtility
     {
         /// <summary>
         /// Get the Json string representation of an object. The class
@@ -21,7 +21,7 @@ namespace CSharpProgramming.Common.Utilities
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public string SerializeToJsonString<T>(T obj ) where T : class
+        public static string SerializeToJsonString<T>(T obj ) where T : class
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -41,7 +41,7 @@ namespace CSharpProgramming.Common.Utilities
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public string SerializeToXmlString<T>(T obj) where T : class
+        public static string SerializeToXmlString<T>(T obj) where T : class
         {
             using (StringWriter stringWriter = new StringWriter())
             {
@@ -57,7 +57,7 @@ namespace CSharpProgramming.Common.Utilities
         /// <typeparam name="T"></typeparam>
         /// <param name="str"></param>
         /// <returns></returns>
-        public T DeserializeJson<T>(string str) where T : class
+        public static T DeserializeJson<T>(string str) where T : class
         {
             byte[] utfEncodedBytes = Encoding.UTF8.GetBytes(str);
             using (MemoryStream stream = new MemoryStream(utfEncodedBytes))
@@ -73,18 +73,13 @@ namespace CSharpProgramming.Common.Utilities
         /// <typeparam name="T"></typeparam>
         /// <param name="str"></param>
         /// <returns></returns>
-        public T DeserializeXml<T>(string str) where T : class
+        public static T DeserializeXml<T>(string str) where T : class
         {
             using (StringReader reader = new StringReader(str))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 return (T)serializer.Deserialize(reader);
             }
-        }
-
-        public void Dispose()
-        {
-
         }
     }
 }

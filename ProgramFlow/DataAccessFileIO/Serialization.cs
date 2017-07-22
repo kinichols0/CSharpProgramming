@@ -29,13 +29,13 @@ namespace CSharpProgramming.DataAccessFileIO
                 Artist = "Rapper Sid",
                 Title = "Sidtastic",
                 Genre = "Rap/Hip-Hop",
-                Tracks = new Song[]
+                Tracks = new Track[]
                 {
-                    new Song{ Title = "Title 1", TrackNumber = 1 },
-                    new Song{ Title = "Title 2", TrackNumber = 2 },
-                    new Song{ Title = "Title 3", TrackNumber = 3 },
-                    new Song{ Title = "Title 4", TrackNumber = 4 },
-                    new Song{ Title = "Title 5", TrackNumber = 5 }
+                    new Track{ Title = "Title 1", TrackNumber = 1 },
+                    new Track{ Title = "Title 2", TrackNumber = 2 },
+                    new Track{ Title = "Title 3", TrackNumber = 3 },
+                    new Track{ Title = "Title 4", TrackNumber = 4 },
+                    new Track{ Title = "Title 5", TrackNumber = 5 }
                 }
             };
 
@@ -87,13 +87,13 @@ namespace CSharpProgramming.DataAccessFileIO
                 Artist = "Rapper Sid",
                 Title = "Sidtastic",
                 Genre = "Rap/Hip-Hop",
-                Tracks = new Song[]
+                Tracks = new Track[]
                 {
-                    new Song{ Title = "Title 1", TrackNumber = 1 },
-                    new Song{ Title = "Title 2", TrackNumber = 2 },
-                    new Song{ Title = "Title 3", TrackNumber = 3 },
-                    new Song{ Title = "Title 4", TrackNumber = 4 },
-                    new Song{ Title = "Title 5", TrackNumber = 5 }
+                    new Track{ Title = "Title 1", TrackNumber = 1 },
+                    new Track{ Title = "Title 2", TrackNumber = 2 },
+                    new Track{ Title = "Title 3", TrackNumber = 3 },
+                    new Track{ Title = "Title 4", TrackNumber = 4 },
+                    new Track{ Title = "Title 5", TrackNumber = 5 }
                 }
             };
 
@@ -139,13 +139,13 @@ namespace CSharpProgramming.DataAccessFileIO
                 Artist = "Rapper Sid",
                 Title = "Sidtastic",
                 Genre = "Rap/Hip-Hop",
-                Tracks = new Song[]
+                Tracks = new Track[]
                 {
-                    new Song{ Title = "Title 1", TrackNumber = 1 },
-                    new Song{ Title = "Title 2", TrackNumber = 2 },
-                    new Song{ Title = "Title 3", TrackNumber = 3 },
-                    new Song{ Title = "Title 4", TrackNumber = 4 },
-                    new Song{ Title = "Title 5", TrackNumber = 5 }
+                    new Track{ Title = "Title 1", TrackNumber = 1 },
+                    new Track{ Title = "Title 2", TrackNumber = 2 },
+                    new Track{ Title = "Title 3", TrackNumber = 3 },
+                    new Track{ Title = "Title 4", TrackNumber = 4 },
+                    new Track{ Title = "Title 5", TrackNumber = 5 }
                 }
             };
 
@@ -207,13 +207,13 @@ namespace CSharpProgramming.DataAccessFileIO
                 Title = "90s R&B Classics",
                 Artist = "Various Artists",
                 Genre = "R&B",
-                Tracks = new Song[]
+                Tracks = new Track[]
                 {
-                    new Song(){ Title = "Title 1", TrackNumber = 1 },
-                    new Song(){ Title = "Title 2", TrackNumber = 2 },
-                    new Song(){ Title = "Title 3", TrackNumber = 3 },
-                    new Song(){ Title = "Title 4", TrackNumber = 4 },
-                    new Song(){ Title = "Title 5", TrackNumber = 5 }
+                    new Track(){ Title = "Title 1", TrackNumber = 1 },
+                    new Track(){ Title = "Title 2", TrackNumber = 2 },
+                    new Track(){ Title = "Title 3", TrackNumber = 3 },
+                    new Track(){ Title = "Title 4", TrackNumber = 4 },
+                    new Track(){ Title = "Title 5", TrackNumber = 5 }
                 }
             };
             Console.WriteLine("Album object initialized:\n{0}", album);
@@ -249,13 +249,13 @@ namespace CSharpProgramming.DataAccessFileIO
                 Title = "90s R&B Classics",
                 Artist = "Various Artists",
                 Genre = "R&B",
-                Tracks = new Song[]
+                Tracks = new Track[]
                 {
-                    new Song(){ Title = "Title 1", TrackNumber = 1 },
-                    new Song(){ Title = "Title 2", TrackNumber = 2 },
-                    new Song(){ Title = "Title 3", TrackNumber = 3 },
-                    new Song(){ Title = "Title 4", TrackNumber = 4 },
-                    new Song(){ Title = "Title 5", TrackNumber = 5 }
+                    new Track(){ Title = "Title 1", TrackNumber = 1 },
+                    new Track(){ Title = "Title 2", TrackNumber = 2 },
+                    new Track(){ Title = "Title 3", TrackNumber = 3 },
+                    new Track(){ Title = "Title 4", TrackNumber = 4 },
+                    new Track(){ Title = "Title 5", TrackNumber = 5 }
                 }
             };
             Console.WriteLine("Album object initialized:\n{0}\n", album);

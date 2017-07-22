@@ -10,7 +10,7 @@ using System.Net.Sockets;
 
 namespace CSharpProgramming.DataAccessFileIO
 {
-    public class FileIO
+    public static class FileIO
     {
         /// <summary>
         /// Read data from a file to a FileStream then write the

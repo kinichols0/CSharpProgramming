@@ -12,7 +12,7 @@ using CSharpProgramming.Common.Utilities;
 
 namespace CSharpProgramming.SecurityDebugging
 {
-    public class EncryptionDecryption
+    public static class EncryptionDecryption
     {
         public static void GeneratingKeysDemo()
         {

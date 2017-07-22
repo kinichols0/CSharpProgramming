@@ -5,10 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSharpProgramming.Common.Implementations;
 
 namespace CSharpProgramming.TypesClasses
 {
-    public class StringManipulation
+    public static class StringManipulation
     {
         /// <summary>
         /// StringBuilder demo, a mutable string class
@@ -125,6 +126,20 @@ namespace CSharpProgramming.TypesClasses
             // make title case
             TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
             Console.WriteLine("Title case: {0}\n", ti.ToTitleCase(greeting));
+        }
+
+        /// <summary>
+        /// Use an implementation of the ICustomerFormatter and IFormatProvider interfaces
+        /// to format an object as a string.
+        /// </summary>
+        public static void ICustomFormatIFormProviderDemo()
+        {
+            string number = "123456789";
+            Console.WriteLine(@"Format {0} to ""(xxx)-xxx-xxx"" format.", string.Format(new PhoneNumberFormatter(), "{0}", number));
+
+            // format number passing "P" as the format parameter
+            string phoneNumberFormat = string.Format(new PhoneNumberFormatter(), "{0:P}", number);
+            Console.WriteLine("Phone number format: {0}", phoneNumberFormat);
         }
     }
 }

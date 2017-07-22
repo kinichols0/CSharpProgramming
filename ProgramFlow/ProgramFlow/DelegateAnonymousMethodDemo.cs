@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharpProgramming.ProgramFlow
 {
-    public class DelegateAnonymousMethodDemo
+    public static class DelegateAnonymousMethodDemo
     {
         // Printe message delegate
         delegate void PrintMessageDelegate(string message);

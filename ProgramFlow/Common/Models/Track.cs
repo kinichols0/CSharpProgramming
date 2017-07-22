@@ -9,7 +9,7 @@ namespace CSharpProgramming.Common.Models
 {
     [DataContract]
     [Serializable]
-    public class Song
+    public class Track
     {
         [DataMember]
         public string Title { get; set; }

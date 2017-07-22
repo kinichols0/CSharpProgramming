@@ -7,20 +7,20 @@ using CSharpProgramming.Common.Abstracts;
 
 namespace CSharpProgramming.Common.Models
 {
-    public class ProfessorProfileData : ProfileData
+    public class ProfessorProfile : Profile
     {
         public string AlmaMater { get; set; }
 
         /// <summary>
         /// Call constructor for empty constructor with values
         /// </summary>
-        public ProfessorProfileData() :
+        public ProfessorProfile() :
             this("n/a", "n/a", "n/a")
         {
 
         }
 
-        public ProfessorProfileData(string firstname, string lastName, string almaMater) :
+        public ProfessorProfile(string firstname, string lastName, string almaMater) :
             base(firstname, lastName)
         {
             AlmaMater = almaMater;

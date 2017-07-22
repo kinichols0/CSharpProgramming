@@ -13,7 +13,7 @@ using CSharpProgramming.Common.Attributes;
 
 namespace CSharpProgramming.TypesClasses
 {
-    public class DynamicsReflection
+    public static class DynamicsReflection
     {
         public static void AttributesAndReflectionDemo()
         {
@@ -58,7 +58,7 @@ namespace CSharpProgramming.TypesClasses
 
             // Order object initialization
             Console.WriteLine("\nInitialize Order object:");
-            var order = new Order() { Id = 132, CustomerId = 2543, ItemId = 523456, OrderPlacedDate = DateTime.Now };
+            var order = new Order() { Id = 132, CustomerId = 2543, ItemId = 523456, OrderDate = DateTime.Now };
             Console.WriteLine(order);
 
             // Mapping Order properties to attributes

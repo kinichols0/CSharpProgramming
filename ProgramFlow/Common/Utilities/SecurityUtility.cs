@@ -9,7 +9,7 @@ using System.IO;
 
 namespace CSharpProgramming.Common.Utilities
 {
-    public class SecurityUtility
+    public static class SecurityUtility
     {
         /// <summary>
         /// ComputeHash implementation using SHA246 hashing algorithm
