@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Serilog;
 using CSharpProgramming.Common.Utilities;
 using CSharpProgramming.DataAccessFileIO;
@@ -23,7 +24,6 @@ namespace CSharpProgramming
 
             // read the input and run the corresponding process
             string key = Console.ReadLine();
-
             if (int.TryParse(key, out int demoNum))
             {
                 switch (demoNum)
@@ -268,6 +268,15 @@ namespace CSharpProgramming
                         Log.Information("ICustomFormatter and IFormatProvider Implementation Demo");
                         StringManipulation.ICustomFormatIFormProviderDemo();
                         break;
+                    case 61:
+                        Log.Information("Run basic trace code.");
+                        LogTraceTrackUtility.WriteTraceMsg("C Sharp demo application " + DateTime.Now.ToString());
+                        break;
+                    case 62:
+                        Log.Information("Run TraceSource code");
+                        LogTraceTrackUtility.WriteGeneralTraceSwitchMsg(TraceEventType.Information, 1,
+                            "General Application Information " + DateTime.Now.ToString());
+                        break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
@@ -346,6 +355,8 @@ namespace CSharpProgramming
             Console.WriteLine("[58] - Serialize/Deserialize Object to Xml String Demo.");
             Console.WriteLine("[59] - Linq to Xml Demo, query elements");
             Console.WriteLine("[60] - ICustomFormatter and IFormatProvider Implementation Demo");
+            Console.WriteLine("[61] - Run Basic Trace code.");
+            Console.WriteLine("[62] - Run TraceSource Tracing Code");
             Console.WriteLine();
         }
     }

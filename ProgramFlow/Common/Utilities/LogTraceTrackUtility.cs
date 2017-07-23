@@ -20,7 +20,7 @@ namespace CSharpProgramming.Common.Utilities
         public static void Configure()
         {
             ConfigureSerilog();
-            CreateTraceListeners();
+            //AddTraceListeners();
         }
 
         /// <summary>
@@ -69,14 +69,40 @@ namespace CSharpProgramming.Common.Utilities
             }
         }
 
-        public static void WriteTraceSwitchMsg(string msg)
+        public static void WriteSerializationTraceSwitchMsg(string msg)
         {
             try
             {
+                BooleanSwitch bSwitch = new BooleanSwitch("SerializationSwitch", "Serialization Performed");
+                if (bSwitch.Enabled)
+                {
+                    WriteTraceMsg(msg);
+                }
             }
             catch(Exception ex)
             {
-                Log.Error(ex, "Error during Trace Switch writing.");
+                Log.Error(ex, "Error during Serialization Trace Switch writing.");
+            }
+        }
+
+        /// <summary>
+        /// Write General app trace messages using the configured
+        /// source GenTraceSource
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="traceEventType"></param>
+        public static void WriteGeneralTraceSwitchMsg(TraceEventType traceEventType, int id, string msg)
+        {
+            try
+            {
+                TraceSource genTraceSource = new TraceSource("GenTraceSource");
+                genTraceSource.TraceEvent(traceEventType, 1, msg);
+                genTraceSource.Flush();
+                genTraceSource.Close();
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex, "Error during App Info Trace Switch writing.");
             }
         }
 
@@ -101,7 +127,7 @@ namespace CSharpProgramming.Common.Utilities
         /// <summary>
         /// Add trace listeners
         /// </summary>
-        private static void CreateTraceListeners()
+        private static void AddTraceListeners()
         {
             // add file trace listener
             string traceFile = ConfigurationManager.AppSettings["TraceFile"];
