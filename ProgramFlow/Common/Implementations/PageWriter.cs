@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Runtime.InteropServices;
 
 namespace CSharpProgramming.Common.Implementations
 {
@@ -13,6 +14,7 @@ namespace CSharpProgramming.Common.Implementations
     /// </summary>
     public class PageWriter : IDisposable
     {
+        /* Use SafeHandle when available */
         private StringWriter stringWriter;
 
         public PageWriter()
@@ -42,7 +44,7 @@ namespace CSharpProgramming.Common.Implementations
         /// </summary>
         ~PageWriter()
         {
-            Dispose(true);
+            Dispose(false);// pass false. Some objects may already be finalized.
         }
 
         protected virtual void Dispose(bool disposing)

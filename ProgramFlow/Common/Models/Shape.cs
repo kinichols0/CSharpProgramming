@@ -6,11 +6,46 @@ using System.Threading.Tasks;
 
 namespace CSharpProgramming.Common.Models
 {
-    public class Shape
+    internal class Shape
     {
-        public double Base { get; set; }
+        private double _height;
+        private double _base;
 
-        public double Height { get; set; }
+        public Shape()
+        {
+
+        }
+
+        public Shape(double height, double bs)
+        {
+            _height = height;
+            _base = bs;
+        }
+
+        public double Base
+        {
+            get
+            {
+                return _base;
+            }
+
+            set
+            {
+                _base = value;
+            }
+        }
+
+        public double Height
+        {
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                _height = value;
+            }
+        }
 
         public double CalcArea
         {

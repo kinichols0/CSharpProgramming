@@ -70,6 +70,11 @@
     <Compile Include="Common\Interfaces\ICryptographyService.cs" />
     <Compile Include="Common\Models\ArtistInfo.cs" />
     <Compile Include="Common\Models\ArtistInfoSurrogated.cs" />
+    <Compile Include="Common\Models\Customer.cs" />
+    <Compile Include="Common\Models\Employee.cs" />
+    <Compile Include="Common\Models\Manager.cs" />
+    <Compile Include="Common\Models\Sword.cs" />
+    <Compile Include="Common\Models\Weapon.cs" />
     <Compile Include="Common\Utilities\LogTraceTrackUtility.cs" />
     <Compile Include="Common\Utilities\SecurityUtility.cs" />
     <Compile Include="Common\Models\Album.cs" />

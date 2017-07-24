@@ -62,5 +62,12 @@ namespace CSharpProgramming.DataAccessFileIO
             // write the resulting xelement
             Console.WriteLine("\n" + xElement.ToString() + "\n");
         }
+
+        public static void BuildXmlWithAttributesDemo()
+        {
+            XElement element = new XElement("Reservation", 
+                new XElement("Passenger", new XAttribute("Name", "John Doe"), new XAttribute("FrequentFlyerNumber", 12345)));
+            Console.WriteLine(element.ToString());
+        }
     }
 }

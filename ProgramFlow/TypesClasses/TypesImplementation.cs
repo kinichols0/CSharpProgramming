@@ -135,5 +135,35 @@ namespace CSharpProgramming.TypesClasses
 
             Console.WriteLine("Ended IEnumerable Implementation demo...");
         }
+
+        /// <summary>
+        /// Index implementation demo
+        /// </summary>
+        public static void IndexerDemo()
+        {
+            // initialize a list of employees
+            List<Employee> employees = new List<Employee>()
+            {
+                new Employee{ EmployeeId = 10, Name = "John Doe"},
+                new Employee{EmployeeId = 11, Name = "Jane Doe"}
+            };
+
+            // initialize a Manager with the employees list
+            Manager manager = new Manager(employees);
+
+            // use the Employee indexer to get the Employee with Id 10
+            var employee = manager[10];
+
+            Console.WriteLine("Manager's Employee with Id 10: {0}", employee != null ? employee.Name : "Not found");
+        }
+
+        /// <summary>
+        /// Enums with bit flags demo
+        /// </summary>
+        public static void EnumFlagsDemo()
+        {
+            DaysOfWeek day = (DaysOfWeek.Friday | DaysOfWeek.Saturday | DaysOfWeek.Sunday);
+            Console.WriteLine("Weekends: {0}", day.ToString());
+        }
     }
 }

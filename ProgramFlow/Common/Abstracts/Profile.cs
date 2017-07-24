@@ -20,6 +20,9 @@ namespace CSharpProgramming.Common.Abstracts
             LastName = lastName;
         }
 
+        /// <summary>
+        /// Can be overridden
+        /// </summary>
         public virtual void Print()
         {
             Console.WriteLine("Profile Data\n" + this + "\n");

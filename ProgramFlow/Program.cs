@@ -281,6 +281,18 @@ namespace CSharpProgramming
                         Log.Information("DataContractSurrogate demo.");
                         Serialization.DataContractSurrogateDemo();
                         break;
+                    case 64:
+                        Log.Information("Indexer Demo");
+                        TypesImplementation.IndexerDemo();
+                        break;
+                    case 65:
+                        Log.Information("Enum Bit Flags Demo");
+                        TypesImplementation.EnumFlagsDemo();
+                        break;
+                    case 66:
+                        Log.Information("Build Xml with Attributes using XElement Demo");
+                        LinqToData.BuildXmlWithAttributesDemo();
+                        break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
@@ -362,6 +374,9 @@ namespace CSharpProgramming
             Console.WriteLine("[61] - Run Basic Trace code.");
             Console.WriteLine("[62] - Run TraceSource Tracing Code");
             Console.WriteLine("[63] - DataContractSurrogate demo.");
+            Console.WriteLine("[64] - Indexer Demo");
+            Console.WriteLine("[65] - Enum Bit Flags Demo");
+            Console.WriteLine("[66] - Build Xml with Attributes using XElement Demo");
             Console.WriteLine();
         }
     }
