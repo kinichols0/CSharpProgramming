@@ -64,8 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Abstracts\Profile.cs" />
+    <Compile Include="Common\Implementations\DataContractSurrogate.cs" />
     <Compile Include="Common\Implementations\PhoneNumberFormatter.cs" />
+    <Compile Include="Common\Implementations\PageWriter.cs" />
     <Compile Include="Common\Interfaces\ICryptographyService.cs" />
+    <Compile Include="Common\Models\ArtistInfo.cs" />
+    <Compile Include="Common\Models\ArtistInfoSurrogated.cs" />
     <Compile Include="Common\Utilities\LogTraceTrackUtility.cs" />
     <Compile Include="Common\Utilities\SecurityUtility.cs" />
     <Compile Include="Common\Models\Album.cs" />

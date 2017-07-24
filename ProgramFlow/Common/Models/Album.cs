@@ -26,6 +26,9 @@ namespace CSharpProgramming.Common.Models
         [DataMember]
         public Track[] Tracks { get; set; }
 
+        [DataMember]
+        public ArtistInfo ArtistInformation { get; set; }
+
         /// <summary>
         /// Returns an XElement representation of the Album
         /// </summary>

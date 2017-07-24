@@ -277,6 +277,10 @@ namespace CSharpProgramming
                         LogTraceTrackUtility.WriteGeneralTraceSwitchMsg(TraceEventType.Information, 1,
                             "General Application Information " + DateTime.Now.ToString());
                         break;
+                    case 63:
+                        Log.Information("DataContractSurrogate demo.");
+                        Serialization.DataContractSurrogateDemo();
+                        break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
@@ -357,6 +361,7 @@ namespace CSharpProgramming
             Console.WriteLine("[60] - ICustomFormatter and IFormatProvider Implementation Demo");
             Console.WriteLine("[61] - Run Basic Trace code.");
             Console.WriteLine("[62] - Run TraceSource Tracing Code");
+            Console.WriteLine("[63] - DataContractSurrogate demo.");
             Console.WriteLine();
         }
     }
