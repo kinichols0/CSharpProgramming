@@ -74,6 +74,10 @@
     <Compile Include="Common\Models\Employee.cs" />
     <Compile Include="Common\Models\Manager.cs" />
     <Compile Include="Common\Models\Sword.cs" />
+    <Compile Include="Common\Models\ThreadOps.cs" />
+    <Compile Include="Common\Models\ThreadOpsService.cs" />
+    <Compile Include="Common\Models\UnitCm.cs" />
+    <Compile Include="Common\Models\UnitFt.cs" />
     <Compile Include="Common\Models\Weapon.cs" />
     <Compile Include="Common\Utilities\LogTraceTrackUtility.cs" />
     <Compile Include="Common\Utilities\SecurityUtility.cs" />

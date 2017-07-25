@@ -293,6 +293,18 @@ namespace CSharpProgramming
                         Log.Information("Build Xml with Attributes using XElement Demo");
                         LinqToData.BuildXmlWithAttributesDemo();
                         break;
+                    case 67:
+                        Log.Information("Explicit Operator Demo.");
+                        TypesImplementation.ExplicitConversionOperatorDemo();
+                        break;
+                    case 68:
+                        Log.Information("Implicit Operator Demo");
+                        TypesImplementation.ImplicitConversionOperatorDemo();
+                        break;
+                    case 69:
+                        Log.Information("Overloaded '+' operator Demo");
+                        TypesImplementation.OverloadedOperatorDemo();
+                        break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
@@ -377,6 +389,9 @@ namespace CSharpProgramming
             Console.WriteLine("[64] - Indexer Demo");
             Console.WriteLine("[65] - Enum Bit Flags Demo");
             Console.WriteLine("[66] - Build Xml with Attributes using XElement Demo");
+            Console.WriteLine("[67] - Explicit Operator Demo");
+            Console.WriteLine("[68] - Implicit Operator Demo");
+            Console.WriteLine("[69] - Overloaded '+' operator Demo");
             Console.WriteLine();
         }
     }

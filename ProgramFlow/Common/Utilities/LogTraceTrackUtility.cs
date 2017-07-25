@@ -33,18 +33,25 @@ namespace CSharpProgramming.Common.Utilities
         {
             try
             {
-                // event log file
-                string log = ConfigurationManager.AppSettings["EventLogFile"];
+                // initialize the event log
+                EventLog eventLog = new EventLog();
 
                 // if the source does not exist then create it
                 if (!EventLog.SourceExists(source))
+                {
+                    // event log file
+                    string log = ConfigurationManager.AppSettings["EventLogFile"];
                     EventLog.CreateEventSource(source, log);
+                }
+
+                // set the source to the event log
+                eventLog.Source = source;
 
                 // write to the event log
                 if (entryType.HasValue && eventId.HasValue)
-                    EventLog.WriteEntry(source, eventStr, entryType.Value, eventId.Value);
+                    eventLog.WriteEntry(eventStr, entryType.Value, eventId.Value);
                 else
-                    EventLog.WriteEntry(source, eventStr);
+                    eventLog.WriteEntry(eventStr);
             }
             catch(Exception ex)
             {

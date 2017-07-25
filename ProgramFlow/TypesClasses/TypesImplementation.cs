@@ -165,5 +165,57 @@ namespace CSharpProgramming.TypesClasses
             DaysOfWeek day = (DaysOfWeek.Friday | DaysOfWeek.Saturday | DaysOfWeek.Sunday);
             Console.WriteLine("Weekends: {0}", day.ToString());
         }
+
+        /// <summary>
+        /// Demo for explicit operator implementation
+        /// </summary>
+        public static void ExplicitConversionOperatorDemo()
+        {
+            // initialize and display centimeters
+            UnitCm unitCm = new UnitCm(60);
+            Console.WriteLine("Centimeters: {0}", unitCm.Centimeters);
+
+            // cast explicitly and display feet
+            UnitFt unitFt = (UnitFt)unitCm;
+            Console.WriteLine("Feet: {0}", unitFt.Feet);
+
+            // initialize feet
+            unitFt = new UnitFt(5);
+            Console.WriteLine("\nFeet: {0}", unitFt.Feet);
+
+            // cast explicitly and display centimeters
+            unitCm = (UnitCm)unitFt;
+            Console.WriteLine("Centimeters: {0}", unitCm.Centimeters);
+        }
+
+        /// <summary>
+        /// Implicit operator demo
+        /// </summary>
+        public static void ImplicitConversionOperatorDemo()
+        {
+            // initialize new UnitCm and display centimeters
+            UnitCm cm = new UnitCm(120);
+            Console.WriteLine("Centimeters: {0}", cm.Centimeters);
+
+            // implicity cast UnitCm object to double and display the value
+            double centimeters = cm;
+            Console.WriteLine("Centimeters: {0}", centimeters);
+        }
+
+        /// <summary>
+        /// Overloaded Operator demo
+        /// </summary>
+        public static void OverloadedOperatorDemo()
+        {
+            UnitFt ft = new UnitFt(5);
+            UnitFt ft2 = new UnitFt(10);
+
+            // add both UnitFt object together
+            UnitFt result = ft + ft2;
+
+            Console.WriteLine("Feet 1: {0}", ft.Feet);
+            Console.WriteLine("Feet 2: {0}", ft2.Feet);
+            Console.WriteLine("Total Feet: {0}", result.Feet);
+        }
     }
 }
