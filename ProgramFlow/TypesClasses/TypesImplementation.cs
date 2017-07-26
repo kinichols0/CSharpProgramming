@@ -217,5 +217,13 @@ namespace CSharpProgramming.TypesClasses
             Console.WriteLine("Feet 2: {0}", ft2.Feet);
             Console.WriteLine("Total Feet: {0}", result.Feet);
         }
+
+        public static void ImplicitExplicitOperatorTest()
+        {
+            // valid conversions
+            Point3d p = (Point3d)new Point2d(3, 5);
+            Point2d p2 = (Point2d)new Point3d(1, 2, 3);
+            Point3d p3 = new Point2d(3d, 2d);
+        }
     }
 }

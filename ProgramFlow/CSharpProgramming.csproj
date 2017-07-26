@@ -73,6 +73,8 @@
     <Compile Include="Common\Models\Customer.cs" />
     <Compile Include="Common\Models\Employee.cs" />
     <Compile Include="Common\Models\Manager.cs" />
+    <Compile Include="Common\Models\Point2d.cs" />
+    <Compile Include="Common\Models\Point3d.cs" />
     <Compile Include="Common\Models\Sword.cs" />
     <Compile Include="Common\Models\ThreadOps.cs" />
     <Compile Include="Common\Models\ThreadOpsService.cs" />

@@ -15,8 +15,10 @@ namespace CSharpProgramming.ProgramFlow
             Console.WriteLine("Parallel For Demo started...\n\n");
 
             CancellationTokenSource cancellationSource = new CancellationTokenSource();
-            ParallelOptions options = new ParallelOptions();
-            options.CancellationToken = cancellationSource.Token;
+            ParallelOptions options = new ParallelOptions()
+            {
+                CancellationToken = cancellationSource.Token
+            };
 
             var rnd = new Random();// intitialize random number generator
             int breakIndex = rnd.Next(1, 11);// index we'll break execution

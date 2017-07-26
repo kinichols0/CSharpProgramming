@@ -305,6 +305,9 @@ namespace CSharpProgramming
                         Log.Information("Overloaded '+' operator Demo");
                         TypesImplementation.OverloadedOperatorDemo();
                         break;
+                    case 70:
+                        Log.Information("");
+                        break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
@@ -392,6 +395,7 @@ namespace CSharpProgramming
             Console.WriteLine("[67] - Explicit Operator Demo");
             Console.WriteLine("[68] - Implicit Operator Demo");
             Console.WriteLine("[69] - Overloaded '+' operator Demo");
+            Console.WriteLine("[70] - ");
             Console.WriteLine();
         }
     }
