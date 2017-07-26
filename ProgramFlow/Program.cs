@@ -306,7 +306,16 @@ namespace CSharpProgramming
                         TypesImplementation.OverloadedOperatorDemo();
                         break;
                     case 70:
-                        Log.Information("");
+                        Log.Information("dynamic Demo");
+                        TypesImplementation.DynamicDemo();
+                        break;
+                    case 71:
+                        Log.Information("AutoRestEvent and ManualResetEvent Differences Demo");
+                        ThreadingDemo.AutoResetManualResetEventDiffs();
+                        break;
+                    case 72:
+                        Log.Information("EventWaitHandle demo");
+                        ThreadingDemo.EventWaitHandleDemo();
                         break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
@@ -395,7 +404,9 @@ namespace CSharpProgramming
             Console.WriteLine("[67] - Explicit Operator Demo");
             Console.WriteLine("[68] - Implicit Operator Demo");
             Console.WriteLine("[69] - Overloaded '+' operator Demo");
-            Console.WriteLine("[70] - ");
+            Console.WriteLine("[70] - Dynamic Demo");
+            Console.WriteLine("[71] - AutoRestEvent and ManualResetEvent Differences Demo");
+            Console.WriteLine("[72] - EventWaitHandle demo");
             Console.WriteLine();
         }
     }

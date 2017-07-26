@@ -33,16 +33,30 @@ namespace CSharpProgramming.ProgramFlow
                     ["RunTimeSeconds"] = rnd.Next(1, 4),
                     ["ThreadId"] = i + 1
                 };
-                Thread thread = new Thread((dict) => BasicRunMethod(dictionary));
-                thread.Start();
+
+                /* paramater method must be in form of ParameterizedThreadStart delegate
+                * delegate void ParameterizedThreadStart(object data);
+                * */
+                Thread thread = new Thread(BasicRunMethod);
+
+                /* dictionary passed as the data parameter to the method in the form of ParameterizedThreadStart delegate
+                * passed to the constructor of Thread in the previous line of code
+                * */
+                thread.Start(dictionary);
             }
 
             // wait for all rest events to signal
             WaitHandle.WaitAll(resetEvents);
         }
 
-        private static void BasicRunMethod(Dictionary<string, object> data)
+        /// <summary>
+        /// Method in the form of ParameterizedThreadStart delegate so it can be passed to a 
+        /// Thread(param) method as param.
+        /// </summary>
+        /// <param name="obj"></param>
+        private static void BasicRunMethod(object obj)
         {
+            Dictionary<string, object> data = (Dictionary<string, object>)obj;
             AutoResetEvent resetEvent = (AutoResetEvent)data["ResetEvent"];
             int threadId = (int)data["ThreadId"];
             int runTime = (int)data["RunTimeSeconds"];
@@ -257,6 +271,127 @@ namespace CSharpProgramming.ProgramFlow
                 Console.WriteLine("Process canceled");
             else
                 Console.WriteLine("Process finished");
+        }
+
+        #endregion
+
+        #region EventWaitHandle, AutoResetEvent and ManualResetEvent demos
+
+        public static void EventWaitHandleDemo()
+        {
+            Console.WriteLine("EventWaitHandle, the base class of AutoResetEvent and ManualResetEvent");
+            int threadsToProduce = 5;
+
+            // create AutoReset EventWaitHandle
+            EventWaitHandle waitHandle = new EventWaitHandle(false, EventResetMode.ManualReset);
+
+            for(int i = 1; i <= threadsToProduce; i++)
+            {
+                Thread thread = new Thread((handle) => ThreadOperation(waitHandle)) { Name = "Thread_" + i };
+                thread.Start();
+            }
+            Thread.Sleep(1000);
+            Console.WriteLine("\nPress any key to release all threads");
+            Console.ReadKey();
+
+            // set to signaled and remain signaled
+            waitHandle.Set();
+            Thread.Sleep(1000);
+            Console.WriteLine("\nPress any key to manually reset the EventWaitHandle and start a new thread.");
+            Console.ReadKey();
+
+            // reset the manual waitHandle
+            waitHandle.Reset();
+            Thread threadNew = new Thread((handle) => ThreadOperation(waitHandle)) { Name = "Thread_New" };
+            threadNew.Start();
+            Thread.Sleep(1000);
+            Console.WriteLine("\nPress any key to release the thread");
+            Console.ReadKey();
+
+            // release the thread
+            waitHandle.Set();
+            Thread.Sleep(1000);
+        }
+
+        /// <summary>
+        /// Demo differences between ManualResetEvent and AutoResetEvent
+        /// </summary>
+        public static void AutoResetManualResetEventDiffs()
+        {
+            Console.WriteLine("ManualResetEvent demo");
+
+            // ManualResetEvent demo
+            ManualResetEvent manuelReset = new ManualResetEvent(false);
+            for (int i = 1; i <= 10; i++)
+            {
+                Thread thread = new Thread((evh) => ThreadOperation(manuelReset)) { Name = "Thread_" + i };
+                thread.Start();
+            }
+            Thread.Sleep(500);
+            Console.Write("Press enter to signal all threads to complete...");
+            Console.ReadKey();
+
+            /* Signal all threads that reference this ManualReset object to continue.
+             * The Set() fro MaunualResetEvent does not automatically reset to unsignaled
+             * so all threads blocked on WaitOne() will be released.
+             * */
+            manuelReset.Set();// set this ManualResetEvent object to signaled
+            Thread.Sleep(500);
+            Console.WriteLine("\nPress any key to manually call Reset() so another thread can be blocked on WaitOne().");
+            Console.ReadKey();
+
+            // Manually reset so next initialized threads can block on this ManualResetEvent instance
+            manuelReset.Reset();
+
+            // Initialize a new thread to use the current ManualResetEvent instance for block and release signals
+            Thread threadNew = new Thread((mr) => ThreadOperation(manuelReset)) { Name = "Thread_New" };
+            threadNew.Start();
+            Thread.Sleep(500);
+            Console.WriteLine("Press any key to release Thread_New");
+            Console.ReadKey();
+
+            // set this ManualResetEvent object to signaled
+            manuelReset.Set();
+            Thread.Sleep(500);
+
+            // AutoResetEvent demo
+            Console.WriteLine("\nPress any key to start AutoResetEvent demo.");
+            Console.ReadKey();
+            AutoResetEvent autoReset = new AutoResetEvent(false);
+            for (int i = 1; i <= 10; i++)
+            {
+                Thread thread = new Thread((evh) => ThreadOperation(autoReset)) { Name = "Thread_" + i };
+                thread.Start();
+            }
+
+            /* AutoResetEvent when signaled automatically resets to unsignaled after each Set() call so 
+             * Set() will need to be called for each blocked thread.
+             **/
+            for (int i = 1; i <= 10; i++)
+            {
+                Console.WriteLine("\nPress any key to signal a thread to complete...");
+                Console.ReadKey();
+
+                // Signals/blocks one thread then resets to unsignaled leaving remaining blocked threads blocked
+                autoReset.Set();
+                Thread.Sleep(500);
+            }
+        }
+
+        private static void ThreadOperation(object obj)
+        {
+            if (obj is EventWaitHandle evh)
+            {
+                string resetEventType = obj is AutoResetEvent ? "AutoResetEvent" : "ManualResetEvent";
+
+                string name = Thread.CurrentThread.Name;
+                Console.WriteLine("Thread {0} is executing thread work and calls WaitOne() on {1} reset event type.", name, resetEventType);
+
+                // Block this thread until signaled
+                evh.WaitOne();
+
+                Console.WriteLine("Thread {0} is done.", name);
+            }
         }
 
         #endregion
