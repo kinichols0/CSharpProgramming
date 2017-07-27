@@ -57,9 +57,6 @@ namespace CSharpProgramming.ProgramFlow
                     Console.WriteLine("Completed iteration {0}", i);
                 });
 
-                // while loop executes until all loop iterations are completed
-                while (!result.IsCompleted) { }
-
                 if (lowest.HasValue)
                     Console.WriteLine("Lowest break iteration was {0}\n\n", lowest.Value);
                 else

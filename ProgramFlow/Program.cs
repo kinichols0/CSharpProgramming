@@ -58,7 +58,7 @@ namespace CSharpProgramming
                         break;
                     case 8:
                         Log.Information("Cancelling Tasks Demo");
-                        TaskDemo.CancelAfterTenSecondsDemo();
+                        TaskDemo.CancelAfterSpecifiedSecondsDemo();
                         break;
                     case 9:
                         Log.Information("Thread Basic Demo");

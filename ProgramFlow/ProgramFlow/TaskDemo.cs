@@ -61,6 +61,9 @@ namespace CSharpProgramming.ProgramFlow
             Console.WriteLine("Run tasks demo ended...\n\n");
         }
 
+        /// <summary>
+        /// Run tasks with continuation
+        /// </summary>
         public static void RunTasksWithContinution()
         {
             Console.WriteLine("Tasks with continuation demo started...\n\n");
@@ -77,7 +80,8 @@ namespace CSharpProgramming.ProgramFlow
                     Console.WriteLine("ThreadId: {2} - {0} squared is {1}\n", num, (num * num)
                         , Thread.CurrentThread.ManagedThreadId);
                     return (num * num);
-                }, i).ContinueWith(t =>
+                }, i)
+                .ContinueWith((t) =>
                 {
                     // continuation tasks is only ran if prior task ran to completion
                     int root = (int)Math.Sqrt(t.Result);
@@ -103,50 +107,81 @@ namespace CSharpProgramming.ProgramFlow
             }
         }
 
-        public static void CancelAfterTenSecondsDemo()
+        /// <summary>
+        /// Task cancellation demo
+        /// </summary>
+        public static void CancelAfterSpecifiedSecondsDemo()
         {
-            Console.WriteLine("Cancel after 10 seconds demo started...\n\n");
-
+            // get the cancellation token
             var cancellationTS = new CancellationTokenSource();
             CancellationToken ct = cancellationTS.Token;
 
-            Task task = Task.Run(() =>
+            /* initialize the Action<object> delegate each task will run
+            * the object is expected to be of type Dictionary<string, object>
+            * */
+            Action<object> taskToRun = (obj) =>
             {
-                try
-                {
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
+                // cast out the expected object
+                Dictionary<string, object> dict = (Dictionary<string, object>)obj;
 
-                    for (int i = 1; i <= 100; i++)
+                string name = dict["name"] as string;
+                int seconds = (int)dict["seconds"];
+
+                // loop for a specified number of seconds
+                for (int i = 1; i <= seconds; i++)
+                {
+                    // throw an OperationCanceledException if cancellation has been requested
+                    if (ct.IsCancellationRequested)
                     {
-                        if (sw.ElapsedMilliseconds > 10000)
-                            throw new OperationCanceledException("Task took longer than 10 seconds\n");
+                        Console.WriteLine("{0} has been canceled.\n", name);
 
-                        Thread.Sleep(1000);
-                        Console.WriteLine("{0} second(s) have passed\n", i);
+                        // throw the operation canceled exception
+                        ct.ThrowIfCancellationRequested();
                     }
+
+                    // sleep for one second
+                    Thread.Sleep(1000);
+                    Console.WriteLine("{0} is running. {1} second(s) has passed\n", name, i);
                 }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }, cancellationTS.Token);
+                Console.WriteLine("{0} ran to completion.\n", name);
+            };
+
+            // start tasks and pass the delegate to run, the number of seconds to run, and the cancellation token
+            Task[] tasks = new Task[]
+            {
+                Task.Factory.StartNew(taskToRun, new Dictionary<string, object>(){ { "seconds", 4 }, { "name", "TaskA" } }, ct),
+                Task.Factory.StartNew(taskToRun, new Dictionary<string, object>(){ { "seconds", 2 }, { "name", "TaskB" } }, ct),
+                Task.Factory.StartNew(taskToRun, new Dictionary<string, object>(){ { "seconds", 10 }, { "name", "TaskC" } }, ct),
+                Task.Factory.StartNew(taskToRun, new Dictionary<string, object>(){ { "seconds", 12 }, { "name", "TaskD" } }, ct)
+            };
+
+            // Cancel tasks after 5 seconds
+            for (int i = 0; i < 5; i++)
+            {
+                Thread.Sleep(1000);
+            }
+
+            // cancel tasks
+            cancellationTS.Cancel();
 
             try
-            {
-                task.Wait();
+            { 
+                // wait for all tasks
+                Task.WaitAll(tasks);
             }
-            catch(AggregateException e)
+            catch (AggregateException e)
             {
                 foreach (var v in e.InnerExceptions)
                     Console.WriteLine("{0} {1}", e.Message, v.Message);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("General Exception:", e.ToString());
             }
-
-            Console.WriteLine("Cancel after 10 seconds demo ended...\n\n");
+            finally
+            {
+                cancellationTS.Dispose();
+            }
         }
     }
 }
