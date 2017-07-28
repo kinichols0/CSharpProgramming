@@ -317,6 +317,10 @@ namespace CSharpProgramming
                         Log.Information("EventWaitHandle demo");
                         ThreadingDemo.EventWaitHandleDemo();
                         break;
+                    case 73:
+                        Log.Information("Checked Block Demo");
+                        TypesImplementation.CheckedBlockDemo();
+                        break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
                         break;
@@ -407,6 +411,7 @@ namespace CSharpProgramming
             Console.WriteLine("[70] - Dynamic Demo");
             Console.WriteLine("[71] - AutoRestEvent and ManualResetEvent Differences Demo");
             Console.WriteLine("[72] - EventWaitHandle demo");
+            Console.WriteLine("[73] - Checked Block Demo");
             Console.WriteLine();
         }
     }
