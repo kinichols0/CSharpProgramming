@@ -234,41 +234,6 @@ namespace CSharpProgramming.TypesClasses
             al += 5;
             Console.WriteLine(al);
         }
-
-        /// <summary>
-        /// Checked demo. Checked can be used to explicitly enable overflow checking
-        /// for integral-type operations and conversions.
-        /// </summary>
-        public static void CheckedBlockDemo()
-        {
-            try
-            {
-                checked
-                {// error will be thrown
-                    int num = 50;
-                    int sum = 2147483647 + num;
-                    Console.WriteLine("Adding ints {0} + {1}", 2147483647, 50);
-                    Console.WriteLine("Sum {0}", sum);
-                }
-            }
-            catch (OverflowException e)
-            {
-                Console.WriteLine(e);
-            }
-
-            try
-            {
-                int num1 = 50;
-                int num2 = 2147483647;
-
-                Console.WriteLine("Adding ints {0} + {1}", num2, num1);
-                Console.WriteLine("Sum {0}", checked(num1 + num2));// checked alternative notation
-            }
-            catch(OverflowException e)
-            {
-                Console.WriteLine(e);
-            }
-        }
     }
 
 }

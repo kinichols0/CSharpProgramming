@@ -319,7 +319,15 @@ namespace CSharpProgramming
                         break;
                     case 73:
                         Log.Information("Checked Block Demo");
-                        TypesImplementation.CheckedBlockDemo();
+                        CodeFlow.CheckedBlockDemo();
+                        break;
+                    case 74:
+                        Log.Information("Unchecked Block Demo");
+                        CodeFlow.UncheckedDemo();
+                        break;
+                    case 75:
+                        Log.Information("Unsafe Code Fixed statement and Pointers Demo");
+                        CodeFlow.UnsafeCodeFixedPointersDemo();
                         break;
                     default:
                         Console.WriteLine("Could not find a process corresponding to {0} to run. Program will exit now.", demoNum);
@@ -412,6 +420,8 @@ namespace CSharpProgramming
             Console.WriteLine("[71] - AutoRestEvent and ManualResetEvent Differences Demo");
             Console.WriteLine("[72] - EventWaitHandle demo");
             Console.WriteLine("[73] - Checked Block Demo");
+            Console.WriteLine("[74] - Unchecked Block Demo");
+            Console.WriteLine("[75] - Unsafe Code Fixed statement and Pointers Demo.");
             Console.WriteLine();
         }
     }

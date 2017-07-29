@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -101,6 +102,7 @@
     <Compile Include="Common\Models\Order.cs" />
     <Compile Include="Common\Models\Product.cs" />
     <Compile Include="OutputFiles\DynamicCode\CodeDOMFile.cs" />
+    <Compile Include="ProgramFlow\CodeFlow.cs" />
     <Compile Include="ProgramFlow\DelegateAnonymousMethodDemo.cs" />
     <Compile Include="ProgramFlow\PublisherEventDemo.cs" />
     <Compile Include="Program.cs" />
