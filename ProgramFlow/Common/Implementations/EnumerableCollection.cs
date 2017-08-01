@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSharpProgramming.Common.Models;
 
 namespace CSharpProgramming.TypesClasses.Implementations
 {
-    public class EnumerableCollection<T> : IEnumerable
+    public class EnumerableCollection<T> : IEnumerable where T : class
     {
         private T[] collection;
 
-        public EnumerableCollection() : this(new T[0])
+        public EnumerableCollection() : 
+            this(new T[0])
         {
         }
 
@@ -36,7 +38,8 @@ namespace CSharpProgramming.TypesClasses.Implementations
         /// <returns></returns>
         public IEnumerator GetEnumerator()
         {
-            return new CollectionEnumerator<T>(collection);
+            return collection.GetEnumerator();
+            //return new CollectionEnumerator<T>(collection);
         }
 
         /// <summary>
@@ -89,7 +92,7 @@ namespace CSharpProgramming.TypesClasses.Implementations
         }
     }
 
-    public class CollectionEnumerator<T> : IEnumerator
+    public class CollectionEnumerator<T> : IEnumerator where T : class
     {
         public T[] generics;
 
