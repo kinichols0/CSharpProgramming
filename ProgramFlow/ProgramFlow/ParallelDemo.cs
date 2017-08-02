@@ -129,11 +129,11 @@ namespace CSharpProgramming.ProgramFlow
                     }
                     Thread.Sleep(sleepTime);
 
-                    Console.WriteLine("{0}: {1}\n", threadId, name);
+                    Console.WriteLine("{0}: {1}", threadId, name);
                     return threadId;
                 },
                 (threadId) => {// final action to be made
-                    
+                    Console.WriteLine(threadId);
                 });
 
             Console.WriteLine("Parallel foreach ended...\n\n");
